@@ -1,20 +1,20 @@
 /* ------------------------------------------------------------------
    Madeleine Hoffman — personal site
-   Serif type over living water. No boxes, no cards: the text sits
-   straight on the surface and is lifted off it with light and shadow.
+   Warm serif type over slow water. No boxes, no cards, nothing shiny:
+   the text sits straight on the surface with a soft shadow under it.
    The water's colours follow the time of day (see ocean.js).
    ------------------------------------------------------------------ */
 
 :root {
-  --ink: #f6f0e6;            /* warm ivory text */
-  --ink-soft: rgba(246, 240, 230, 0.8);
-  --ink-faint: rgba(246, 240, 230, 0.5);
+  --ink: #f7f1e8;            /* warm ivory text */
+  --ink-soft: rgba(247, 241, 232, 0.82);
+  --ink-faint: rgba(247, 241, 232, 0.55);
   --deep: #1b1540;           /* fallback / behind the canvas */
-  --lavender: #cfc3ea;       /* lightened from the old site's #9B8BC7 */
-  --peach: #f6c7a4;          /* lightened from the old site's #EDA074 */
-  --foam: #dff5f0;
-  --shadow: 0 1px 2px rgba(10, 8, 30, 0.75), 0 2px 18px rgba(10, 8, 40, 0.55);
-  --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --lavender: #d6cbee;       /* lightened from the old site's #9B8BC7 */
+  --peach: #f5cdb0;          /* lightened from the old site's #EDA074 */
+  --shadow: 0 1px 2px rgba(14, 10, 32, 0.55), 0 3px 14px rgba(14, 10, 40, 0.35);
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --body: "Lora", "Iowan Old Style", Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -26,9 +26,9 @@ body {
   min-height: 100vh;
   background: var(--deep) linear-gradient(45deg, #6d5fa0 0%, #1b1540 45%, #c98a66 100%);
   color: var(--ink);
-  font-family: var(--serif);
-  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
-  line-height: 1.55;
+  font-family: var(--body);
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.2rem);
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-shadow: var(--shadow);
   overflow-x: hidden;
@@ -56,7 +56,20 @@ a, button, iframe { pointer-events: auto; }
 a {
   color: inherit;
   text-decoration: none;
-  transition: color .25s ease, border-color .25s ease, background-color .25s ease, opacity .25s ease;
+  transition: color .25s ease, text-decoration-color .25s ease, opacity .25s ease;
+}
+
+/* Links in running text: a wavy underline, like a doodle on water. */
+.block p a, .links a, .contact-links a, header.top nav a:hover {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--ink-faint);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+.block p a:hover, .links a:hover, .contact-links a:hover, header.top nav a:hover {
+  color: var(--peach);
+  text-decoration-color: var(--peach);
 }
 
 /* ---------------- header ---------------- */
@@ -67,25 +80,18 @@ header.top {
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
-  padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
-  font-size: 0.95rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+  font-family: var(--display);
+  font-size: 1.05rem;
 }
 header.top .brand {
   font-style: italic;
-  text-transform: none;
-  letter-spacing: 0.04em;
-  font-size: 1.15rem;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 24;
   white-space: nowrap;
 }
-header.top nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.2rem 1.5rem; }
-header.top nav a {
-  color: var(--ink-soft);
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-}
-header.top nav a:hover { color: var(--ink); border-bottom-color: var(--ink-faint); }
+header.top nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.2rem 1.4rem; }
+header.top nav a { color: var(--ink-soft); }
+header.top nav a:hover { color: var(--ink); text-decoration-color: var(--ink-faint); }
 
 /* ---------------- hero ---------------- */
 main { padding: 0 clamp(1.25rem, 6vw, 4rem); }
@@ -101,92 +107,88 @@ main { padding: 0 clamp(1.25rem, 6vw, 4rem); }
 }
 
 .eyebrow {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.2rem;
+  font-family: var(--display);
   font-style: italic;
-  font-size: 1.25em;
+  font-size: 1.45em;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 36;
   color: var(--ink-soft);
 }
 
 h1 {
   margin: 0;
-  font-weight: 500;
-  font-size: clamp(3.4rem, 2rem + 8vw, 8rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  text-shadow: none;             /* shadow comes from the drop-shadow below */
+  font-family: var(--display);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  font-size: clamp(3.2rem, 1.8rem + 7vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-shadow: none;             /* the .name shadow layer handles it */
 }
 
-/* The name is filled with a gradient of ivory, peach, lavender and sea
-   foam that drifts very slowly across the letters. A drop-shadow gives
-   it the dark edge it needs to read against bright water. */
-.shimmer {
+/* The name. Gradient-filled text and a drop-shadow filter together
+   flicker in some browsers (the letters blink in and out), so the two
+   jobs are split: a plain copy of the text sits underneath carrying the
+   shadow, and the gradient copy sits on top with no filter at all. The
+   gradient drifts very slowly and its ends match, so it never jumps. */
+.name {
+  position: relative;
   display: inline-block;
+  padding: 0.06em 0.12em;
   background: linear-gradient(
-    100deg,
-    #fff8ee 0%,
-    var(--peach) 18%,
-    #fff8ee 34%,
-    var(--lavender) 50%,
-    var(--foam) 66%,
-    #fff8ee 82%,
+    95deg,
+    #fbf3e8 0%,
+    var(--peach) 20%,
+    #fbf3e8 40%,
+    var(--lavender) 60%,
+    #fbf3e8 80%,
     var(--peach) 100%
   );
-  background-size: 300% auto;
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer 36s linear infinite;
-  filter:
-    drop-shadow(0 2px 1px rgba(10, 8, 30, 0.9))
-    drop-shadow(0 6px 22px rgba(10, 8, 40, 0.6))
-    drop-shadow(0 0 40px rgba(220, 200, 240, 0.22));
-  padding: 0.08em 0.1em;         /* room so the shadow isn't clipped */
+  animation: drift 80s ease-in-out infinite alternate;
 }
-@keyframes shimmer {
+.name::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  z-index: -1;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  text-shadow: 0 2px 2px rgba(14, 10, 32, 0.55), 0 8px 26px rgba(14, 10, 40, 0.45);
+}
+@keyframes drift {
   from { background-position: 0% center; }
-  to   { background-position: -300% center; }
+  to   { background-position: 100% center; }
 }
 
 .tagline {
-  margin: 1.5rem auto 0;
-  max-width: 52ch;
-  font-size: 1.08em;
+  margin: 1.6rem auto 0;
+  max-width: 50ch;
+  font-size: 1.04em;
   color: var(--ink-soft);
 }
 
 .links {
+  margin: 1.8rem 0 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.3em;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 24;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  justify-content: center;
-  margin-top: 2.25rem;
+  gap: 0.8rem;
+  align-items: baseline;
 }
-
-/* Buttons: a hairline of ivory, no fill. On hover the water shows
-   through a little brighter. */
-.btn {
-  display: inline-block;
-  padding: 0.65em 1.6em;
-  border: 1px solid rgba(246, 240, 230, 0.75);
-  border-radius: 999px;
-  font-size: 0.95rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-}
-.btn:hover {
-  background: rgba(246, 240, 230, 0.14);
-  border-color: var(--ink);
-}
-.btn.ghost { border-color: rgba(246, 240, 230, 0.35); color: var(--ink-soft); }
-.btn.ghost:hover { color: var(--ink); border-color: rgba(246, 240, 230, 0.75); }
+.links span { color: var(--ink-faint); }
 
 .socials {
   display: flex;
-  gap: 1.4rem;
-  margin-top: 2.5rem;
+  gap: 1.3rem;
+  margin-top: 2.2rem;
 }
 .socials a {
   display: inline-flex;
@@ -195,76 +197,60 @@ h1 {
   border-radius: 50%;
   color: var(--ink-soft);
 }
-.socials a:hover { color: var(--ink); background: rgba(246, 240, 230, 0.1); }
+.socials a:hover { color: var(--peach); }
 .socials svg {
-  width: 1.45rem; height: 1.45rem;
-  filter: drop-shadow(0 1px 2px rgba(10, 8, 30, 0.8));
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px; height: 3.5rem;
-  overflow: hidden;
-  opacity: 0.6;
-}
-.scroll-hint span {
-  display: block;
-  width: 1px; height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--ink));
-  animation: drop 2.4s ease-in-out infinite;
-}
-@keyframes drop {
-  0%   { transform: translateY(-100%); }
-  60%, 100% { transform: translateY(100%); }
+  width: 1.4rem; height: 1.4rem;
+  filter: drop-shadow(0 1px 2px rgba(14, 10, 32, 0.6));
 }
 
 /* ---------------- content sections ---------------- */
 .block {
-  max-width: 44rem;
+  max-width: 40rem;
   margin: 0 auto;
-  padding: 6rem 0;
-  text-align: center;
+  padding: 5.5rem 0;
+  text-align: left;
 }
-.block.wide { max-width: 64rem; }
 .block h2 {
-  font-weight: 500;
-  font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
-  letter-spacing: 0.02em;
-  margin: 0 0 1.5rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 80, "WONK" 1, "opsz" 72;
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 0.3rem;
 }
-/* a short rule of light beneath each heading */
-.block h2::after {
-  content: "";
+/* a little hand-drawn wave under each heading */
+.squiggle {
   display: block;
-  width: 3rem; height: 1px;
-  margin: 1rem auto 0;
-  background: linear-gradient(to right, transparent, var(--ink), transparent);
+  width: 5.5rem; height: 0.7rem;
+  margin: 0 0 1.4rem 0.1rem;
+  fill: none;
+  stroke: var(--peach);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: 0.85;
+  filter: drop-shadow(0 1px 1px rgba(14, 10, 32, 0.5));
 }
-.block p { margin: 0 auto 1.2em; max-width: 44rem; }
-.block p a {
-  border-bottom: 1px solid var(--ink-faint);
-  color: var(--peach);
-}
-.block p a:hover { border-bottom-color: var(--ink); color: var(--ink); }
+.block p { margin: 0 0 1.2em; max-width: 40rem; }
 .block .note { font-style: italic; color: var(--ink-soft); margin-top: 1.5rem; }
 
 /* Videos: no frame, just the player with softened corners. */
 .videos {
+  width: min(60rem, 100vw - 2.5rem);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
-  gap: 1.25rem;
-  margin: 2rem 0 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.1rem;
+  margin: 1.6rem 0 0;
 }
 .video {
   position: relative;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(10, 8, 40, 0.45);
-  background: rgba(10, 8, 40, 0.35);
+  box-shadow: 0 8px 30px rgba(14, 10, 40, 0.35);
+  background: rgba(14, 10, 40, 0.3);
 }
 .video iframe {
   position: absolute; inset: 0;
@@ -275,17 +261,13 @@ h1 {
 .contact-links {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.9rem 2.2rem;
-  margin-top: 1.5rem;
-  font-size: 1.15em;
-  letter-spacing: 0.08em;
+  gap: 0.6rem 1.8rem;
+  margin-top: 1.2rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.25em;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 24;
 }
-.contact-links a {
-  border-bottom: 1px solid var(--ink-faint);
-  padding-bottom: 2px;
-}
-.contact-links a:hover { border-bottom-color: var(--ink); color: var(--peach); }
 
 footer {
   padding: 3rem 1rem 2rem;
@@ -297,15 +279,15 @@ footer .hint { font-style: italic; }
 
 /* ---------------- small screens ---------------- */
 @media (max-width: 640px) {
-  header.top { font-size: 0.78rem; flex-direction: column; align-items: center; gap: 0.5rem; padding-top: 1rem; }
-  header.top nav { justify-content: center; gap: 0.2rem 1.1rem; }
+  header.top { font-size: 0.95rem; flex-direction: column; align-items: center; gap: 0.3rem; padding-top: 0.9rem; }
+  header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7.5rem; }
   .block { padding: 4rem 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .shimmer, .scroll-hint span { animation: none; }
+  .name { animation: none; }
 }
 
-::selection { background: rgba(246, 199, 164, 0.4); color: #fff; }
+::selection { background: rgba(245, 205, 176, 0.4); color: #fff; }

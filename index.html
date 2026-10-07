@@ -11,23 +11,23 @@
   <meta name="theme-color" content="#1b1540">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%239B8BC7'/%3E%3Cstop offset='1' stop-color='%23EDA074'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='16' fill='url(%23g)'/%3E%3Cpath d='M3 20c3-3 6-3 9 0s6 3 9 0 6-3 9 0' fill='none' stroke='%23fff6ea' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
 
-  <!-- The living water. ocean.js draws into this canvas; its colours follow
-       the time of day, and a click or tap anywhere drops a small ripple. -->
+  <!-- The water. ocean.js draws into this canvas; its colours follow the
+       time of day, and a click or tap anywhere draws a little ripple. -->
   <canvas id="ocean" aria-hidden="true"></canvas>
 
   <header class="top">
     <a class="brand" href="#home">Madeleine Hoffman</a>
     <nav aria-label="Sections">
-      <a href="#currently">Currently</a>
-      <a href="#projects">Projects</a>
-      <a href="#dance">Dance</a>
-      <a href="#contact">Contact</a>
+      <a href="#currently">currently</a>
+      <a href="#projects">projects</a>
+      <a href="#dance">dance</a>
+      <a href="#contact">contact</a>
     </nav>
   </header>
 
@@ -36,7 +36,8 @@
     <!-- ============ HOME ============ -->
     <section id="home" class="hero">
       <p class="eyebrow">Hi, I'm</p>
-      <h1><span class="shimmer">Madeleine</span></h1>
+      <!-- data-text feeds the shadow layer behind the gradient letters -->
+      <h1><span class="name" data-text="Madeleine">Madeleine</span></h1>
       <p class="tagline">
         I'm passionate about learning, dancing, and making the world a better place.
         I'm currently an undergrad at The University of Chicago, research assistant for
@@ -44,10 +45,11 @@
         Laboratory, and tutor for middle- and high school students.
       </p>
 
-      <div class="links">
-        <a class="btn" href="#currently">Currently</a>
-        <a class="btn ghost" href="#contact">Say hello</a>
-      </div>
+      <p class="links">
+        <a href="#currently">what I'm up to</a>
+        <span aria-hidden="true">·</span>
+        <a href="#contact">say hi</a>
+      </p>
 
       <div class="socials" aria-label="Elsewhere">
         <a href="https://vs.co/hun6bwtc" aria-label="VSCO" title="VSCO" target="_blank" rel="noopener">
@@ -63,13 +65,12 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="12" cy="14.5" r="2.2"/></svg>
         </a>
       </div>
-
-      <a class="scroll-hint" href="#currently" aria-label="Scroll down"><span></span></a>
     </section>
 
     <!-- ============ CURRENTLY ============ -->
     <section id="currently" class="block">
       <h2>Currently</h2>
+      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
       <p>
         As of the last update (5/13/26), I’ve been paying particular attention to the
         relationship between my present, “zoomed in” self and my abstract, “big picture”
@@ -92,6 +93,7 @@
     <!-- ============ PROJECTS ============ -->
     <section id="projects" class="block">
       <h2>Projects</h2>
+      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
       <p>
         In an attempt to think and write more, I've started
         <a href="https://substack.com/@madlenreads?r=5j2qmf&amp;utm_campaign=profile&amp;utm_medium=profile-page" target="_blank" rel="noopener">a substack</a>.
@@ -109,6 +111,7 @@
     <!-- ============ DANCE ============ -->
     <section id="dance" class="block wide">
       <h2>Dance</h2>
+      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
       <p>
         I'm a cast member of UChicago Maya, a contemporary-fusion dance group. Here are some
         of our recent performances, including sets from both this and last year's university
@@ -131,16 +134,17 @@
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="block">
       <h2>Contact</h2>
+      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
       <p>
         Check out my creative/curative interests, send me a message, or find a time to chat.
         I would love to connect with you.
       </p>
-      <div class="contact-links">
+      <p class="contact-links">
         <a href="https://vs.co/hun6bwtc" target="_blank" rel="noopener">VSCO</a>
         <a href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" target="_blank" rel="noopener">Spotify</a>
         <a href="mailto:mnhoffman@uchicago.edu">Email</a>
         <a href="https://calendly.com/mnhoffman-uchicago" target="_blank" rel="noopener">Calendly</a>
-      </div>
+      </p>
     </section>
 
   </main>
