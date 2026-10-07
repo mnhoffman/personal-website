@@ -93,8 +93,40 @@ header.top nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap:
 header.top nav a { color: var(--ink-soft); }
 header.top nav a:hover { color: var(--ink); text-decoration-color: var(--ink-faint); }
 
-/* ---------------- hero ---------------- */
+/* ---------------- pages ---------------- */
 main { padding: 0 clamp(1.25rem, 6vw, 4rem); }
+
+/* One page at a time once JavaScript is running; stacked otherwise. */
+.js .page:not(.active) { display: none; }
+.js .page.active { animation: surface .55s ease both; }
+@keyframes surface {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .js .page.active { animation: none; } }
+
+/* Inner pages fill the window and sit a little above centre. */
+.page.block {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 6.5rem;
+  padding-bottom: 4rem;
+}
+.page.block > * { flex: 0 0 auto; }
+
+header.top nav a.current { color: var(--ink); text-decoration: underline wavy var(--ink-faint) 1px; text-underline-offset: 0.22em; }
+
+.back {
+  margin-top: 2.5rem !important;
+  font-family: var(--display);
+  font-style: italic;
+  font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 24;
+  color: var(--ink-soft);
+}
+
+/* ---------------- hero ---------------- */
 
 .hero {
   min-height: 100svh;
@@ -207,7 +239,6 @@ h1 {
 .block {
   max-width: 40rem;
   margin: 0 auto;
-  padding: 5.5rem 0;
   text-align: left;
 }
 .block h2 {
@@ -282,7 +313,7 @@ footer .hint { font-style: italic; }
   header.top { font-size: 0.95rem; flex-direction: column; align-items: center; gap: 0.3rem; padding-top: 0.9rem; }
   header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7.5rem; }
-  .block { padding: 4rem 0; }
+  .page.block { padding-top: 7.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
