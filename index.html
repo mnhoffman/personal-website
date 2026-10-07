@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js" data-sky="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,22 +8,27 @@
   <meta property="og:site_name" content="Madeleine Hoffman">
   <meta property="og:title" content="Madeleine Hoffman">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#1b1540">
+  <meta name="theme-color" content="#1a1430">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;500&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%239B8BC7'/%3E%3Cstop offset='1' stop-color='%23EDA074'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='16' fill='url(%23g)'/%3E%3Cpath d='M3 20c3-3 6-3 9 0s6 3 9 0 6-3 9 0' fill='none' stroke='%23fff6ea' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <script>document.documentElement.className = "js";</script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23e8894d'/%3E%3Cstop offset='.55' stop-color='%23a0506a'/%3E%3Cstop offset='1' stop-color='%23241f44'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Crect x='3' y='27' width='26' height='3' fill='%23120f1a'/%3E%3C/svg%3E">
 </head>
 <body>
 
-  <!-- The water. ocean.js draws into this canvas; its colours follow the
-       time of day, and a click or tap anywhere draws a little ripple. -->
-  <canvas id="ocean" aria-hidden="true"></canvas>
+  <!-- Each <section class="page"> is its own page; pages.js shows one at a
+       time by URL hash (#currently, #dance, ...). Without JavaScript they
+       simply stack. -->
+
+  <!-- The sky. sky.js paints into this canvas; its colours follow the
+       time of day. -->
+  <canvas id="sky" aria-hidden="true"></canvas>
 
   <header class="top">
     <a class="brand" href="#home">Madeleine Hoffman</a>
-    <nav aria-label="Sections">
+    <nav aria-label="Pages">
       <a href="#currently">currently</a>
       <a href="#projects">projects</a>
       <a href="#dance">dance</a>
@@ -31,129 +36,190 @@
     </nav>
   </header>
 
-  <main>
+  <main id="pages">
 
-    <!-- ============ HOME ============ -->
-    <section id="home" class="hero">
-      <p class="eyebrow">Hi, I'm</p>
-      <!-- data-text feeds the shadow layer behind the gradient letters -->
-      <h1><span class="name" data-text="Madeleine">Madeleine</span></h1>
-      <p class="tagline">
-        I'm passionate about learning, dancing, and making the world a better place.
-        I'm currently an undergrad at The University of Chicago, research assistant for
-        Professor Joshua Gottlieb, administrative assistant at the Existential Risk
-        Laboratory, and tutor for middle- and high school students.
-      </p>
-
-      <p class="links">
-        <a href="#currently">what I'm up to</a>
-        <span aria-hidden="true">·</span>
-        <a href="#contact">say hi</a>
-      </p>
-
-      <div class="socials" aria-label="Elsewhere">
-        <a href="https://vs.co/hun6bwtc" aria-label="VSCO" title="VSCO" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><g fill="currentColor" stroke="none"><circle cx="12" cy="6" r="1"/><circle cx="12" cy="18" r="1"/><circle cx="6" cy="12" r="1"/><circle cx="18" cy="12" r="1"/><circle cx="7.8" cy="7.8" r="1"/><circle cx="16.2" cy="16.2" r="1"/><circle cx="7.8" cy="16.2" r="1"/><circle cx="16.2" cy="7.8" r="1"/></g></svg>
-        </a>
-        <a href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" aria-label="Spotify" title="Spotify" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.3c3.4-1 7-.7 10 .9"/><path d="M7.6 12.4c2.8-.8 5.7-.5 8.2.8"/><path d="M8.2 15.3c2.2-.6 4.4-.4 6.4.6"/></svg>
-        </a>
-        <a href="mailto:mnhoffman@uchicago.edu" aria-label="Email" title="Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
-        </a>
-        <a href="https://calendly.com/mnhoffman-uchicago" aria-label="Calendly" title="Find a time to chat" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="12" cy="14.5" r="2.2"/></svg>
-        </a>
+    <!-- ============ HOME: the sky ============ -->
+    <section id="home" class="page hero">
+      <div class="hero-text">
+        <h1>Hi, I'm Madeleine</h1>
+        <p class="tagline">
+          I'm passionate about learning, dancing, and making the world a better place.
+          I'm currently an undergrad at The University of Chicago, research assistant for
+          Professor Joshua Gottlieb, administrative assistant at the Existential Risk
+          Laboratory, and tutor for middle- and high school students.
+        </p>
+        <p class="links">
+          <a href="#currently">what I'm up to</a>
+          <a href="#projects">things I've made</a>
+          <a href="#dance">dance</a>
+          <a href="#contact">say hi</a>
+        </p>
       </div>
+      <!-- the orange date stamp from a disposable camera; filled in by pages.js -->
+      <span class="stamp" id="stamp" aria-hidden="true"></span>
+      <!-- telephone wires along the bottom edge -->
+      <svg class="wires" viewBox="0 0 1400 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 30 Q 700 95 1400 22"/>
+        <path d="M0 44 Q 700 112 1400 38"/>
+        <path d="M0 18 Q 700 70 1400 8"/>
+      </svg>
     </section>
 
     <!-- ============ CURRENTLY ============ -->
-    <section id="currently" class="block">
-      <h2>Currently</h2>
-      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
-      <p>
-        As of the last update (5/13/26), I’ve been paying particular attention to the
-        relationship between my present, “zoomed in” self and my abstract, “big picture”
-        self. This involves a lot of reflection on what I care about moment to moment, what
-        I care about overall, and the systems I can create/implement to make smoother
-        transitions between the two. I wrote a bit about this on substack (my first post!)
-        but most of my thinking on this exists in recent conversations, scattered notes, or
-        the abstract of my brain.
-      </p>
-      <p>
-        Speaking of, I’ve been inspired by Andy Matuschak and Michael Nielsen’s work on
-        <a href="https://numinous.productions/ttft/" target="_blank" rel="noopener">transformative tools for thought</a>
-        to vibecode a model of the ideas and tasks that bounce around in my brain sometimes&mdash;
-        it’s going ok! I still don’t quite trust it with the actual mass of thoughts and tasks
-        I swim through daily (which have a lot more to do with emails than the rest of this
-        section lets on), but I’m feeling optimistic.
-      </p>
+    <section id="currently" class="page journal">
+      <div class="paper">
+        <div class="paper-head">
+          <h2>Currently</h2>
+          <span class="hand">last updated 5/13/26</span>
+        </div>
+
+        <!-- a strip of film: swap the .photo divs for <img> tags when you have photos -->
+        <div class="strip" aria-hidden="true">
+          <figure class="frame"><div class="photo" style="--sky-a:#e9a06a;--sky-b:#8a5a7a;--sky-c:#2d2a52"></div><figcaption>blue hour, 57th st</figcaption></figure>
+          <figure class="frame"><div class="photo" style="--sky-a:#f0c89a;--sky-b:#b7a2b8;--sky-c:#52689a"></div><figcaption>reading room</figcaption></figure>
+          <figure class="frame"><div class="photo" style="--sky-a:#4a3a60;--sky-b:#1e1b3a;--sky-c:#0b0a18"></div><figcaption>the lake, late</figcaption></figure>
+        </div>
+
+        <article class="note n1">
+          <p>
+            As of the last update (5/13/26), I’ve been paying particular attention to the
+            relationship between my present, “zoomed in” self and my abstract, “big picture”
+            self. This involves a lot of reflection on what I care about moment to moment, what
+            I care about overall, and the systems I can create/implement to make smoother
+            transitions between the two. I wrote a bit about this on substack (my first post!)
+            but most of my thinking on this exists in recent conversations, scattered notes, or
+            the abstract of my brain.
+          </p>
+        </article>
+
+        <article class="note n2">
+          <p>
+            Speaking of, I’ve been inspired by Andy Matuschak and Michael Nielsen’s work on
+            <a href="https://numinous.productions/ttft/" target="_blank" rel="noopener">transformative tools for thought</a>
+            to vibecode a model of the ideas and tasks that bounce around in my brain sometimes&mdash;
+            it’s going ok! I still don’t quite trust it with the actual mass of thoughts and tasks
+            I swim through daily (which have a lot more to do with emails than the rest of this
+            section lets on), but I’m feeling optimistic.
+          </p>
+        </article>
+
+        <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
+      </div>
     </section>
 
     <!-- ============ PROJECTS ============ -->
-    <section id="projects" class="block">
-      <h2>Projects</h2>
-      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
-      <p>
-        In an attempt to think and write more, I've started
-        <a href="https://substack.com/@madlenreads?r=5j2qmf&amp;utm_campaign=profile&amp;utm_medium=profile-page" target="_blank" rel="noopener">a substack</a>.
-        I mostly read and develop thoughts independently, but I'll be experimenting with
-        publishing more content in the near future.
-      </p>
-      <p>
-        I conducted a
-        <a href="https://docs.google.com/document/d/1mU0Cf0hOIiQYfXzRHgMYZWZ1Axlu6ik3GzpVMstTNCU/edit?usp=sharing" target="_blank" rel="noopener">sleep data analysis</a>
-        on myself. Feel free to read the entire analysis, but long story short, I sleep a lot,
-        and less when I wake up to an alarm. I also expect to become an early riser as I get older.
-      </p>
+    <section id="projects" class="page journal">
+      <div class="paper">
+        <div class="paper-head">
+          <h2>Projects</h2>
+          <span class="hand">things I've made, so far</span>
+        </div>
+
+        <div class="strip" aria-hidden="true">
+          <figure class="frame"><div class="photo" style="--sky-a:#f2b48a;--sky-b:#c77a7a;--sky-c:#4a3a6a"></div><figcaption>notes app, v0</figcaption></figure>
+          <figure class="frame"><div class="photo" style="--sky-a:#9fb4c8;--sky-b:#5d7a9a;--sky-c:#2a3a5c"></div><figcaption>sleep log</figcaption></figure>
+          <figure class="frame"><div class="photo" style="--sky-a:#f6d7a8;--sky-b:#d49a86;--sky-c:#6a4a6a"></div><figcaption>first post</figcaption></figure>
+        </div>
+
+        <article class="note n1">
+          <p>
+            In an attempt to think and write more, I've started
+            <a href="https://substack.com/@madlenreads?r=5j2qmf&amp;utm_campaign=profile&amp;utm_medium=profile-page" target="_blank" rel="noopener">a substack</a>.
+            I mostly read and develop thoughts independently, but I'll be experimenting with
+            publishing more content in the near future.
+          </p>
+        </article>
+
+        <article class="note n2">
+          <p>
+            I conducted a
+            <a href="https://docs.google.com/document/d/1mU0Cf0hOIiQYfXzRHgMYZWZ1Axlu6ik3GzpVMstTNCU/edit?usp=sharing" target="_blank" rel="noopener">sleep data analysis</a>
+            on myself. Feel free to read the entire analysis, but long story short, I sleep a lot,
+            and less when I wake up to an alarm. I also expect to become an early riser as I get older.
+          </p>
+        </article>
+
+        <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
+      </div>
     </section>
 
     <!-- ============ DANCE ============ -->
-    <section id="dance" class="block wide">
-      <h2>Dance</h2>
-      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
-      <p>
-        I'm a cast member of UChicago Maya, a contemporary-fusion dance group. Here are some
-        of our recent performances, including sets from both this and last year's university
-        competition “Where Fun Comes to Dance” and our winter show Smoke and Mirrors.
-      </p>
-      <div class="videos">
-        <div class="video">
-          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ZHq5HaCZGsg?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <section id="dance" class="page journal">
+      <div class="paper">
+        <div class="paper-head">
+          <h2>Dance</h2>
+          <span class="hand">UChicago Maya</span>
         </div>
-        <div class="video">
-          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Kq1xDJ3kD8k?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+        <article class="note n1 lead">
+          <p>
+            I'm a cast member of UChicago Maya, a contemporary-fusion dance group. Here are some
+            of our recent performances, including sets from both this and last year's university
+            competition “Where Fun Comes to Dance” and our winter show Smoke and Mirrors.
+          </p>
+        </article>
+
+        <!-- cine film: the three performances as frames on a strip -->
+        <div class="strip wide">
+          <figure class="frame video">
+            <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ZHq5HaCZGsg?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </figure>
+          <figure class="frame video">
+            <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Kq1xDJ3kD8k?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </figure>
+          <figure class="frame video">
+            <iframe loading="lazy" src="https://drive.google.com/file/d/11VHUv5KdfycRNEujiv16HskwLyLSA3uC/preview" title="UChicago Maya performance" allow="autoplay; fullscreen" allowfullscreen></iframe>
+          </figure>
         </div>
-        <div class="video">
-          <iframe loading="lazy" src="https://drive.google.com/file/d/11VHUv5KdfycRNEujiv16HskwLyLSA3uC/preview" title="UChicago Maya performance" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        </div>
+
+        <p class="hand aside">Our experimental choreography show Haiku is coming up in May!</p>
+
+        <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
       </div>
-      <p class="note">Our experimental choreography show Haiku is coming up in May!</p>
     </section>
 
     <!-- ============ CONTACT ============ -->
-    <section id="contact" class="block">
-      <h2>Contact</h2>
-      <svg class="squiggle" viewBox="0 0 80 10" aria-hidden="true"><path d="M1 6c6-6 10-6 16 0s10 6 16 0 10-6 16 0 10 6 16 0 10-6 14-2"/></svg>
-      <p>
-        Check out my creative/curative interests, send me a message, or find a time to chat.
-        I would love to connect with you.
-      </p>
-      <p class="contact-links">
-        <a href="https://vs.co/hun6bwtc" target="_blank" rel="noopener">VSCO</a>
-        <a href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" target="_blank" rel="noopener">Spotify</a>
-        <a href="mailto:mnhoffman@uchicago.edu">Email</a>
-        <a href="https://calendly.com/mnhoffman-uchicago" target="_blank" rel="noopener">Calendly</a>
-      </p>
+    <section id="contact" class="page journal">
+      <div class="paper">
+        <div class="paper-head">
+          <h2>Contact</h2>
+          <span class="hand">I would love to connect with you</span>
+        </div>
+
+        <div class="strip" aria-hidden="true">
+          <figure class="frame"><div class="photo" style="--sky-a:#e07a5a;--sky-b:#7a3a5a;--sky-c:#1c1838"></div><figcaption>rooftop</figcaption></figure>
+          <figure class="frame"><div class="photo" style="--sky-a:#ffd2a0;--sky-b:#c98a90;--sky-c:#3b3a6a"></div><figcaption>train home</figcaption></figure>
+        </div>
+
+        <article class="note n1">
+          <p>Check out my creative/curative interests, send me a message, or find a time to chat.</p>
+          <ul class="contact-list">
+            <li><a href="https://vs.co/hun6bwtc" target="_blank" rel="noopener">VSCO</a> <span class="hand">photos</span></li>
+            <li><a href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" target="_blank" rel="noopener">Spotify</a> <span class="hand">what I'm listening to</span></li>
+            <li><a href="mailto:mnhoffman@uchicago.edu">mnhoffman@uchicago.edu</a> <span class="hand">write to me</span></li>
+            <li><a href="https://calendly.com/mnhoffman-uchicago" target="_blank" rel="noopener">Calendly</a> <span class="hand">find a time to chat</span></li>
+          </ul>
+        </article>
+
+        <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
+      </div>
     </section>
 
   </main>
 
   <footer>
-    <p>&copy; <span id="year"></span> Madeleine Hoffman &middot; <span class="hint">the water changes with the time of day &middot; click it</span></p>
+    <p>&copy; <span id="year"></span> Madeleine Hoffman &middot; <span class="hint">the sky follows the time of day</span></p>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="ocean.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // The date stamp: ' YY MM DD, the way a point-and-shoot prints it.
+    (function () {
+      var d = new Date(), s = document.getElementById('stamp');
+      if (s) s.textContent = "'" + String(d.getFullYear()).slice(2) + ' ' + (d.getMonth() + 1) + ' ' + d.getDate();
+    })();
+  </script>
+  <script src="sky.js"></script>
+  <script src="pages.js"></script>
 </body>
 </html>
