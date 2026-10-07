@@ -339,13 +339,22 @@ h1 {
 }
 .note a:hover { text-decoration-color: var(--stamp); }
 
+/* the contact note: just a few handwritten lines, each one a link */
 .contact-list {
   list-style: none;
-  margin: 1.1em 0 0;
+  margin: 0;
   padding: 0;
 }
-.contact-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.8rem; }
-.contact-list .hand { font-size: 1.2rem; }
+.contact-list li { line-height: 1.6em; }
+.contact-list a.hand {
+  font-size: 1.55rem;
+  color: var(--pencil);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.contact-list a.hand:hover { color: #a85a3c; border-bottom-color: rgba(168, 90, 60, 0.5); }
+.note.scribbles { padding-top: 1.4rem; padding-bottom: 1.3rem; }
 
 .back {
   grid-column: 1 / -1;
