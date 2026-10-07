@@ -4,24 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Madeleine Hoffman</title>
-  <meta name="description" content="Madeleine Hoffman — personal website.">
-  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Madeleine Hoffman — learning, dancing, and making the world a better place.">
+  <meta property="og:site_name" content="Madeleine Hoffman">
+  <meta property="og:title" content="Madeleine Hoffman">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#1b1540">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230b2a44'/%3E%3Cpath d='M3 20c3-3 6-3 9 0s6 3 9 0 6-3 9 0' fill='none' stroke='%23e8f4f1' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%239B8BC7'/%3E%3Cstop offset='1' stop-color='%23EDA074'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='16' cy='16' r='16' fill='url(%23g)'/%3E%3Cpath d='M3 20c3-3 6-3 9 0s6 3 9 0 6-3 9 0' fill='none' stroke='%23fff6ea' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 <body>
 
-  <!-- The living ocean. ocean.js draws into this canvas; clicks anywhere make ripples. -->
+  <!-- The living water. ocean.js draws into this canvas; its colours follow
+       the time of day, and a click or tap anywhere drops a small ripple. -->
   <canvas id="ocean" aria-hidden="true"></canvas>
 
   <header class="top">
-    <a class="brand" href="#home">M. Hoffman</a>
+    <a class="brand" href="#home">Madeleine Hoffman</a>
     <nav aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
+      <a href="#currently">Currently</a>
+      <a href="#projects">Projects</a>
+      <a href="#dance">Dance</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -30,81 +35,118 @@
 
     <!-- ============ HOME ============ -->
     <section id="home" class="hero">
-      <p class="eyebrow">Hello, I'm</p>
-      <h1><span class="shimmer">Madeleine Hoffman</span></h1>
-      <!-- REPLACE: your one-line tagline from the Carrd homepage -->
-      <p class="tagline">A short line about what you do, and where you do it.</p>
+      <p class="eyebrow">Hi, I'm</p>
+      <h1><span class="shimmer">Madeleine</span></h1>
+      <p class="tagline">
+        I'm passionate about learning, dancing, and making the world a better place.
+        I'm currently an undergrad at The University of Chicago, research assistant for
+        Professor Joshua Gottlieb, administrative assistant at the Existential Risk
+        Laboratory, and tutor for middle- and high school students.
+      </p>
 
-      <!-- REPLACE: the link/button row from your Carrd homepage -->
       <div class="links">
-        <a class="btn" href="#about">About me</a>
-        <a class="btn ghost" href="#work">My work</a>
+        <a class="btn" href="#currently">Currently</a>
+        <a class="btn ghost" href="#contact">Say hello</a>
       </div>
 
       <div class="socials" aria-label="Elsewhere">
-        <!-- REPLACE hrefs with your real profiles. Delete any you don't use. -->
-        <a href="https://www.linkedin.com/" aria-label="LinkedIn" title="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M6.9 8.5H3.6V20h3.3V8.5zM5.3 3.3a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.4 13.3c0-3.3-1.8-4.9-4.2-4.9-1.9 0-2.8 1-3.3 1.8V8.5H9.6V20H13v-6.1c0-1.6.3-3.1 2.3-3.1s2 1.8 2 3.2v6h3.3v-6.7z"/></svg>
+        <a href="https://vs.co/hun6bwtc" aria-label="VSCO" title="VSCO" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><g fill="currentColor" stroke="none"><circle cx="12" cy="6" r="1"/><circle cx="12" cy="18" r="1"/><circle cx="6" cy="12" r="1"/><circle cx="18" cy="12" r="1"/><circle cx="7.8" cy="7.8" r="1"/><circle cx="16.2" cy="16.2" r="1"/><circle cx="7.8" cy="16.2" r="1"/><circle cx="16.2" cy="7.8" r="1"/></g></svg>
         </a>
-        <a href="https://github.com/mnhoffman" aria-label="GitHub" title="GitHub">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
+        <a href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" aria-label="Spotify" title="Spotify" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><path d="M7 9.3c3.4-1 7-.7 10 .9"/><path d="M7.6 12.4c2.8-.8 5.7-.5 8.2.8"/><path d="M8.2 15.3c2.2-.6 4.4-.4 6.4.6"/></svg>
         </a>
-        <a href="mailto:you@example.com" aria-label="Email" title="Email">
-          <svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.6-8-5.6zM4.9 7l7.1 5 7.1-5H4.9z"/></svg>
+        <a href="mailto:mnhoffman@uchicago.edu" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+        </a>
+        <a href="https://calendly.com/mnhoffman-uchicago" aria-label="Calendly" title="Find a time to chat" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="12" cy="14.5" r="2.2"/></svg>
         </a>
       </div>
 
-      <a class="scroll-hint" href="#about" aria-label="Scroll down">
-        <span></span>
-      </a>
+      <a class="scroll-hint" href="#currently" aria-label="Scroll down"><span></span></a>
     </section>
 
-    <!-- ============ ABOUT ============ -->
-    <section id="about" class="block">
-      <h2>About</h2>
-      <!-- REPLACE: paste your "About" paragraph(s) from Carrd here -->
+    <!-- ============ CURRENTLY ============ -->
+    <section id="currently" class="block">
+      <h2>Currently</h2>
       <p>
-        This is where your bio goes. A few sentences about who you are, what you care about,
-        and what you're up to right now. Keep the voice yours — the ocean will do the rest.
+        As of the last update (5/13/26), I’ve been paying particular attention to the
+        relationship between my present, “zoomed in” self and my abstract, “big picture”
+        self. This involves a lot of reflection on what I care about moment to moment, what
+        I care about overall, and the systems I can create/implement to make smoother
+        transitions between the two. I wrote a bit about this on substack (my first post!)
+        but most of my thinking on this exists in recent conversations, scattered notes, or
+        the abstract of my brain.
       </p>
       <p>
-        Second paragraph, if you want one: background, interests, the thing people should
-        know before they reach out.
+        Speaking of, I’ve been inspired by Andy Matuschak and Michael Nielsen’s work on
+        <a href="https://numinous.productions/ttft/" target="_blank" rel="noopener">transformative tools for thought</a>
+        to vibecode a model of the ideas and tasks that bounce around in my brain sometimes&mdash;
+        it’s going ok! I still don’t quite trust it with the actual mass of thoughts and tasks
+        I swim through daily (which have a lot more to do with emails than the rest of this
+        section lets on), but I’m feeling optimistic.
       </p>
     </section>
 
-    <!-- ============ WORK ============ -->
-    <section id="work" class="block">
-      <h2>Work</h2>
-      <!-- REPLACE: each <li> is one project, role, or piece. Swap the hrefs for real links. -->
-      <ul class="list">
-        <li>
-          <a href="#"><span class="title">Project or role one</span></a>
-          <span class="meta">One line on what it is and your part in it.</span>
-        </li>
-        <li>
-          <a href="#"><span class="title">Project or role two</span></a>
-          <span class="meta">Short description.</span>
-        </li>
-        <li>
-          <a href="#"><span class="title">Project or role three</span></a>
-          <span class="meta">Short description.</span>
-        </li>
-      </ul>
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="block">
+      <h2>Projects</h2>
+      <p>
+        In an attempt to think and write more, I've started
+        <a href="https://substack.com/@madlenreads?r=5j2qmf&amp;utm_campaign=profile&amp;utm_medium=profile-page" target="_blank" rel="noopener">a substack</a>.
+        I mostly read and develop thoughts independently, but I'll be experimenting with
+        publishing more content in the near future.
+      </p>
+      <p>
+        I conducted a
+        <a href="https://docs.google.com/document/d/1mU0Cf0hOIiQYfXzRHgMYZWZ1Axlu6ik3GzpVMstTNCU/edit?usp=sharing" target="_blank" rel="noopener">sleep data analysis</a>
+        on myself. Feel free to read the entire analysis, but long story short, I sleep a lot,
+        and less when I wake up to an alarm. I also expect to become an early riser as I get older.
+      </p>
+    </section>
+
+    <!-- ============ DANCE ============ -->
+    <section id="dance" class="block wide">
+      <h2>Dance</h2>
+      <p>
+        I'm a cast member of UChicago Maya, a contemporary-fusion dance group. Here are some
+        of our recent performances, including sets from both this and last year's university
+        competition “Where Fun Comes to Dance” and our winter show Smoke and Mirrors.
+      </p>
+      <div class="videos">
+        <div class="video">
+          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ZHq5HaCZGsg?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div class="video">
+          <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/Kq1xDJ3kD8k?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div class="video">
+          <iframe loading="lazy" src="https://drive.google.com/file/d/11VHUv5KdfycRNEujiv16HskwLyLSA3uC/preview" title="UChicago Maya performance" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+      </div>
+      <p class="note">Our experimental choreography show Haiku is coming up in May!</p>
     </section>
 
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="block">
-      <h2>Say hello</h2>
-      <!-- REPLACE: your contact line -->
-      <p>The best way to reach me is by email. I read everything, eventually.</p>
-      <p><a class="btn" href="mailto:you@example.com">Send a note</a></p>
+      <h2>Contact</h2>
+      <p>
+        Check out my creative/curative interests, send me a message, or find a time to chat.
+        I would love to connect with you.
+      </p>
+      <div class="contact-links">
+        <a href="https://vs.co/hun6bwtc" target="_blank" rel="noopener">VSCO</a>
+        <a href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" target="_blank" rel="noopener">Spotify</a>
+        <a href="mailto:mnhoffman@uchicago.edu">Email</a>
+        <a href="https://calendly.com/mnhoffman-uchicago" target="_blank" rel="noopener">Calendly</a>
+      </div>
     </section>
 
   </main>
 
   <footer>
-    <p>&copy; <span id="year"></span> Madeleine Hoffman &middot; <span class="hint">click the water</span></p>
+    <p>&copy; <span id="year"></span> Madeleine Hoffman &middot; <span class="hint">the water changes with the time of day &middot; click it</span></p>
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>

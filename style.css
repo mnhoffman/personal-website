@@ -1,17 +1,19 @@
 /* ------------------------------------------------------------------
    Madeleine Hoffman — personal site
-   Serif type over a living ocean. No boxes, no cards: the text sits
-   straight on the water and is lifted off it with light and shadow.
+   Serif type over living water. No boxes, no cards: the text sits
+   straight on the surface and is lifted off it with light and shadow.
+   The water's colours follow the time of day (see ocean.js).
    ------------------------------------------------------------------ */
 
 :root {
-  --ink: #f4efe3;            /* warm ivory text */
-  --ink-soft: rgba(244, 239, 227, 0.78);
-  --ink-faint: rgba(244, 239, 227, 0.5);
-  --deep: #06192b;           /* fallback / behind the canvas */
+  --ink: #f6f0e6;            /* warm ivory text */
+  --ink-soft: rgba(246, 240, 230, 0.8);
+  --ink-faint: rgba(246, 240, 230, 0.5);
+  --deep: #1b1540;           /* fallback / behind the canvas */
+  --lavender: #cfc3ea;       /* lightened from the old site's #9B8BC7 */
+  --peach: #f6c7a4;          /* lightened from the old site's #EDA074 */
   --foam: #dff5f0;
-  --gold: #ffe3a6;
-  --shadow: 0 1px 2px rgba(2, 18, 36, 0.75), 0 2px 18px rgba(2, 24, 48, 0.55);
+  --shadow: 0 1px 2px rgba(10, 8, 30, 0.75), 0 2px 18px rgba(10, 8, 40, 0.55);
   --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
 }
 
@@ -22,8 +24,7 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--deep)
-    radial-gradient(120% 80% at 50% 110%, #0d3a57 0%, #082742 45%, #06192b 100%);
+  background: var(--deep) linear-gradient(45deg, #6d5fa0 0%, #1b1540 45%, #c98a66 100%);
   color: var(--ink);
   font-family: var(--serif);
   font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
@@ -33,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 
-/* The ocean: fixed behind everything, receives clicks for ripples. */
+/* The water: fixed behind everything, receives clicks for ripples. */
 #ocean {
   position: fixed;
   inset: 0;
@@ -41,17 +42,16 @@ body {
   height: 100%;
   z-index: 0;
   display: block;
-  cursor: crosshair;
 }
 
 /* Everything above the water. pointer-events: none on the wrappers so
-   clicks fall through to the canvas; links re-enable them. */
+   clicks fall through to the canvas; links and embeds re-enable them. */
 header.top, main, footer {
   position: relative;
   z-index: 1;
   pointer-events: none;
 }
-a, button { pointer-events: auto; }
+a, button, iframe { pointer-events: auto; }
 
 a {
   color: inherit;
@@ -66,6 +66,7 @@ header.top {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 1rem;
   padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
   font-size: 0.95rem;
   letter-spacing: 0.14em;
@@ -76,9 +77,10 @@ header.top .brand {
   text-transform: none;
   letter-spacing: 0.04em;
   font-size: 1.15rem;
+  white-space: nowrap;
 }
+header.top nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.2rem 1.5rem; }
 header.top nav a {
-  margin-left: 1.5rem;
   color: var(--ink-soft);
   border-bottom: 1px solid transparent;
   padding-bottom: 2px;
@@ -108,48 +110,48 @@ main { padding: 0 clamp(1.25rem, 6vw, 4rem); }
 h1 {
   margin: 0;
   font-weight: 500;
-  font-size: clamp(3rem, 2rem + 7vw, 7rem);
+  font-size: clamp(3.4rem, 2rem + 8vw, 8rem);
   line-height: 1;
   letter-spacing: -0.01em;
   text-shadow: none;             /* shadow comes from the drop-shadow below */
 }
 
-/* Shimmer: light moving across the letters like sun on water. The text
-   is transparent and filled with a sliding gradient; a drop-shadow
-   gives it the dark edge it needs to read against bright wave crests. */
+/* The name is filled with a gradient of ivory, peach, lavender and sea
+   foam that drifts very slowly across the letters. A drop-shadow gives
+   it the dark edge it needs to read against bright water. */
 .shimmer {
   display: inline-block;
   background: linear-gradient(
-    105deg,
-    #fffaf0 0%,
-    var(--gold) 22%,
-    #ffffff 40%,
-    var(--foam) 58%,
-    #fffaf0 76%,
-    var(--gold) 100%
+    100deg,
+    #fff8ee 0%,
+    var(--peach) 18%,
+    #fff8ee 34%,
+    var(--lavender) 50%,
+    var(--foam) 66%,
+    #fff8ee 82%,
+    var(--peach) 100%
   );
-  background-size: 250% auto;
+  background-size: 300% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: shimmer 9s linear infinite;
+  animation: shimmer 36s linear infinite;
   filter:
-    drop-shadow(0 2px 1px rgba(2, 18, 36, 0.9))
-    drop-shadow(0 6px 22px rgba(2, 24, 48, 0.65))
-    drop-shadow(0 0 40px rgba(150, 220, 230, 0.25));
+    drop-shadow(0 2px 1px rgba(10, 8, 30, 0.9))
+    drop-shadow(0 6px 22px rgba(10, 8, 40, 0.6))
+    drop-shadow(0 0 40px rgba(220, 200, 240, 0.22));
   padding: 0.08em 0.1em;         /* room so the shadow isn't clipped */
 }
 @keyframes shimmer {
   from { background-position: 0% center; }
-  to   { background-position: -250% center; }
+  to   { background-position: -300% center; }
 }
 
 .tagline {
-  margin: 1.25rem auto 0;
-  max-width: 34ch;
-  font-size: 1.2em;
-  font-style: italic;
+  margin: 1.5rem auto 0;
+  max-width: 52ch;
+  font-size: 1.08em;
   color: var(--ink-soft);
 }
 
@@ -166,7 +168,7 @@ h1 {
 .btn {
   display: inline-block;
   padding: 0.65em 1.6em;
-  border: 1px solid rgba(244, 239, 227, 0.75);
+  border: 1px solid rgba(246, 240, 230, 0.75);
   border-radius: 999px;
   font-size: 0.95rem;
   letter-spacing: 0.16em;
@@ -175,11 +177,11 @@ h1 {
   -webkit-backdrop-filter: blur(2px);
 }
 .btn:hover {
-  background: rgba(244, 239, 227, 0.14);
+  background: rgba(246, 240, 230, 0.14);
   border-color: var(--ink);
 }
-.btn.ghost { border-color: rgba(244, 239, 227, 0.35); color: var(--ink-soft); }
-.btn.ghost:hover { color: var(--ink); border-color: rgba(244, 239, 227, 0.75); }
+.btn.ghost { border-color: rgba(246, 240, 230, 0.35); color: var(--ink-soft); }
+.btn.ghost:hover { color: var(--ink); border-color: rgba(246, 240, 230, 0.75); }
 
 .socials {
   display: flex;
@@ -188,16 +190,15 @@ h1 {
 }
 .socials a {
   display: inline-flex;
-  width: 2.4rem; height: 2.4rem;
+  width: 2.6rem; height: 2.6rem;
   align-items: center; justify-content: center;
   border-radius: 50%;
   color: var(--ink-soft);
 }
-.socials a:hover { color: var(--ink); background: rgba(244, 239, 227, 0.1); }
+.socials a:hover { color: var(--ink); background: rgba(246, 240, 230, 0.1); }
 .socials svg {
-  width: 1.3rem; height: 1.3rem;
-  fill: currentColor;
-  filter: drop-shadow(0 1px 2px rgba(2, 18, 36, 0.8));
+  width: 1.45rem; height: 1.45rem;
+  filter: drop-shadow(0 1px 2px rgba(10, 8, 30, 0.8));
 }
 
 .scroll-hint {
@@ -227,12 +228,12 @@ h1 {
   padding: 6rem 0;
   text-align: center;
 }
+.block.wide { max-width: 64rem; }
 .block h2 {
   font-weight: 500;
   font-size: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
   letter-spacing: 0.02em;
   margin: 0 0 1.5rem;
-  color: var(--foam);
 }
 /* a short rule of light beneath each heading */
 .block h2::after {
@@ -242,34 +243,49 @@ h1 {
   margin: 1rem auto 0;
   background: linear-gradient(to right, transparent, var(--ink), transparent);
 }
-.block p { margin: 0 0 1.2em; }
+.block p { margin: 0 auto 1.2em; max-width: 44rem; }
 .block p a {
   border-bottom: 1px solid var(--ink-faint);
+  color: var(--peach);
 }
-.block p a:hover { border-bottom-color: var(--ink); }
+.block p a:hover { border-bottom-color: var(--ink); color: var(--ink); }
+.block .note { font-style: italic; color: var(--ink-soft); margin-top: 1.5rem; }
 
-.list {
-  list-style: none;
-  margin: 0; padding: 0;
+/* Videos: no frame, just the player with softened corners. */
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: 1.25rem;
+  margin: 2rem 0 0;
 }
-.list li {
-  padding: 1.1rem 0;
-  border-top: 1px solid rgba(244, 239, 227, 0.14);
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(10, 8, 40, 0.45);
+  background: rgba(10, 8, 40, 0.35);
 }
-.list li:last-child { border-bottom: 1px solid rgba(244, 239, 227, 0.14); }
-.list .title {
-  display: block;
-  font-size: 1.35em;
-  font-weight: 500;
-  color: var(--ink);
+.video iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
 }
-.list a:hover .title { color: var(--gold); }
-.list .meta {
-  display: block;
-  font-style: italic;
-  color: var(--ink-soft);
-  margin-top: 0.15rem;
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem 2.2rem;
+  margin-top: 1.5rem;
+  font-size: 1.15em;
+  letter-spacing: 0.08em;
 }
+.contact-links a {
+  border-bottom: 1px solid var(--ink-faint);
+  padding-bottom: 2px;
+}
+.contact-links a:hover { border-bottom-color: var(--ink); color: var(--peach); }
 
 footer {
   padding: 3rem 1rem 2rem;
@@ -280,9 +296,10 @@ footer {
 footer .hint { font-style: italic; }
 
 /* ---------------- small screens ---------------- */
-@media (max-width: 600px) {
-  header.top { font-size: 0.8rem; }
-  header.top nav a { margin-left: 1rem; }
+@media (max-width: 640px) {
+  header.top { font-size: 0.78rem; flex-direction: column; align-items: center; gap: 0.5rem; padding-top: 1rem; }
+  header.top nav { justify-content: center; gap: 0.2rem 1.1rem; }
+  .hero { padding-top: 7.5rem; }
   .block { padding: 4rem 0; }
 }
 
@@ -291,4 +308,4 @@ footer .hint { font-style: italic; }
   .shimmer, .scroll-hint span { animation: none; }
 }
 
-::selection { background: rgba(255, 227, 166, 0.35); color: #fff; }
+::selection { background: rgba(246, 199, 164, 0.4); color: #fff; }
