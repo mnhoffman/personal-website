@@ -11,7 +11,7 @@ No frameworks, no build step. Four files do all the work:
 | File | What it is |
 | --- | --- |
 | `index.html` | The content: Home, Currently, Projects, Dance, Contact. |
-| `style.css` | Typography (Courier Prime, Lora, Caveat for marginalia, VT323 for date stamps), the journal paper, film strips, notes. |
+| `style.css` | Typography (Courier Prime, EB Garamond, Caveat for marginalia, VT323 for date stamps), the journal paper, film strips, notes. |
 | `sky.js` | The sky: the day-cycle palette, slow noise, stars, the horizon silhouette, grain. Also switches the text colour when the sky is bright. |
 | `pages.js` | Shows one page at a time by URL hash. |
 

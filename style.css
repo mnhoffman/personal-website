@@ -25,7 +25,7 @@
   --film: #15120f;
 
   --mono: "Courier Prime", "Courier New", monospace;
-  --body: "Lora", "Iowan Old Style", Georgia, serif;
+  --body: "EB Garamond", "Iowan Old Style", Georgia, serif;
   --hand: "Caveat", "Segoe Print", cursive;
   --lcd: "VT323", monospace;
 
@@ -48,8 +48,8 @@ body {
   background: #1a1430 linear-gradient(to top, #c8744a 0%, #6a3a58 40%, #1a1430 100%);
   color: var(--ink);
   font-family: var(--body);
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
-  line-height: 1.6;
+  font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: color .8s ease;
@@ -166,14 +166,21 @@ h1 {
   align-items: flex-start;
 }
 
+.sheet {
+  width: min(100%, 58rem);
+  transform: rotate(-0.6deg);
+  filter: drop-shadow(0 30px 40px rgba(8, 6, 16, 0.5)) drop-shadow(0 2px 4px rgba(8, 6, 16, 0.35));
+}
+/* A page torn out of a notebook: ragged left edge, a column of
+   punch holes that the tear runs through. */
 .paper {
   position: relative;
-  width: min(100%, 58rem);
-  padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem;
+  padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem clamp(2.2rem, 5vw, 4.5rem);
   color: var(--pencil);
   background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #dccfb6 100%);
-  box-shadow: 0 30px 70px rgba(8, 6, 16, 0.55), 0 2px 6px rgba(8, 6, 16, 0.35);
-  transform: rotate(-0.6deg);
+  clip-path: polygon(0.71rem 0.0%, 0.31rem 2.3%, 0.73rem 4.5%, 0.24rem 6.8%, 0.64rem 9.1%, 0.49rem 11.4%, 0.23rem 13.6%, 0.86rem 15.9%, 0.21rem 18.2%, 0.55rem 20.5%, 0.24rem 22.7%, 0.26rem 25.0%, 0.54rem 27.3%, 0.88rem 29.5%, 0.54rem 31.8%, 0.37rem 34.1%, 0.71rem 36.4%, 0.99rem 38.6%, 0.67rem 40.9%, 0.52rem 43.2%, 1.01rem 45.5%, 0.47rem 47.7%, 0.91rem 50.0%, 0.43rem 52.3%, 0.30rem 54.5%, 0.28rem 56.8%, 0.44rem 59.1%, 0.87rem 61.4%, 0.58rem 63.6%, 0.67rem 65.9%, 0.72rem 68.2%, 0.50rem 70.5%, 0.65rem 72.7%, 0.23rem 75.0%, 0.23rem 77.3%, 0.61rem 79.5%, 0.76rem 81.8%, 0.54rem 84.1%, 0.45rem 86.4%, 0.68rem 88.6%, 0.57rem 90.9%, 0.43rem 93.2%, 1.11rem 95.5%, 0.77rem 97.7%, 0.39rem 100.0%, 100% 100%, 100% 0%);
+  -webkit-mask: radial-gradient(circle at 1.35rem 0.9rem, transparent 0 0.2rem, #000 0.24rem) 0 0 / 100% 1.75rem repeat-y;
+  mask: radial-gradient(circle at 1.35rem 0.9rem, transparent 0 0.2rem, #000 0.24rem) 0 0 / 100% 1.75rem repeat-y;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.75rem 2.25rem;
@@ -190,9 +197,9 @@ h1 {
 }
 .paper::after {
   content: "";
-  position: absolute; top: 0; bottom: 0; left: 50%;
+  position: absolute; top: 0; bottom: 0; left: 1.95rem;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(58, 48, 43, 0.14) 20%, rgba(58, 48, 43, 0.14) 80%, transparent);
+  background: rgba(176, 90, 80, 0.28);
   pointer-events: none;
 }
 .paper > * { position: relative; z-index: 1; }
@@ -305,8 +312,15 @@ h1 {
     repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em),
     var(--card);
   background-origin: content-box, border-box;
-  box-shadow: 0 6px 18px rgba(8, 6, 16, 0.22), 0 1px 2px rgba(8, 6, 16, 0.2);
+  filter: drop-shadow(0 6px 10px rgba(8, 6, 16, 0.2)) drop-shadow(0 1px 1px rgba(8, 6, 16, 0.25));
   font-size: 0.98em;
+}
+/* a roughly torn bottom edge */
+.note::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -0.62rem; height: 0.7rem;
+  background: var(--card);
+  clip-path: polygon(0% 0%, 100% 0%, 100.0% 0.41rem, 96.2% 0.38rem, 92.3% 0.56rem, 88.5% 0.48rem, 84.6% 0.26rem, 80.8% 0.61rem, 76.9% 0.18rem, 73.1% 0.33rem, 69.2% 0.50rem, 65.4% 0.20rem, 61.5% 0.36rem, 57.7% 0.14rem, 53.8% 0.45rem, 50.0% 0.50rem, 46.2% 0.41rem, 42.3% 0.56rem, 38.5% 0.28rem, 34.6% 0.47rem, 30.8% 0.42rem, 26.9% 0.41rem, 23.1% 0.35rem, 19.2% 0.54rem, 15.4% 0.59rem, 11.5% 0.36rem, 7.7% 0.45rem, 3.8% 0.15rem, 0.0% 0.47rem);
 }
 .note p { margin: 0; }
 .note p + p { margin-top: 1.6em; }
@@ -316,10 +330,10 @@ h1 {
   position: absolute; top: -0.6rem; left: 50%;
   width: 5.5rem; height: 1.25rem;
   transform: translateX(-50%) rotate(-2deg);
-  background: rgba(250, 236, 190, 0.6);
-  border-left: 1px dashed rgba(255, 255, 255, 0.5);
-  border-right: 1px dashed rgba(255, 255, 255, 0.5);
-  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.15);
+  background: linear-gradient(to right, rgba(236, 232, 224, 0.5), rgba(246, 244, 238, 0.62) 50%, rgba(236, 232, 224, 0.5));
+  border-left: 1px dashed rgba(255, 255, 255, 0.55);
+  border-right: 1px dashed rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.12);
 }
 .note.n1 { transform: rotate(-1.1deg); }
 .note.n2 { transform: rotate(1.3deg); margin-top: 1.5rem; }
@@ -363,8 +377,8 @@ footer {
   header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7rem; padding-bottom: 10rem; align-items: flex-end; }
   .stamp { bottom: 10.5rem; font-size: 1.4rem; }
-  .paper { grid-template-columns: 1fr; transform: rotate(-0.3deg); }
-  .paper::after { display: none; }
+  .sheet { transform: rotate(-0.3deg); }
+  .paper { grid-template-columns: 1fr; padding-left: 2.5rem; }
   .note.n1, .note.n2 { transform: rotate(-0.6deg); margin-top: 0.5rem; }
   .note.n2 { transform: rotate(0.6deg); }
   .frame { width: clamp(9rem, 60%, 12rem); }
