@@ -14,8 +14,8 @@
   --shadow: 0 1px 2px rgba(10, 8, 20, 0.5), 0 2px 12px rgba(10, 8, 20, 0.3);
 
   /* the journal */
-  --paper: #e8dcc6;
-  --paper-2: #f1e7d3;
+  --paper: #efe4cf;
+  --paper-2: #f7eedc;
   --card: #f6eedc;
   --pencil: #3a302b;
   --pencil-soft: #6b5d55;
@@ -61,7 +61,7 @@ body {
   z-index: 0; display: block;
 }
 
-header.top, main, footer { position: relative; z-index: 1; }
+header.top, main { position: relative; z-index: 1; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -160,27 +160,20 @@ h1 {
 /* ---------------- journal pages ---------------- */
 .journal {
   min-height: 100svh;
-  padding: 5.5rem clamp(0.75rem, 3vw, 2rem) 4rem;
+  padding: 5.5rem clamp(0.75rem, 3vw, 2rem) 5rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.sheet {
-  width: min(100%, 58rem);
-  transform: rotate(-0.6deg);
-  filter: drop-shadow(0 30px 40px rgba(8, 6, 16, 0.5)) drop-shadow(0 2px 4px rgba(8, 6, 16, 0.35));
-}
-/* A page torn out of a notebook: ragged left edge, a column of
-   punch holes that the tear runs through. */
 .paper {
   position: relative;
-  padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem clamp(2.2rem, 5vw, 4.5rem);
+  width: min(100%, 58rem);
+  padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem;
   color: var(--pencil);
-  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #dccfb6 100%);
-  clip-path: polygon(0.71rem 0.0%, 0.31rem 2.3%, 0.73rem 4.5%, 0.24rem 6.8%, 0.64rem 9.1%, 0.49rem 11.4%, 0.23rem 13.6%, 0.86rem 15.9%, 0.21rem 18.2%, 0.55rem 20.5%, 0.24rem 22.7%, 0.26rem 25.0%, 0.54rem 27.3%, 0.88rem 29.5%, 0.54rem 31.8%, 0.37rem 34.1%, 0.71rem 36.4%, 0.99rem 38.6%, 0.67rem 40.9%, 0.52rem 43.2%, 1.01rem 45.5%, 0.47rem 47.7%, 0.91rem 50.0%, 0.43rem 52.3%, 0.30rem 54.5%, 0.28rem 56.8%, 0.44rem 59.1%, 0.87rem 61.4%, 0.58rem 63.6%, 0.67rem 65.9%, 0.72rem 68.2%, 0.50rem 70.5%, 0.65rem 72.7%, 0.23rem 75.0%, 0.23rem 77.3%, 0.61rem 79.5%, 0.76rem 81.8%, 0.54rem 84.1%, 0.45rem 86.4%, 0.68rem 88.6%, 0.57rem 90.9%, 0.43rem 93.2%, 1.11rem 95.5%, 0.77rem 97.7%, 0.39rem 100.0%, 100% 100%, 100% 0%);
-  -webkit-mask: radial-gradient(circle at 1.35rem 0.9rem, transparent 0 0.2rem, #000 0.24rem) 0 0 / 100% 1.75rem repeat-y;
-  mask: radial-gradient(circle at 1.35rem 0.9rem, transparent 0 0.2rem, #000 0.24rem) 0 0 / 100% 1.75rem repeat-y;
+  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #e4d8c1 100%);
+  box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5), 0 2px 6px rgba(8, 6, 16, 0.3);
+  transform: rotate(-0.6deg);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.75rem 2.25rem;
@@ -197,9 +190,9 @@ h1 {
 }
 .paper::after {
   content: "";
-  position: absolute; top: 0; bottom: 0; left: 1.95rem;
+  position: absolute; top: 0; bottom: 0; left: 50%;
   width: 1px;
-  background: rgba(176, 90, 80, 0.28);
+  background: linear-gradient(to bottom, transparent, rgba(58, 48, 43, 0.12) 20%, rgba(58, 48, 43, 0.12) 80%, transparent);
   pointer-events: none;
 }
 .paper > * { position: relative; z-index: 1; }
@@ -361,24 +354,14 @@ h1 {
 .back a { color: var(--pencil-soft); border-bottom: 1px solid var(--pencil-faint); }
 .back a:hover { color: var(--pencil); }
 
-footer {
-  padding: 1.5rem 1rem 1.5rem;
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--ink-faint);
-  text-shadow: var(--shadow);
-}
-.js .page.active ~ footer { }
-
 /* ---------------- small screens ---------------- */
 @media (max-width: 680px) {
   header.top { font-size: 0.85rem; flex-direction: column; align-items: center; gap: 0.2rem; padding-top: 0.8rem; }
   header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7rem; padding-bottom: 10rem; align-items: flex-end; }
   .stamp { bottom: 10.5rem; font-size: 1.4rem; }
-  .sheet { transform: rotate(-0.3deg); }
-  .paper { grid-template-columns: 1fr; padding-left: 2.5rem; }
+  .paper { grid-template-columns: 1fr; transform: rotate(-0.3deg); }
+  .paper::after { display: none; }
   .note.n1, .note.n2 { transform: rotate(-0.6deg); margin-top: 0.5rem; }
   .note.n2 { transform: rotate(0.6deg); }
   .frame { width: clamp(9rem, 60%, 12rem); }

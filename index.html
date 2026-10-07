@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;500&family=VT323&display=swap" rel="stylesheet">
   <!-- The ?v= numbers bust browser and GitHub Pages caches: bump them whenever
        style.css, sky.js or pages.js change, or visitors may see a stale mix. -->
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
   <script>document.documentElement.className = "js";</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23e8894d'/%3E%3Cstop offset='.55' stop-color='%23a0506a'/%3E%3Cstop offset='1' stop-color='%23241f44'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Crect x='3' y='27' width='26' height='3' fill='%23120f1a'/%3E%3C/svg%3E">
 </head>
@@ -69,7 +69,7 @@
 
     <!-- ============ CURRENTLY ============ -->
     <section id="currently" class="page journal">
-      <div class="sheet"><div class="paper">
+      <div class="paper">
         <div class="paper-head">
           <h2>Currently</h2>
           <span class="hand">last updated 5/13/26</span>
@@ -106,12 +106,12 @@
         </article>
 
         <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
-      </div></div>
+      </div>
     </section>
 
     <!-- ============ PROJECTS ============ -->
     <section id="projects" class="page journal">
-      <div class="sheet"><div class="paper">
+      <div class="paper">
         <div class="paper-head">
           <h2>Projects</h2>
           <span class="hand">things I've made, so far</span>
@@ -142,12 +142,12 @@
         </article>
 
         <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
-      </div></div>
+      </div>
     </section>
 
     <!-- ============ DANCE ============ -->
     <section id="dance" class="page journal">
-      <div class="sheet"><div class="paper">
+      <div class="paper">
         <div class="paper-head">
           <h2>Dance</h2>
           <span class="hand">UChicago Maya</span>
@@ -177,12 +177,12 @@
         <p class="hand aside">Our experimental choreography show Haiku is coming up in May!</p>
 
         <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
-      </div></div>
+      </div>
     </section>
 
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="page journal">
-      <div class="sheet"><div class="paper">
+      <div class="paper">
         <div class="paper-head">
           <h2>Contact</h2>
           <span class="hand">I would love to connect with you</span>
@@ -204,24 +204,19 @@
         </article>
 
         <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
-      </div></div>
+      </div>
     </section>
 
   </main>
 
-  <footer>
-    <p>&copy; <span id="year"></span> Madeleine Hoffman &middot; <span class="hint">the sky follows the time of day</span></p>
-  </footer>
-
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
     // The date stamp: ' YY MM DD, the way a point-and-shoot prints it.
     (function () {
       var d = new Date(), s = document.getElementById('stamp');
       if (s) s.textContent = "'" + String(d.getFullYear()).slice(2) + ' ' + (d.getMonth() + 1) + ' ' + d.getDate();
     })();
   </script>
-  <script src="sky.js?v=5"></script>
-  <script src="pages.js?v=5"></script>
+  <script src="sky.js?v=6"></script>
+  <script src="pages.js?v=6"></script>
 </body>
 </html>
