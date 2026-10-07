@@ -14,8 +14,8 @@
   --shadow: 0 1px 2px rgba(10, 8, 20, 0.5), 0 2px 12px rgba(10, 8, 20, 0.3);
 
   /* the journal */
-  --paper: #efe4cf;
-  --paper-2: #f7eedc;
+  --paper: #f6e9cf;
+  --paper-2: #fbf2dc;
   --card: #f6eedc;
   --pencil: #3a302b;
   --pencil-soft: #6b5d55;
@@ -128,7 +128,8 @@ h1 {
   flex-wrap: wrap;
   gap: 0.5rem 1.6rem;
 }
-.links a { color: var(--ink-soft); border-bottom: 1px dotted var(--ink-faint); padding-bottom: 1px; }
+.links a, .tagline a { color: var(--ink-soft); border-bottom: 1px dotted var(--ink-faint); padding-bottom: 1px; }
+.tagline a:hover { color: var(--ink); border-bottom-style: solid; }
 .links a:hover { color: var(--ink); border-bottom-style: solid; }
 
 /* the orange date stamp, bottom right, like a point-and-shoot print */
@@ -171,7 +172,7 @@ h1 {
   width: min(100%, 58rem);
   padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem;
   color: var(--pencil);
-  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #e4d8c1 100%);
+  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #eedfc2 100%);
   box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5), 0 2px 6px rgba(8, 6, 16, 0.3);
   transform: rotate(-0.6deg);
   display: grid;
@@ -184,7 +185,7 @@ h1 {
   content: "";
   position: absolute; inset: 0;
   background: var(--grain);
-  opacity: 0.55;
+  opacity: 0.38;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
