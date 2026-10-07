@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Madeleine Hoffman</title>
+  <meta name="description" content="Madeleine Hoffman — personal website.">
+  <meta name="theme-color" content="#06192b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230b2a44'/%3E%3Cpath d='M3 20c3-3 6-3 9 0s6 3 9 0 6-3 9 0' fill='none' stroke='%23e8f4f1' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- The living ocean. ocean.js draws into this canvas; clicks anywhere make ripples. -->
+  <canvas id="ocean" aria-hidden="true"></canvas>
+
+  <header class="top">
+    <a class="brand" href="#home">M. Hoffman</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ HOME ============ -->
+    <section id="home" class="hero">
+      <p class="eyebrow">Hello, I'm</p>
+      <h1><span class="shimmer">Madeleine Hoffman</span></h1>
+      <!-- REPLACE: your one-line tagline from the Carrd homepage -->
+      <p class="tagline">A short line about what you do, and where you do it.</p>
+
+      <!-- REPLACE: the link/button row from your Carrd homepage -->
+      <div class="links">
+        <a class="btn" href="#about">About me</a>
+        <a class="btn ghost" href="#work">My work</a>
+      </div>
+
+      <div class="socials" aria-label="Elsewhere">
+        <!-- REPLACE hrefs with your real profiles. Delete any you don't use. -->
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M6.9 8.5H3.6V20h3.3V8.5zM5.3 3.3a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8zM20.4 13.3c0-3.3-1.8-4.9-4.2-4.9-1.9 0-2.8 1-3.3 1.8V8.5H9.6V20H13v-6.1c0-1.6.3-3.1 2.3-3.1s2 1.8 2 3.2v6h3.3v-6.7z"/></svg>
+        </a>
+        <a href="https://github.com/mnhoffman" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
+        </a>
+        <a href="mailto:you@example.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.4V18h16V7.4l-8 5.6-8-5.6zM4.9 7l7.1 5 7.1-5H4.9z"/></svg>
+        </a>
+      </div>
+
+      <a class="scroll-hint" href="#about" aria-label="Scroll down">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="block">
+      <h2>About</h2>
+      <!-- REPLACE: paste your "About" paragraph(s) from Carrd here -->
+      <p>
+        This is where your bio goes. A few sentences about who you are, what you care about,
+        and what you're up to right now. Keep the voice yours — the ocean will do the rest.
+      </p>
+      <p>
+        Second paragraph, if you want one: background, interests, the thing people should
+        know before they reach out.
+      </p>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section id="work" class="block">
+      <h2>Work</h2>
+      <!-- REPLACE: each <li> is one project, role, or piece. Swap the hrefs for real links. -->
+      <ul class="list">
+        <li>
+          <a href="#"><span class="title">Project or role one</span></a>
+          <span class="meta">One line on what it is and your part in it.</span>
+        </li>
+        <li>
+          <a href="#"><span class="title">Project or role two</span></a>
+          <span class="meta">Short description.</span>
+        </li>
+        <li>
+          <a href="#"><span class="title">Project or role three</span></a>
+          <span class="meta">Short description.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="block">
+      <h2>Say hello</h2>
+      <!-- REPLACE: your contact line -->
+      <p>The best way to reach me is by email. I read everything, eventually.</p>
+      <p><a class="btn" href="mailto:you@example.com">Send a note</a></p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Madeleine Hoffman &middot; <span class="hint">click the water</span></p>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="ocean.js"></script>
+</body>
+</html>
