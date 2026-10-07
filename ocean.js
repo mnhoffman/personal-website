@@ -5,8 +5,8 @@
    slow swells plus fine chop, lit from a low sun. The palette is
    picked from a 24-hour cycle (indigo night, lavender-and-peach dawn,
    blue day, orange-and-purple sunset) and drifts slowly within it so
-   the colour is never quite still. Clicks and taps drop small, soft,
-   stylised ripples.
+   the colour is never quite still. Clicks and taps draw small,
+   hand-drawn-looking rings.
 
    Preview tricks (add to the URL):
      ?hour=19       freeze the palette at a given hour (0-24, decimals ok)
@@ -74,7 +74,7 @@
     if (!isNaN(fixedHour)) return fixedHour;
     var d = new Date();
     var h = d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600;
-    return h + 0.65 * Math.sin(t / 75);
+    return h + 0.35 * Math.sin(t / 140);
   }
 
   // --------------------------------------------------------------
@@ -99,10 +99,10 @@
     // Slow swells: a few sines travelling in different directions.
     'float swell(vec2 p, float t){',
     '  float h = 0.0;',
-    '  h += sin(p.x * 1.60 + p.y * 0.40 + t * 0.55) * 0.34;',
-    '  h += sin(p.x * 0.75 + p.y * 1.80 - t * 0.42) * 0.26;',
-    '  h += sin(p.x * 2.70 - p.y * 1.10 + t * 0.78) * 0.14;',
-    '  h += sin(p.x * -1.20 + p.y * 3.30 + t * 1.05) * 0.07;',
+    '  h += sin(p.x * 1.60 + p.y * 0.40 + t * 0.28) * 0.34;',
+    '  h += sin(p.x * 0.75 + p.y * 1.80 - t * 0.22) * 0.26;',
+    '  h += sin(p.x * 2.70 - p.y * 1.10 + t * 0.40) * 0.14;',
+    '  h += sin(p.x * -1.20 + p.y * 3.30 + t * 0.55) * 0.07;',
     '  return h;',
     '}',
     '',
@@ -110,39 +110,42 @@
     // has texture to catch the light.
     'float chop(vec2 p, float t){',
     '  float h = 0.0;',
-    '  h += sin(p.x * 4.10 + p.y * 2.10 - t * 1.40) * 0.50;',
-    '  h += sin(p.x * -3.30 + p.y * 5.20 + t * 1.75) * 0.35;',
-    '  h += sin(p.x * 6.80 + p.y * -1.40 + t * 2.10) * 0.22;',
-    '  h += sin(p.x * 2.20 + p.y * 7.60 - t * 1.90) * 0.18;',
-    '  h += sin(p.x * 9.50 + p.y * 4.30 + t * 2.60) * 0.10;',
+    '  h += sin(p.x * 4.10 + p.y * 2.10 - t * 0.70) * 0.50;',
+    '  h += sin(p.x * -3.30 + p.y * 5.20 + t * 0.85) * 0.35;',
+    '  h += sin(p.x * 6.80 + p.y * -1.40 + t * 1.00) * 0.22;',
+    '  h += sin(p.x * 2.20 + p.y * 7.60 - t * 0.95) * 0.18;',
+    '  h += sin(p.x * 9.50 + p.y * 4.30 + t * 1.20) * 0.10;',
     '  return h;',
     '}',
     '',
-    // Ripples: each click is a small ring that drifts outward and fades
-    // in about two and a half seconds. They are drawn as a few soft
-    // bands of light with only a whisper of surface tilt, so they read
-    // as a gesture rather than a splash. Returns (tilt, light).
-    'vec2 ripples(vec2 p, float t){',
-    '  float tilt = 0.0;',
+    // Ripples: each click draws a couple of thin rings that widen and
+    // fade over about two seconds. The radius wobbles a little with the
+    // angle so they look drawn by hand rather than simulated. Returns
+    // how much light to add at this point (0..1).
+    'float ripples(vec2 p, float t){',
     '  float light = 0.0;',
     '  for (int i = 0; i < ' + MAX_RIPPLES + '; i++){',
     '    if (i >= u_count) break;',
     '    vec4 r = u_ripples[i];',
     '    float age = t - r.z;',
-    '    if (age <= 0.0 || age > 3.0) continue;',
-    '    float d = distance(p, r.xy);',
-    '    float front = 0.03 + age * 0.13;',             // ring radius grows to ~0.4 (screen height = 2)
-    '    float back = front - d;',                        // > 0 inside the ring
-    '    float shell = smoothstep(-0.010, 0.010, back) * (1.0 - smoothstep(0.05, 0.11, back));',
-    '    float bands = 0.5 + 0.5 * cos(back * 6.2832 / 0.05);',
-    '    float fade = exp(-age * 1.25) * (1.0 - smoothstep(2.2, 3.0, age)) * r.w;',
-    '    light += shell * bands * fade;',
-    '    tilt  += sin(back * 6.2832 / 0.05) * shell * fade;',
+    '    if (age <= 0.0 || age > 2.4) continue;',
+    '    vec2 q = p - r.xy;',
+    '    float ang = atan(q.y, q.x);',
+    '    float seed = r.z * 7.3;',
+    '    float wob = 0.007 * sin(ang * 5.0 + seed) + 0.004 * sin(ang * 9.0 - seed * 1.7);',
+    '    float d = length(q) + wob;',
+    '    float grow = 1.0 - exp(-age * 1.6);',                 // eases out as it widens
+    '    float front = 0.02 + grow * 0.22;',
+    '    float fade = (1.0 - smoothstep(0.9, 2.4, age)) * r.w;',
+    '    float w = 0.006 + age * 0.004;',                      // the line softens as it goes
+    '    float ring1 = 1.0 - smoothstep(0.0, w, abs(d - front));',
+    '    float ring2 = 1.0 - smoothstep(0.0, w, abs(d - front * 0.62));',
+    '    light += (ring1 + ring2 * 0.5) * fade;',
     '  }',
-    '  return vec2(tilt, light);',
+    '  return light;',
     '}',
     '',
-    'float height(vec2 p, float t){ return swell(p, t) + chop(p, t) * 0.14; }',
+    'float height(vec2 p, float t){ return swell(p, t) + chop(p, t) * 0.08; }',
     '',
     'void main(){',
     '  float aspect = u_res.x / u_res.y;',
@@ -150,36 +153,36 @@
     '  vec2 p = vec2((uv.x - 0.5) * 2.0 * aspect, (uv.y - 0.5) * 2.0);',
     '  float t = u_time;',
     '',
-    '  vec2 rp = ripples(p, t);',
+    '  float rp = ripples(p, t);',
     '  float e = 0.012;',
-    '  float h  = height(p, t) + rp.x * 0.012;',
-    '  float hx = height(p + vec2(e, 0.0), t) + ripples(p + vec2(e, 0.0), t).x * 0.012;',
-    '  float hy = height(p + vec2(0.0, e), t) + ripples(p + vec2(0.0, e), t).x * 0.012;',
-    '  vec3 n = normalize(vec3(-(hx - h) / e * 0.30, -(hy - h) / e * 0.30, 1.0));',
+    '  float h  = height(p, t);',
+    '  float hx = height(p + vec2(e, 0.0), t);',
+    '  float hy = height(p + vec2(0.0, e), t);',
+    '  vec3 n = normalize(vec3(-(hx - h) / e * 0.22, -(hy - h) / e * 0.22, 1.0));',
     '',
     // Lighting: a low sun up and to the left, a viewer looking down.
     '  vec3 L = normalize(vec3(-0.35, 0.60, 0.72));',
     '  vec3 V = vec3(0.0, 0.0, 1.0);',
     '  float diff = clamp(dot(n, L), 0.0, 1.0);',
-    '  float spec = pow(clamp(dot(reflect(-L, n), V), 0.0, 1.0), 64.0);',
-    '  float glint = pow(clamp(dot(reflect(-L, n), V), 0.0, 1.0), 320.0);',
+    '  float spec = pow(clamp(dot(reflect(-L, n), V), 0.0, 1.0), 10.0);',
     '  float fres = pow(1.0 - clamp(dot(n, V), 0.0, 1.0), 2.0);',
     '',
     '  float depth = smoothstep(0.0, 1.0, uv.y * 0.85 + 0.1);',   // 0 bottom, 1 top
     '  vec3 col = mix(u_shal, u_deep, depth);',
     '  col = mix(col, u_mid, 0.45 + 0.35 * sin(h * 1.7));',
-    '  col += (diff - 0.5) * 0.30;',
-    '  col = mix(col, u_glow, smoothstep(0.55, 0.95, h) * 0.30);',   // crests catch light
+    '  col += (diff - 0.5) * 0.22;',
+    '  col = mix(col, u_glow, smoothstep(0.55, 0.95, h) * 0.18);',   // crests catch light
     '',
-    // Highlights are soft-clamped so a steep slope never blows out to
-    // pure white under the type.
-    '  float hl = spec * (0.18 + 0.30 * (1.0 - depth)) + glint * 0.35;',
-    '  hl = hl / (1.0 + hl * 2.2);',
-    '  col += hl * u_glow;',
+    // A broad, soft sheen instead of sharp glints: matte, not glossy.
+    '  col = mix(col, u_glow, spec * 0.10 * (0.5 + 0.5 * (1.0 - depth)));',
     '  col += fres * u_mid * 0.35;',
     '',
-    // The ripple's bands of light, in the palette's glow colour.
-    '  col = mix(col, u_glow, clamp(rp.y, 0.0, 1.0) * 0.20);',
+    // The ripple rings, in the palette's glow colour.
+    '  col = mix(col, u_glow, clamp(rp, 0.0, 1.0) * 0.28);',
+    '',
+    // A whisper of grain so the surface feels like paper, not a screen.
+    '  float grain = fract(sin(dot(gl_FragCoord.xy + vec2(t * 7.0), vec2(12.9898, 78.233))) * 43758.5453);',
+    '  col += (grain - 0.5) * 0.035;',
     '',
     // A soft vignette so the type always has somewhere darker to sit.
     '  float vig = smoothstep(1.35, 0.35, length((uv - 0.5) * vec2(1.15, 1.0)));',
@@ -308,7 +311,7 @@
   }
 
   function wake() {
-    stillUntil = performance.now() + 4000;   // ripples live about three seconds
+    stillUntil = performance.now() + 3000;   // ripples live about two seconds
     if (!running && !document.hidden) { running = true; frameReq = requestAnimationFrame(draw); }
   }
 

@@ -1,16 +1,16 @@
 # madeleinehoffman — personal website
 
-A single-page personal site that lives on GitHub Pages. Serif type sits
-directly on living water: the background is a WebGL shader that rolls
-slowly on its own, changes colour with the time of day, and answers every
-click or tap with a small ripple.
+A single-page personal site that lives on GitHub Pages. Warm serif type
+sits directly on slow water: the background is a WebGL shader that drifts
+on its own, changes colour with the time of day, and answers every click
+or tap with a small hand-drawn-looking ripple.
 
 No frameworks, no build step. Three files do all the work:
 
 | File | What it is |
 | --- | --- |
 | `index.html` | The content: Home, Currently, Projects, Dance, Contact. |
-| `style.css` | Typography (Cormorant Garamond), layout, the slowly shifting gradient on the name, buttons, sections. |
+| `style.css` | Typography (Fraunces for headings, Lora for text), layout, the slowly drifting gradient on the name, wavy links, sections. |
 | `ocean.js` | The water: swells, chop, lighting, the day-cycle palette, and the click-to-ripple effect. |
 
 ## Editing the content
@@ -61,8 +61,9 @@ Everything lives near the top of `ocean.js`:
 - `swell()` — the big slow waves. Lower the amplitudes for a calmer sea.
 - `chop()` — fine surface texture. Set its weight in `height()` to `0.0`
   for glassy water.
-- `ripples()` — `front` controls how fast and far a ring travels, the
-  `0.05` is the band spacing, `exp(-age * 1.25)` how quickly it fades.
+- `ripples()` — `front` controls how far a ring travels, `wob` how
+  wobbly its outline is, and the `smoothstep(0.9, 2.4, age)` how quickly
+  it fades.
 
 The site respects `prefers-reduced-motion`: the water slows almost to a
 stop and only animates while a ripple is alive.
