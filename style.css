@@ -14,8 +14,8 @@
   --shadow: 0 1px 2px rgba(10, 8, 20, 0.5), 0 2px 12px rgba(10, 8, 20, 0.3);
 
   /* the journal */
-  --paper: #e8dcc6;
-  --paper-2: #f1e7d3;
+  --paper: #f6e9cf;
+  --paper-2: #fbf2dc;
   --card: #f6eedc;
   --pencil: #3a302b;
   --pencil-soft: #6b5d55;
@@ -25,7 +25,7 @@
   --film: #15120f;
 
   --mono: "Courier Prime", "Courier New", monospace;
-  --body: "Lora", "Iowan Old Style", Georgia, serif;
+  --body: "EB Garamond", "Iowan Old Style", Georgia, serif;
   --hand: "Caveat", "Segoe Print", cursive;
   --lcd: "VT323", monospace;
 
@@ -48,8 +48,8 @@ body {
   background: #1a1430 linear-gradient(to top, #c8744a 0%, #6a3a58 40%, #1a1430 100%);
   color: var(--ink);
   font-family: var(--body);
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
-  line-height: 1.6;
+  font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: color .8s ease;
@@ -61,7 +61,7 @@ body {
   z-index: 0; display: block;
 }
 
-header.top, main, footer { position: relative; z-index: 1; }
+header.top, main { position: relative; z-index: 1; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -128,7 +128,8 @@ h1 {
   flex-wrap: wrap;
   gap: 0.5rem 1.6rem;
 }
-.links a { color: var(--ink-soft); border-bottom: 1px dotted var(--ink-faint); padding-bottom: 1px; }
+.links a, .tagline a { color: var(--ink-soft); border-bottom: 1px dotted var(--ink-faint); padding-bottom: 1px; }
+.tagline a:hover { color: var(--ink); border-bottom-style: solid; }
 .links a:hover { color: var(--ink); border-bottom-style: solid; }
 
 /* the orange date stamp, bottom right, like a point-and-shoot print */
@@ -160,7 +161,7 @@ h1 {
 /* ---------------- journal pages ---------------- */
 .journal {
   min-height: 100svh;
-  padding: 5.5rem clamp(0.75rem, 3vw, 2rem) 4rem;
+  padding: 5.5rem clamp(0.75rem, 3vw, 2rem) 5rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -171,8 +172,8 @@ h1 {
   width: min(100%, 58rem);
   padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem;
   color: var(--pencil);
-  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #dccfb6 100%);
-  box-shadow: 0 30px 70px rgba(8, 6, 16, 0.55), 0 2px 6px rgba(8, 6, 16, 0.35);
+  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #eedfc2 100%);
+  box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5), 0 2px 6px rgba(8, 6, 16, 0.3);
   transform: rotate(-0.6deg);
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -184,7 +185,7 @@ h1 {
   content: "";
   position: absolute; inset: 0;
   background: var(--grain);
-  opacity: 0.55;
+  opacity: 0.38;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
@@ -192,7 +193,7 @@ h1 {
   content: "";
   position: absolute; top: 0; bottom: 0; left: 50%;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(58, 48, 43, 0.14) 20%, rgba(58, 48, 43, 0.14) 80%, transparent);
+  background: linear-gradient(to bottom, transparent, rgba(58, 48, 43, 0.12) 20%, rgba(58, 48, 43, 0.12) 80%, transparent);
   pointer-events: none;
 }
 .paper > * { position: relative; z-index: 1; }
@@ -305,8 +306,15 @@ h1 {
     repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em),
     var(--card);
   background-origin: content-box, border-box;
-  box-shadow: 0 6px 18px rgba(8, 6, 16, 0.22), 0 1px 2px rgba(8, 6, 16, 0.2);
+  filter: drop-shadow(0 6px 10px rgba(8, 6, 16, 0.2)) drop-shadow(0 1px 1px rgba(8, 6, 16, 0.25));
   font-size: 0.98em;
+}
+/* a roughly torn bottom edge */
+.note::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -0.62rem; height: 0.7rem;
+  background: var(--card);
+  clip-path: polygon(0% 0%, 100% 0%, 100.0% 0.41rem, 96.2% 0.38rem, 92.3% 0.56rem, 88.5% 0.48rem, 84.6% 0.26rem, 80.8% 0.61rem, 76.9% 0.18rem, 73.1% 0.33rem, 69.2% 0.50rem, 65.4% 0.20rem, 61.5% 0.36rem, 57.7% 0.14rem, 53.8% 0.45rem, 50.0% 0.50rem, 46.2% 0.41rem, 42.3% 0.56rem, 38.5% 0.28rem, 34.6% 0.47rem, 30.8% 0.42rem, 26.9% 0.41rem, 23.1% 0.35rem, 19.2% 0.54rem, 15.4% 0.59rem, 11.5% 0.36rem, 7.7% 0.45rem, 3.8% 0.15rem, 0.0% 0.47rem);
 }
 .note p { margin: 0; }
 .note p + p { margin-top: 1.6em; }
@@ -316,10 +324,10 @@ h1 {
   position: absolute; top: -0.6rem; left: 50%;
   width: 5.5rem; height: 1.25rem;
   transform: translateX(-50%) rotate(-2deg);
-  background: rgba(250, 236, 190, 0.6);
-  border-left: 1px dashed rgba(255, 255, 255, 0.5);
-  border-right: 1px dashed rgba(255, 255, 255, 0.5);
-  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.15);
+  background: linear-gradient(to right, rgba(236, 232, 224, 0.5), rgba(246, 244, 238, 0.62) 50%, rgba(236, 232, 224, 0.5));
+  border-left: 1px dashed rgba(255, 255, 255, 0.55);
+  border-right: 1px dashed rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.12);
 }
 .note.n1 { transform: rotate(-1.1deg); }
 .note.n2 { transform: rotate(1.3deg); margin-top: 1.5rem; }
@@ -346,16 +354,6 @@ h1 {
 }
 .back a { color: var(--pencil-soft); border-bottom: 1px solid var(--pencil-faint); }
 .back a:hover { color: var(--pencil); }
-
-footer {
-  padding: 1.5rem 1rem 1.5rem;
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--ink-faint);
-  text-shadow: var(--shadow);
-}
-.js .page.active ~ footer { }
 
 /* ---------------- small screens ---------------- */
 @media (max-width: 680px) {

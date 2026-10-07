@@ -11,11 +11,16 @@ No frameworks, no build step. Four files do all the work:
 | File | What it is |
 | --- | --- |
 | `index.html` | The content: Home, Currently, Projects, Dance, Contact. |
-| `style.css` | Typography (Courier Prime, Lora, Caveat for marginalia, VT323 for date stamps), the journal paper, film strips, notes. |
+| `style.css` | Typography (Courier Prime, EB Garamond, Caveat for marginalia, VT323 for date stamps), the journal paper, film strips, notes. |
 | `sky.js` | The sky: the day-cycle palette, slow noise, stars, the horizon silhouette, grain. Also switches the text colour when the sky is bright. |
 | `pages.js` | Shows one page at a time by URL hash. |
 
 ## Editing the content
+
+After changing `style.css`, `sky.js` or `pages.js`, bump the `?v=`
+number on their links in `index.html`. Browsers and GitHub Pages cache
+those files, and without the bump a visitor can get new HTML with an old
+stylesheet, which looks badly broken.
 
 Everything you'd normally edit is plain HTML in `index.html`. Each
 `<section class="page">` is one page. Inside a journal page:
@@ -68,8 +73,8 @@ Everything lives near the top of `sky.js`:
 - `currentHour()` — the sky wanders about twenty minutes either side of
   the real time so the colour is never quite still.
 - In the shader: `t = u_time * 0.012` sets how fast the colour bands
-  drift; the `0.075` on the grain line sets how heavy the grain is; the
-  `hz` line draws the horizon silhouette.
+  drift; `gf = u_time * 1.1` how fast the grain changes and the `0.06`
+  how heavy it is; the `hz` line draws the horizon silhouette.
 - The text colour switch happens in `updateInk()`.
 
 The site respects `prefers-reduced-motion`: the sky holds still and only
