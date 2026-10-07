@@ -7,8 +7,8 @@
    nothing is ever quite still but nothing is ever a shape you could
    name. A low silhouette of rooftops and trees sits along the bottom,
    and the whole thing is finished like a photograph: lifted blacks,
-   cool shadows, a vignette, and film grain that flickers at about
-   twelve frames a second.
+   cool shadows, a vignette, and film grain that slowly breathes instead
+   of flickering.
 
    The page's text colour follows the sky: ivory at dusk and night,
    dark ink when the sky is bright (see data-sky on <html>).
@@ -147,9 +147,14 @@
     '  col = col * 0.90 + 0.045;',
     '  float vig = smoothstep(1.45, 0.45, length((uv - 0.5) * vec2(1.1, 1.0)));',
     '  col *= 0.80 + 0.20 * vig;',
-    '  float frame = floor(u_time * 12.0);',
-    '  float gr = hash(gl_FragCoord.xy + vec2(fract(frame * 0.137) * 311.0, fract(frame * 0.291) * 197.0));',
-    '  col += (gr - 0.5) * 0.075;',
+    // Grain that breathes rather than flickers: two grain fields are
+    // crossfaded, and the pair changes about once a second.
+    '  float gf = u_time * 1.1;',
+    '  float ga = floor(gf), gb = ga + 1.0;',
+    '  float g1 = hash(gl_FragCoord.xy + vec2(fract(ga * 0.137) * 311.0, fract(ga * 0.291) * 197.0));',
+    '  float g2 = hash(gl_FragCoord.xy + vec2(fract(gb * 0.137) * 311.0, fract(gb * 0.291) * 197.0));',
+    '  float gr = mix(g1, g2, smoothstep(0.0, 1.0, fract(gf)));',
+    '  col += (gr - 0.5) * 0.06;',
     '',
     '  gl_FragColor = vec4(col, 1.0);',
     '}'
