@@ -1,11 +1,16 @@
 /* ------------------------------------------------------------------
-   ocean.js — a living water background.
+   ocean.js — living water whose colours follow the time of day.
 
-   A full-screen WebGL fragment shader draws a gently rolling sea.
-   The surface height is a sum of slow sine swells plus any number of
-   expanding ripple rings; the shader lights the surface from the
-   slope of that height field so swells, crests and ripples all read
-   as water. Click (or tap) anywhere to drop a ripple.
+   A full-screen WebGL fragment shader draws a gently rolling surface:
+   slow swells plus fine chop, lit from a low sun. The palette is
+   picked from a 24-hour cycle (indigo night, lavender-and-peach dawn,
+   blue day, orange-and-purple sunset) and drifts slowly within it so
+   the colour is never quite still. Clicks and taps drop small, soft,
+   stylised ripples.
+
+   Preview tricks (add to the URL):
+     ?hour=19       freeze the palette at a given hour (0-24, decimals ok)
+     ?cycle=120     run the whole day on a loop, this many seconds long
 
    Falls back to a quiet CSS gradient if WebGL isn't available.
    ------------------------------------------------------------------ */
@@ -24,6 +29,55 @@
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // --------------------------------------------------------------
+  // Palette through the day: [hour, deep, mid, shallow, glow]
+  // deep = horizon / far water, shallow = near water, glow = light.
+  // The dawn and dusk keys lean on the old site's #9B8BC7 lavender
+  // and #EDA074 orange; midday is the blue.
+  // --------------------------------------------------------------
+  var KEYS = [
+    [ 0,   [0.07, 0.05, 0.17], [0.19, 0.14, 0.37], [0.31, 0.21, 0.45], [0.78, 0.70, 0.92]],
+    [ 4.5, [0.10, 0.07, 0.25], [0.30, 0.20, 0.48], [0.44, 0.28, 0.50], [0.90, 0.72, 0.68]],
+    [ 7,   [0.22, 0.16, 0.44], [0.50, 0.42, 0.70], [0.80, 0.49, 0.36], [1.00, 0.86, 0.72]],
+    [ 9.5, [0.10, 0.15, 0.38], [0.30, 0.36, 0.62], [0.50, 0.52, 0.68], [0.95, 0.92, 0.92]],
+    [12,   [0.03, 0.12, 0.26], [0.09, 0.32, 0.46], [0.25, 0.58, 0.63], [0.84, 0.95, 0.95]],
+    [15,   [0.016, 0.078, 0.15], [0.04, 0.235, 0.37], [0.18, 0.52, 0.56], [0.82, 0.93, 0.93]],
+    [17.5, [0.06, 0.12, 0.32], [0.25, 0.27, 0.58], [0.52, 0.45, 0.72], [0.95, 0.86, 0.82]],
+    [19.5, [0.18, 0.11, 0.38], [0.48, 0.30, 0.58], [0.80, 0.47, 0.36], [1.00, 0.80, 0.62]],
+    [21.5, [0.11, 0.07, 0.27], [0.31, 0.19, 0.48], [0.46, 0.28, 0.52], [0.84, 0.70, 0.90]],
+    [24,   [0.07, 0.05, 0.17], [0.19, 0.14, 0.37], [0.31, 0.21, 0.45], [0.78, 0.70, 0.92]]
+  ];
+
+  function smooth(x) { return x * x * (3 - 2 * x); }
+  function lerp3(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+
+  function paletteAt(hour) {
+    hour = ((hour % 24) + 24) % 24;
+    for (var i = 0; i < KEYS.length - 1; i++) {
+      var a = KEYS[i], b = KEYS[i + 1];
+      if (hour >= a[0] && hour <= b[0]) {
+        var t = smooth((hour - a[0]) / (b[0] - a[0]));
+        return [lerp3(a[1], b[1], t), lerp3(a[2], b[2], t), lerp3(a[3], b[3], t), lerp3(a[4], b[4], t)];
+      }
+    }
+    return [KEYS[0][1], KEYS[0][2], KEYS[0][3], KEYS[0][4]];
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var fixedHour = params.has('hour') ? parseFloat(params.get('hour')) : NaN;
+  var cycleSecs = params.has('cycle') ? parseFloat(params.get('cycle')) : NaN;
+
+  // Which hour the water thinks it is. Real local time by default, with
+  // a slow wander of about forty minutes either way so the colour keeps
+  // moving even when the clock barely has.
+  function currentHour(t) {
+    if (cycleSecs > 0) return (t / cycleSecs) * 24;
+    if (!isNaN(fixedHour)) return fixedHour;
+    var d = new Date();
+    var h = d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600;
+    return h + 0.65 * Math.sin(t / 75);
+  }
+
+  // --------------------------------------------------------------
   // Shaders
   // --------------------------------------------------------------
   var VERT = [
@@ -37,6 +91,10 @@
     'uniform float u_time;',
     'uniform int   u_count;',
     'uniform vec4  u_ripples[' + MAX_RIPPLES + '];', // x, y, birth time, strength
+    'uniform vec3  u_deep;',
+    'uniform vec3  u_mid;',
+    'uniform vec3  u_shal;',
+    'uniform vec3  u_glow;',
     '',
     // Slow swells: a few sines travelling in different directions.
     'float swell(vec2 p, float t){',
@@ -49,7 +107,7 @@
     '}',
     '',
     // Chop: finer, faster wavelets layered on the swells so the surface
-    // has texture to catch the light even when nothing has been clicked.
+    // has texture to catch the light.
     'float chop(vec2 p, float t){',
     '  float h = 0.0;',
     '  h += sin(p.x * 4.10 + p.y * 2.10 - t * 1.40) * 0.50;',
@@ -60,27 +118,31 @@
     '  return h;',
     '}',
     '',
-    // Ripples: each click is a ring that expands outward, fading as it
-    // ages and as it travels. Inside the ring the surface oscillates
-    // with a short wavelength so the lighting picks it up sharply.
-    'float ripples(vec2 p, float t){',
-    '  float h = 0.0;',
+    // Ripples: each click is a small ring that drifts outward and fades
+    // in about two and a half seconds. They are drawn as a few soft
+    // bands of light with only a whisper of surface tilt, so they read
+    // as a gesture rather than a splash. Returns (tilt, light).
+    'vec2 ripples(vec2 p, float t){',
+    '  float tilt = 0.0;',
+    '  float light = 0.0;',
     '  for (int i = 0; i < ' + MAX_RIPPLES + '; i++){',
     '    if (i >= u_count) break;',
     '    vec4 r = u_ripples[i];',
     '    float age = t - r.z;',
-    '    if (age <= 0.0 || age > 6.0) continue;',
+    '    if (age <= 0.0 || age > 3.0) continue;',
     '    float d = distance(p, r.xy);',
-    '    float front = age * 0.55;',                    // how far the ring has travelled
-    '    float inside = 1.0 - smoothstep(front - 0.18, front + 0.04, d);',
-    '    float env = exp(-age * 0.75) * exp(-d * 1.1) * inside;',
-    '    float wave = sin(d * 42.0 - age * 11.0);',
-    '    h += wave * env * r.w;',
+    '    float front = 0.03 + age * 0.13;',             // ring radius grows to ~0.4 (screen height = 2)
+    '    float back = front - d;',                        // > 0 inside the ring
+    '    float shell = smoothstep(-0.010, 0.010, back) * (1.0 - smoothstep(0.05, 0.11, back));',
+    '    float bands = 0.5 + 0.5 * cos(back * 6.2832 / 0.05);',
+    '    float fade = exp(-age * 1.25) * (1.0 - smoothstep(2.2, 3.0, age)) * r.w;',
+    '    light += shell * bands * fade;',
+    '    tilt  += sin(back * 6.2832 / 0.05) * shell * fade;',
     '  }',
-    '  return h;',
+    '  return vec2(tilt, light);',
     '}',
     '',
-    'float height(vec2 p, float t){ return swell(p, t) + chop(p, t) * 0.14 + ripples(p, t) * 0.6; }',
+    'float height(vec2 p, float t){ return swell(p, t) + chop(p, t) * 0.14; }',
     '',
     'void main(){',
     '  float aspect = u_res.x / u_res.y;',
@@ -88,10 +150,11 @@
     '  vec2 p = vec2((uv.x - 0.5) * 2.0 * aspect, (uv.y - 0.5) * 2.0);',
     '  float t = u_time;',
     '',
+    '  vec2 rp = ripples(p, t);',
     '  float e = 0.012;',
-    '  float h  = height(p, t);',
-    '  float hx = height(p + vec2(e, 0.0), t);',
-    '  float hy = height(p + vec2(0.0, e), t);',
+    '  float h  = height(p, t) + rp.x * 0.012;',
+    '  float hx = height(p + vec2(e, 0.0), t) + ripples(p + vec2(e, 0.0), t).x * 0.012;',
+    '  float hy = height(p + vec2(0.0, e), t) + ripples(p + vec2(0.0, e), t).x * 0.012;',
     '  vec3 n = normalize(vec3(-(hx - h) / e * 0.30, -(hy - h) / e * 0.30, 1.0));',
     '',
     // Lighting: a low sun up and to the left, a viewer looking down.
@@ -102,27 +165,25 @@
     '  float glint = pow(clamp(dot(reflect(-L, n), V), 0.0, 1.0), 320.0);',
     '  float fres = pow(1.0 - clamp(dot(n, V), 0.0, 1.0), 2.0);',
     '',
-    // Palette: deep ink at the top (far), teal-green nearer the bottom.
-    '  vec3 deep  = vec3(0.016, 0.078, 0.150);',
-    '  vec3 mid   = vec3(0.040, 0.235, 0.370);',
-    '  vec3 shal  = vec3(0.180, 0.520, 0.560);',
-    '  vec3 foam  = vec3(0.820, 0.930, 0.930);',
-    '',
     '  float depth = smoothstep(0.0, 1.0, uv.y * 0.85 + 0.1);',   // 0 bottom, 1 top
-    '  vec3 col = mix(shal, deep, depth);',
-    '  col = mix(col, mid, 0.45 + 0.35 * sin(h * 1.7));',
+    '  vec3 col = mix(u_shal, u_deep, depth);',
+    '  col = mix(col, u_mid, 0.45 + 0.35 * sin(h * 1.7));',
     '  col += (diff - 0.5) * 0.30;',
-    '  col = mix(col, foam, smoothstep(0.55, 0.95, h) * 0.35);',   // crests catch light
-        // Highlights are soft-clamped so a steep slope never blows out to
-    // pure white under the type.
-'  float hl = spec * (0.18 + 0.30 * (1.0 - depth)) + glint * 0.35;',
-'  hl = hl / (1.0 + hl * 2.2);',
-'  col += hl * vec3(0.95, 0.97, 0.9);',
-    '  col += fres * vec3(0.10, 0.18, 0.22);',
+    '  col = mix(col, u_glow, smoothstep(0.55, 0.95, h) * 0.30);',   // crests catch light
     '',
-    // A soft vignette so the type always has somewhere dark to sit.
+    // Highlights are soft-clamped so a steep slope never blows out to
+    // pure white under the type.
+    '  float hl = spec * (0.18 + 0.30 * (1.0 - depth)) + glint * 0.35;',
+    '  hl = hl / (1.0 + hl * 2.2);',
+    '  col += hl * u_glow;',
+    '  col += fres * u_mid * 0.35;',
+    '',
+    // The ripple's bands of light, in the palette's glow colour.
+    '  col = mix(col, u_glow, clamp(rp.y, 0.0, 1.0) * 0.20);',
+    '',
+    // A soft vignette so the type always has somewhere darker to sit.
     '  float vig = smoothstep(1.35, 0.35, length((uv - 0.5) * vec2(1.15, 1.0)));',
-    '  col *= 0.72 + 0.28 * vig;',
+    '  col *= 0.64 + 0.36 * vig;',
     '',
     '  gl_FragColor = vec4(col, 1.0);',
     '}'
@@ -162,10 +223,10 @@
   gl.enableVertexAttribArray(aPos);
   gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
 
-  var uRes = gl.getUniformLocation(prog, 'u_res');
-  var uTime = gl.getUniformLocation(prog, 'u_time');
-  var uCount = gl.getUniformLocation(prog, 'u_count');
-  var uRipples = gl.getUniformLocation(prog, 'u_ripples');
+  var U = {};
+  ['u_res', 'u_time', 'u_count', 'u_ripples', 'u_deep', 'u_mid', 'u_shal', 'u_glow'].forEach(function (name) {
+    U[name] = gl.getUniformLocation(prog, name);
+  });
 
   // --------------------------------------------------------------
   // Ripple bookkeeping. A ring buffer of [x, y, birth, strength].
@@ -202,9 +263,9 @@
   window.addEventListener('pointermove', function (ev) {
     if (!(ev.buttons & 1)) return;
     var t = performance.now();
-    if (t - lastTrail < 90) return;
+    if (t - lastTrail < 110) return;
     lastTrail = t;
-    addRipple(ev.clientX, ev.clientY, 0.35);
+    addRipple(ev.clientX, ev.clientY, 0.45);
   }, { passive: true });
 
   // --------------------------------------------------------------
@@ -230,10 +291,15 @@
     frameReq = 0;
     resize();
     var t = now();
-    gl.uniform2f(uRes, canvas.width, canvas.height);
-    gl.uniform1f(uTime, reduceMotion ? t * 0.15 : t);
-    gl.uniform1i(uCount, rippleCount);
-    gl.uniform4fv(uRipples, ripples);
+    var pal = paletteAt(currentHour(t));
+    gl.uniform2f(U.u_res, canvas.width, canvas.height);
+    gl.uniform1f(U.u_time, reduceMotion ? t * 0.15 : t);
+    gl.uniform1i(U.u_count, rippleCount);
+    gl.uniform4fv(U.u_ripples, ripples);
+    gl.uniform3fv(U.u_deep, pal[0]);
+    gl.uniform3fv(U.u_mid, pal[1]);
+    gl.uniform3fv(U.u_shal, pal[2]);
+    gl.uniform3fv(U.u_glow, pal[3]);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     if (document.hidden) { running = false; return; }
@@ -242,7 +308,7 @@
   }
 
   function wake() {
-    stillUntil = performance.now() + 7000;   // ripples live about six seconds
+    stillUntil = performance.now() + 4000;   // ripples live about three seconds
     if (!running && !document.hidden) { running = true; frameReq = requestAnimationFrame(draw); }
   }
 
@@ -250,7 +316,10 @@
     if (!document.hidden) wake();
   });
 
-  gl.clearColor(0.016, 0.078, 0.150, 1);
+  // With reduced motion, still refresh the palette now and then.
+  if (reduceMotion) setInterval(wake, 60000);
+
+  gl.clearColor(0.07, 0.05, 0.17, 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
   wake();
 })();
