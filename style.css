@@ -254,7 +254,7 @@ h1 {
   flex: 0 0 auto;
   margin: 0;
   position: relative;
-  --frame-h: clamp(8rem, 18vw, 12rem);
+  --frame-h: clamp(7rem, 14.5vw, 10rem);
 }
 .frame img {
   display: block;
