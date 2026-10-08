@@ -27,10 +27,9 @@ Everything you'd normally edit is plain HTML in `index.html`. Each
 
 - `<article class="note">` is one note on the paper. Add or remove them freely.
 - `<div class="strip">` is the film strip. Each `<figure class="frame">`
-  is one frame. The frames currently hold placeholder sky gradients
-  (`<div class="photo" style="--sky-a:…">`) with made-up captions. To use
-  a real photo, replace the `.photo` div with
-  `<img src="photos/your-photo.jpg" alt="">` and change the caption.
+  holds one `<img>` from the `photos/` folder; add `class="frame portrait"`
+  for an upright photo. Photos are resized to 1600px on the long side
+  and saved without metadata before they go in.
 - `.hand` is handwriting, for short asides only.
 
 The Dance strip holds the three performance videos as frames.

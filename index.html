@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;500&family=VT323&display=swap" rel="stylesheet">
   <!-- The ?v= numbers bust browser and GitHub Pages caches: bump them whenever
        style.css, sky.js or pages.js change, or visitors may see a stale mix. -->
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=13">
   <script>document.documentElement.className = "js";</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23e8894d'/%3E%3Cstop offset='.55' stop-color='%23a0506a'/%3E%3Cstop offset='1' stop-color='%23241f44'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Crect x='3' y='27' width='26' height='3' fill='%23120f1a'/%3E%3C/svg%3E">
 </head>
@@ -75,11 +75,12 @@
           <span class="hand">last updated 5/13/26</span>
         </div>
 
-        <!-- a strip of film: swap the .photo divs for <img> tags when you have photos -->
-        <div class="strip" aria-hidden="true">
-          <figure class="frame"><div class="photo" style="--sky-a:#e9a06a;--sky-b:#8a5a7a;--sky-c:#2d2a52"></div><figcaption>blue hour, 57th st</figcaption></figure>
-          <figure class="frame"><div class="photo" style="--sky-a:#f0c89a;--sky-b:#b7a2b8;--sky-c:#52689a"></div><figcaption>reading room</figcaption></figure>
-          <figure class="frame"><div class="photo" style="--sky-a:#4a3a60;--sky-b:#1e1b3a;--sky-c:#0b0a18"></div><figcaption>the lake, late</figcaption></figure>
+        <!-- a strip of film: each <figure class="frame"> holds one photo; add class "portrait" for upright shots -->
+        <div class="strip tilt-a">
+          <figure class="frame"><img src="photos/blue-hour-coast.jpg" alt="A coastal town at blue hour, a crescent moon above the water" loading="lazy"></figure>
+          <figure class="frame portrait"><img src="photos/autumn-leaves.jpg" alt="Autumn leaves against a clear blue sky" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/moon-over-horizon.jpg" alt="A soft moon over a dusk horizon, orange fading to indigo" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/the-el.jpg" alt="Looking up at an L train passing overhead" loading="lazy"></figure>
         </div>
 
         <article class="note n1">
@@ -117,10 +118,11 @@
           <span class="hand">things I've made, so far</span>
         </div>
 
-        <div class="strip" aria-hidden="true">
-          <figure class="frame"><div class="photo" style="--sky-a:#f2b48a;--sky-b:#c77a7a;--sky-c:#4a3a6a"></div><figcaption>notes app, v0</figcaption></figure>
-          <figure class="frame"><div class="photo" style="--sky-a:#9fb4c8;--sky-b:#5d7a9a;--sky-c:#2a3a5c"></div><figcaption>sleep log</figcaption></figure>
-          <figure class="frame"><div class="photo" style="--sky-a:#f6d7a8;--sky-b:#d49a86;--sky-c:#6a4a6a"></div><figcaption>first post</figcaption></figure>
+        <div class="strip tilt-b">
+          <figure class="frame"><img src="photos/downtown-coneflowers.jpg" alt="Purple coneflowers in front of downtown Chicago buildings" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/decision-theory-talk.jpg" alt="Giving a talk on acausal decision theory, projected on a living-room wall" loading="lazy"></figure>
+          <figure class="frame portrait"><img src="photos/podium-talk.jpg" alt="Speaking at a podium in a blue blouse" loading="lazy"></figure>
+          <figure class="frame portrait"><img src="photos/lakefront-asters.jpg" alt="White asters along the lakefront path, the skyline behind" loading="lazy"></figure>
         </div>
 
         <article class="note n1">
@@ -161,8 +163,16 @@
           </p>
         </article>
 
+        <div class="strip tilt-c">
+          <figure class="frame"><img src="photos/maya-tableau.jpg" alt="UChicago Maya dancers in a tableau under warm light, mirrors at the edges" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/four-in-white.jpg" alt="Four dancers in white shirts holding hands on a lavender-lit stage" loading="lazy"></figure>
+          <figure class="frame portrait"><img src="photos/stage-green-light.jpg" alt="Dancers on a green-lit stage, arms raised" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/final-bow.jpg" alt="The whole cast in black taking a bow, hands raised" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/curtain-call.jpg" alt="Curtain call, the cast waving in pink and lavender dresses" loading="lazy"></figure>
+        </div>
+
         <!-- cine film: the three performances as frames on a strip -->
-        <div class="strip wide">
+        <div class="strip wide tilt-e">
           <figure class="frame video">
             <iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/ZHq5HaCZGsg?rel=0" title="UChicago Maya performance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </figure>
@@ -188,9 +198,11 @@
           <span class="hand">I would love to connect with you</span>
         </div>
 
-        <div class="strip" aria-hidden="true">
-          <figure class="frame"><div class="photo" style="--sky-a:#e07a5a;--sky-b:#7a3a5a;--sky-c:#1c1838"></div><figcaption>rooftop</figcaption></figure>
-          <figure class="frame"><div class="photo" style="--sky-a:#ffd2a0;--sky-b:#c98a90;--sky-c:#3b3a6a"></div><figcaption>train home</figcaption></figure>
+        <div class="strip tilt-d">
+          <figure class="frame portrait"><img src="photos/chicago-print.jpg" alt="A Chicago print, a maroon foam finger and a photo-booth strip" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/lakefront-splash.jpg" alt="Three friends on the lakefront rocks as a wave breaks, the skyline behind" loading="lazy"></figure>
+          <figure class="frame"><img src="photos/group-at-the-board.jpg" alt="A group of friends posing in front of a chalkboard" loading="lazy"></figure>
+          <figure class="frame portrait"><img src="photos/rodin-eternal-spring.jpg" alt="A Rodin bronze in front of a Monet at the museum" loading="lazy"></figure>
         </div>
 
         <article class="note n1 scribbles">
@@ -223,7 +235,7 @@
       if (s) s.textContent = "'" + String(d.getFullYear()).slice(2) + ' ' + (d.getMonth() + 1) + ' ' + d.getDate();
     })();
   </script>
-  <script src="sky.js?v=9"></script>
-  <script src="pages.js?v=9"></script>
+  <script src="sky.js?v=13"></script>
+  <script src="pages.js?v=13"></script>
 </body>
 </html>
