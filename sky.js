@@ -126,13 +126,13 @@
     '  col = mix(col, u_zen, smoothstep(0.45, 1.05, y));',
     '  col += u_glow * smoothstep(0.55, 0.9, n2) * 0.10 * (1.0 - smoothstep(0.0, 0.7, uv.y));',
     '',
-    // Stars, only when the palette says it is night.
+    // Stars, only when the palette says it is night. They hold still.
     '  if (u_night > 0.0){',
     '    vec2 g = gl_FragCoord.xy / 3.0;',
     '    vec2 id = floor(g);',
     '    float h = hash(id);',
     '    float star = step(0.994, h) * smoothstep(0.55, 0.05, length(fract(g) - 0.5));',
-    '    float tw = 0.55 + 0.45 * sin(u_time * (0.4 + h * 1.5) + h * 40.0);',
+    '    float tw = 0.55 + 0.45 * fract(h * 97.0);',   // steady, each star its own brightness
     '    col += star * tw * u_night * smoothstep(0.25, 0.9, uv.y) * 0.75;',
     '  }',
     '',
