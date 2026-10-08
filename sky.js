@@ -132,7 +132,11 @@
     '    vec2 id = floor(g);',
     '    float h = hash(id);',
     '    float star = step(0.994, h) * smoothstep(0.55, 0.05, length(fract(g) - 0.5));',
-    '    float tw = 0.55 + 0.45 * sin(u_time * (0.4 + h * 1.5) + h * 40.0);',
+        // A second hash gives every star its own rhythm and phase. The
+    // first hash picks the stars, so its value is nearly the same for
+    // all of them and would make them blink in unison.
+    '    float h2 = hash(id + vec2(17.3, 91.7));',
+    '    float tw = 0.6 + 0.4 * sin(u_time * (0.25 + h2 * 1.2) + h2 * 6.2832);',
     '    col += star * tw * u_night * smoothstep(0.25, 0.9, uv.y) * 0.75;',
     '  }',
     '',
