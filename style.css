@@ -20,7 +20,7 @@
   --pencil: #3a302b;
   --pencil-soft: #6b5d55;
   --pencil-faint: rgba(58, 48, 43, 0.35);
-  --rule: rgba(90, 110, 150, 0.22);
+  --rule: rgba(90, 110, 150, 0.3);
   --stamp: #ff9b3d;
   --film: #15120f;
 
@@ -31,6 +31,8 @@
 
   /* paper grain, used as a background layer */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* a soft, larger mottle like the fibres in handmade paper */
+  --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
 }
 :root[data-sky="bright"] {
   --ink: #2a2320;
@@ -279,30 +281,44 @@ h1 {
 .frame.video { aspect-ratio: 16 / 9; background: #000; border-radius: 2px; overflow: hidden; min-width: 0; }
 .frame.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* ---- notes ---- */
+/* ---- notes ----
+   The text sits on a separate paper layer (.note::before) so the torn
+   edge filter roughens the paper without warping the writing. */
 .note {
   position: relative;
-  padding: 1.25rem 1.35rem 1.1rem;
-  background:
-    repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em),
-    var(--card);
-  background-origin: content-box, border-box;
-  filter: drop-shadow(0 6px 10px rgba(8, 6, 16, 0.2)) drop-shadow(0 1px 1px rgba(8, 6, 16, 0.25));
+  padding: 1.3rem 1.4rem 1.2rem;
   font-size: 0.98em;
+  isolation: isolate;
 }
-/* a roughly torn bottom edge */
-.note::after {
+/* the ruling is drawn on the text blocks, above the torn paper layer,
+   so the lines stay straight while the edges tear */
+.note > p, .note > ul {
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em);
+}
+.note::before {
   content: "";
-  position: absolute; left: 0; right: 0; bottom: -0.62rem; height: 0.7rem;
-  background: var(--card);
-  clip-path: polygon(0% 0%, 100% 0%, 100.0% 0.41rem, 96.2% 0.38rem, 92.3% 0.56rem, 88.5% 0.48rem, 84.6% 0.26rem, 80.8% 0.61rem, 76.9% 0.18rem, 73.1% 0.33rem, 69.2% 0.50rem, 65.4% 0.20rem, 61.5% 0.36rem, 57.7% 0.14rem, 53.8% 0.45rem, 50.0% 0.50rem, 46.2% 0.41rem, 42.3% 0.56rem, 38.5% 0.28rem, 34.6% 0.47rem, 30.8% 0.42rem, 26.9% 0.41rem, 23.1% 0.35rem, 19.2% 0.54rem, 15.4% 0.59rem, 11.5% 0.36rem, 7.7% 0.45rem, 3.8% 0.15rem, 0.0% 0.47rem);
+  position: absolute;
+  inset: -0.35rem -0.3rem -0.5rem;
+  z-index: -1;
+  background:
+    var(--grain),
+    var(--mottle),
+    linear-gradient(170deg, #f9f3e3 0%, #f4ecd8 60%, #ece2cb 100%);
+  background-blend-mode: soft-light, soft-light, normal;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 252, 244, 0.7),   /* fibrous light rim along the tear */
+    inset 0 0 1.4rem rgba(120, 95, 60, 0.10),   /* a little age toward the edges */
+    0 7px 14px rgba(8, 6, 16, 0.22),
+    0 1px 2px rgba(8, 6, 16, 0.25);
+  filter: url(#torn);
 }
+.note.n2::before { filter: url(#torn2); }
 .note p { margin: 0; }
 .note p + p { margin-top: 1.6em; }
 /* a piece of tape at the top */
-.note::before {
+.note::after {
   content: "";
-  position: absolute; top: -0.6rem; left: 50%;
+  position: absolute; top: -0.75rem; left: 50%;
   width: 5.5rem; height: 1.25rem;
   transform: translateX(-50%) rotate(-2deg);
   background: linear-gradient(to right, rgba(236, 232, 224, 0.5), rgba(246, 244, 238, 0.62) 50%, rgba(236, 232, 224, 0.5));
@@ -374,22 +390,21 @@ h1 {
 .pile {
   grid-column: 1 / -1;
   position: relative;
-  height: calc(var(--rows, 3) * clamp(7.5rem, 11vw, 9rem));
-  margin: 4rem -1.5rem 5rem;
+  height: calc(var(--rows, 3) * clamp(9.5rem, 14vw, 12rem));
+  margin: 4rem -0.5rem 5rem;
 }
 .entry {
   position: absolute;
   width: calc(var(--w, 1) * clamp(8rem, 100% / var(--cols, 6) * 1.45, 13rem));
   transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
-  transition: transform .25s ease, box-shadow .25s ease, z-index 0s;
+  transition: box-shadow .25s ease;
   box-shadow: 0 8px 22px rgba(8, 6, 16, 0.3), 0 1px 2px rgba(8, 6, 16, 0.25);
   background: #ede4d0;
   cursor: zoom-in;
 }
 .entry img { display: block; width: 100%; height: auto; }
 .entry:hover, .entry:focus-visible {
-  transform: translate(-50%, -50%) rotate(0deg) scale(1.06);
-  box-shadow: 0 18px 40px rgba(8, 6, 16, 0.4);
+  box-shadow: 0 12px 30px rgba(8, 6, 16, 0.4);
   z-index: 20 !important;
   outline: none;
 }
@@ -424,7 +439,7 @@ h1 {
 body.lb-open { overflow: hidden; }
 
 @media (max-width: 680px) {
-  .pile { height: calc(var(--rows, 5) * 7rem); margin-left: -0.5rem; margin-right: -0.5rem; }
+  .pile { height: calc(var(--rows, 5) * 8.5rem); margin-left: -0.25rem; margin-right: -0.25rem; }
   .entry { width: calc(var(--w, 1) * 7.5rem); }
   .lightbox { padding: 0.5rem; }
   .lightbox button { font-size: 1.8rem; }
