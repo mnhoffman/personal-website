@@ -34,6 +34,7 @@
       <a href="#currently">currently</a>
       <a href="#projects">projects</a>
       <a href="#dance">dance</a>
+      <a href="#advice">advice</a>
       <a href="#contact">contact</a>
     </nav>
   </header>
@@ -190,6 +191,37 @@
       </div>
     </section>
 
+    <!-- ============ ADVICE ============ -->
+    <section id="advice" class="page journal">
+      <div class="paper paper-advice">
+        <div class="paper-head">
+          <h2>Advice</h2>
+          <span class="hand">from the green notebook</span>
+        </div>
+
+        <article class="note n1 lead">
+          <p>
+            Since 2023, I've been collecting advice from friends and strangers in a green notebook
+            I carried with me almost everywhere. I lost the notebook this summer
+            (<a href="https://madlenreads.substack.com/p/to-the-boy-who-robbed-me?r=5j2qmf&amp;utm_campaign=post&amp;utm_medium=web" target="_blank" rel="noopener">full story here</a>)
+            but by the kindness and foresight of some lovely people, most of the entries have been
+            saved digitally and now exist here. I carry around a new green notebook and would love
+            for you to add your advice to your past self &mdash; I will probably request it if I know
+            you in person, but if you ask me to add yours I will probably cry tears of joy. You're
+            also welcome to
+            <a href="mailto:mnhoffman@uchicago.edu?subject=Advice%20for%20the%20green%20notebook">upload your own</a>
+            to this page :)
+          </p>
+        </article>
+
+        <!-- The entries. advice.js reads advice/entries.json, scatters the
+             pages here at random, and opens one when it is clicked. -->
+        <div class="pile" id="pile" aria-label="Pages from the notebook"></div>
+
+        <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
+      </div>
+    </section>
+
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="page journal">
       <div class="paper">
@@ -228,6 +260,14 @@
 
   </main>
 
+  <!-- One entry, opened. advice.js fills and shows this. -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" type="button" aria-label="Close">&times;</button>
+    <button class="lb-prev" type="button" aria-label="Previous page">&lsaquo;</button>
+    <figure class="lb-figure"><img id="lb-img" alt="A page from the green notebook"></figure>
+    <button class="lb-next" type="button" aria-label="Next page">&rsaquo;</button>
+  </div>
+
   <script>
     // The date stamp: ' YY MM DD, the way a point-and-shoot prints it.
     (function () {
@@ -237,5 +277,6 @@
   </script>
   <script src="sky.js?v=14"></script>
   <script src="pages.js?v=14"></script>
+  <script src="advice.js?v=14"></script>
 </body>
 </html>

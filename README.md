@@ -34,6 +34,20 @@ Everything you'd normally edit is plain HTML in `index.html`. Each
 
 The Dance strip holds the three performance videos as frames.
 
+### The advice page
+
+The Advice page scatters pages from the green notebook across the paper
+and opens one when clicked. To add entries:
+
+1. Save each page as a JPG (around 1200px on the long side is plenty)
+   into the `advice/` folder.
+2. Add its filename to the list in `advice/entries.json`.
+
+The arrangement is random on every visit, and nothing is labelled. The
+`placeholder-*.jpg` files are stand-ins to delete once the real pages
+are in. The "upload your own" link currently opens an email; a static
+site can't accept uploads directly.
+
 ## Previewing locally
 
 Any static file server works. For example:
