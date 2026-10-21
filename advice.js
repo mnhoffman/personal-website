@@ -49,6 +49,10 @@
       a.dataset.index = i;
       var left = (c + 0.5) * cellW + (Math.random() - 0.5) * cellW * 0.6;
       var top = (r + 0.5) * cellH + (Math.random() - 0.5) * cellH * 0.5;
+      // the first and last rows only wander inward, so no page climbs
+      // over the note above the pile or the link below it
+      if (r === 0) top = Math.max(top, 0.55 * cellH);
+      if (r === rows - 1) top = Math.min(top, 100 - 0.55 * cellH);
       a.style.left = left + '%';
       a.style.top = top + '%';
       a.style.setProperty('--tilt', ((Math.random() - 0.5) * 18).toFixed(1) + 'deg');

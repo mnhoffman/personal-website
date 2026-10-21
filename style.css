@@ -282,24 +282,20 @@ h1 {
 .frame.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---- notes ----
-   The text sits on a separate paper layer (.note::before) so the torn
-   edge filter roughens the paper without warping the writing. */
+   Three layers: the torn paper (.note::before), the ruled lines
+   (.note::after, continuous and only faintly wavy), and the text on
+   top. The tape hangs off the first paragraph's pseudo-element. */
 .note {
   position: relative;
   padding: 1.3rem 1.4rem 1.2rem;
   font-size: 0.98em;
   isolation: isolate;
 }
-/* the ruling is drawn on the text blocks, above the torn paper layer,
-   so the lines stay straight while the edges tear */
-.note > p, .note > ul {
-  background: repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em);
-}
 .note::before {
   content: "";
   position: absolute;
   inset: -0.35rem -0.3rem -0.5rem;
-  z-index: -1;
+  z-index: -2;
   background:
     var(--grain),
     var(--mottle),
@@ -313,10 +309,21 @@ h1 {
   filter: url(#torn);
 }
 .note.n2::before { filter: url(#torn2); }
+.note::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em);
+  background-origin: content-box;
+  padding: 1.65rem 1rem 0;           /* ruling starts below the first line */
+  filter: url(#wobble);
+  pointer-events: none;
+}
 .note p { margin: 0; }
 .note p + p { margin-top: 1.6em; }
 /* a piece of tape at the top */
-.note::after {
+.note > :first-child::before {
   content: "";
   position: absolute; top: -0.75rem; left: 50%;
   width: 5.5rem; height: 1.25rem;
@@ -383,7 +390,8 @@ h1 {
 ::selection { background: rgba(255, 155, 61, 0.35); }
 
 /* ---------------- advice: the green notebook ---------------- */
-.paper-advice .note.lead { max-width: 46rem; }
+.paper-advice .note.lead { max-width: 46rem; z-index: 30; }   /* always above the pile */
+.paper-advice .back { position: relative; z-index: 30; }
 
 /* The pile: a relative box whose height grows with the number of
    rows; each page is placed by advice.js. */
@@ -391,7 +399,7 @@ h1 {
   grid-column: 1 / -1;
   position: relative;
   height: calc(var(--rows, 3) * clamp(9.5rem, 14vw, 12rem));
-  margin: 4rem -0.5rem 5rem;
+  margin: 5rem -0.5rem 5rem;
 }
 .entry {
   position: absolute;
