@@ -47,7 +47,7 @@
       a.href = 'advice/' + name;
       a.setAttribute('aria-label', 'Open this page');
       a.dataset.index = i;
-      var left = (c + 0.5) * cellW + (Math.random() - 0.5) * cellW * 0.6;
+      var left = (c + 0.5) * cellW + (Math.random() - 0.5) * cellW * 0.5;
       var top = (r + 0.5) * cellH + (Math.random() - 0.5) * cellH * 0.5;
       // the first and last rows only wander inward, so no page climbs
       // over the note above the pile or the link below it
@@ -56,7 +56,7 @@
       a.style.left = left + '%';
       a.style.top = top + '%';
       a.style.setProperty('--tilt', ((Math.random() - 0.5) * 18).toFixed(1) + 'deg');
-      a.style.setProperty('--w', (0.85 + Math.random() * 0.4).toFixed(2));
+      a.style.setProperty('--w', (0.8 + Math.random() * 0.35).toFixed(2));
       a.style.zIndex = 1 + Math.floor(Math.random() * 9);
       var im = document.createElement('img');
       im.src = 'advice/' + name;
