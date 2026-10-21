@@ -390,7 +390,8 @@ h1 {
 ::selection { background: rgba(255, 155, 61, 0.35); }
 
 /* ---------------- advice: the green notebook ---------------- */
-.paper-advice .note.lead { max-width: 46rem; }
+.paper-advice .note.lead { max-width: 46rem; z-index: 30; }   /* always above the pile */
+.paper-advice .back { position: relative; z-index: 30; }
 
 /* The pile: a relative box whose height grows with the number of
    rows; each page is placed by advice.js. */
@@ -398,7 +399,7 @@ h1 {
   grid-column: 1 / -1;
   position: relative;
   height: calc(var(--rows, 3) * clamp(9.5rem, 14vw, 12rem));
-  margin: 4rem -0.5rem 5rem;
+  margin: 5rem -0.5rem 5rem;
 }
 .entry {
   position: absolute;
