@@ -398,12 +398,12 @@ h1 {
 .pile {
   grid-column: 1 / -1;
   position: relative;
-  height: calc(var(--rows, 3) * clamp(11rem, 16.5vw, 14rem));
+  height: calc(var(--rows, 3) * clamp(10rem, 15vw, 12.5rem));
   margin: 5rem -0.5rem 5rem;
 }
 .entry {
   position: absolute;
-  width: calc(var(--w, 1) * clamp(8rem, 100% / var(--cols, 6) * 1.25, 12rem));
+  width: calc(var(--w, 1) * clamp(8rem, 100% / var(--cols, 6) * 1.12, 12rem));
   transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
   transition: box-shadow .5s ease, filter .5s ease, z-index 0s linear .3s;
   box-shadow: 0 8px 22px rgba(8, 6, 16, 0.3), 0 1px 2px rgba(8, 6, 16, 0.25);
