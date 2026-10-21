@@ -406,7 +406,8 @@ h1 {
   columns: 5;
   column-gap: 0;
   margin: 2.5rem 0 3.5rem;
-  padding-top: 0.6rem;
+  padding: 0.6rem 1.2rem 0;
+  overflow: hidden;
 }
 .entry {
   display: block;
@@ -414,19 +415,17 @@ h1 {
   position: relative;
   /* wider than the column and pulled up under the page above, so pages
      overlap their neighbours on every side */
-  width: 124%;
-  margin: 0 0 -1.8rem -12%;
+  width: 118%;
+  margin: 0 0 -1.8rem -9%;
   transform: translateX(var(--dx, 0)) rotate(var(--tilt, 0deg));
-  transition: box-shadow .5s ease, filter .5s ease, z-index 0s linear .3s;
+  transition: box-shadow .3s ease;
   box-shadow: 0 6px 16px rgba(8, 6, 16, 0.28), 0 1px 2px rgba(8, 6, 16, 0.25);
   background: #ede4d0;
   cursor: zoom-in;
 }
 .entry img { display: block; width: 100%; max-width: 100%; height: auto; }
 .entry:hover, .entry:focus-visible {
-  box-shadow: 0 10px 24px rgba(8, 6, 16, 0.34), 0 1px 2px rgba(8, 6, 16, 0.25);
-  filter: brightness(1.03);
-  z-index: 20 !important;
+  box-shadow: 0 10px 24px rgba(8, 6, 16, 0.36), 0 1px 2px rgba(8, 6, 16, 0.25);
   outline: none;
 }
 
