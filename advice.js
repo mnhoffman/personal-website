@@ -16,7 +16,6 @@
   var entries = [];
   var order = [];
   var current = -1;
-  var built = false;
 
   // A fixed arrangement: the same shuffle every visit, from a seeded
   // generator, so the pile looks considered rather than re-rolled.
@@ -36,38 +35,64 @@
     return a;
   }
 
-  // Pages flow down columns (CSS multi-column), each tilted a little and
-  // tucked slightly under the one above, so the sheet fills edge to edge
-  // with no open patches.
+  // Lay the pile out ourselves: a masonry of N columns, each page a bit
+  // wider than its column and tucked up under the page above, tilted a
+  // touch. Positions are absolute, so nothing depends on the browser's
+  // multi-column fragmentation (which drops rotated pages at column
+  // tops in some browsers). Sizes come from entries.json so the layout
+  // is settled before a single image has loaded.
+  var laidOutWidth = 0;
   function build() {
-    if (built || !entries.length) return;
-    built = true;
+    if (!entries.length) return;
+    var W = pile.clientWidth;
+    if (!W || W === laidOutWidth) return;
+    laidOutWidth = W;
     var rand = rng(20231101);
-    order = shuffle(entries.slice(), rand);
+    if (!order.length) order = shuffle(entries.slice(), rand); else rand = rng(20231102);
+    var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var cols = W > 760 ? 5 : W > 520 ? 4 : 2;
+    var colW = W / cols;
+    var pageW = colW * 1.18;
+    var tuck = 1.8 * rem;              // how far each page slides under the one above
+    var heights = []; for (var k = 0; k < cols; k++) heights.push(0);
+    pile.innerHTML = '';
     var frag = document.createDocumentFragment();
-    order.forEach(function (name, i) {
+    order.forEach(function (e, i) {
+      // the shortest column, so the bottom edge stays even
+      var c = 0; for (var k = 1; k < cols; k++) if (heights[k] < heights[c]) c = k;
+      var h = pageW * e.h / e.w;
       var a = document.createElement('a');
       a.className = 'entry';
-      a.href = 'advice/' + name;
+      a.href = 'advice/' + e.src;
       a.setAttribute('aria-label', 'Open this page');
       a.dataset.index = i;
+      a.style.width = pageW + 'px';
+      a.style.left = (c * colW - colW * 0.09 + (rand() - 0.5) * 1.6 * rem) + 'px';
+      a.style.top = Math.max(0, heights[c] - (heights[c] ? tuck : 0)) + 'px';
       a.style.setProperty('--tilt', ((rand() - 0.5) * 12).toFixed(1) + 'deg');
-      a.style.setProperty('--dx', ((rand() - 0.5) * 1.6).toFixed(2) + 'rem');
       a.style.zIndex = 1 + Math.floor(rand() * 9);
+      heights[c] += h - (heights[c] ? tuck : 0);
       var im = document.createElement('img');
-      im.src = 'advice/' + name;
+      im.src = 'advice/' + e.src;
       im.alt = '';
+      im.width = e.w; im.height = e.h;
       im.loading = i < 24 ? 'eager' : 'lazy';
       a.appendChild(im);
       a.addEventListener('click', function (ev) { ev.preventDefault(); open(i); });
       frag.appendChild(a);
     });
     pile.appendChild(frag);
+    pile.style.height = (Math.max.apply(null, heights) + 0.5 * rem) + 'px';
   }
+  var resizeTimer = 0;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { if (window.location.hash === '#advice') build(); }, 150);
+  });
 
   function open(i) {
     current = (i + order.length) % order.length;
-    img.src = 'advice/' + order[current];
+    img.src = 'advice/' + order[current].src;
     box.hidden = false;
     document.body.classList.add('lb-open');
   }
