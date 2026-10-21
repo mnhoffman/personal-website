@@ -20,7 +20,7 @@
   --pencil: #3a302b;
   --pencil-soft: #6b5d55;
   --pencil-faint: rgba(58, 48, 43, 0.35);
-  --rule: rgba(90, 110, 150, 0.22);
+  --rule: rgba(90, 110, 150, 0.3);
   --stamp: #ff9b3d;
   --film: #15120f;
 
@@ -31,8 +31,8 @@
 
   /* paper grain, used as a background layer */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* a softer, larger mottle like the fibres in handmade paper */
-  --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  /* a soft, larger mottle like the fibres in handmade paper */
+  --mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
 }
 :root[data-sky="bright"] {
   --ink: #2a2320;
@@ -169,85 +169,35 @@ h1 {
   align-items: flex-start;
 }
 
-.sheet {
-  position: relative;
-  width: min(100%, 58rem);
-  transform: rotate(-0.6deg);
-  filter: drop-shadow(0 26px 34px rgba(8, 6, 16, 0.45)) drop-shadow(0 2px 3px rgba(8, 6, 16, 0.35));
-}
-/* A hand-torn sheet: a deckled edge all the way round, fibrous texture. */
 .paper {
   position: relative;
-  padding: clamp(1.4rem, 3.5vw, 3rem) clamp(1.3rem, 4vw, 3.5rem) 2.6rem;
+  width: min(100%, 58rem);
+  padding: clamp(1.25rem, 3.5vw, 3rem) clamp(1.1rem, 4vw, 3.5rem) 2.5rem;
   color: var(--pencil);
-  background:
-    var(--mottle),
-    linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #eedfc2 100%);
-  background-blend-mode: soft-light, normal;
-  clip-path: polygon(0.00% 0.35rem, 2.63% 0.57rem, 5.26% 0.38rem, 7.89% 0.23rem, 10.53% 0.43rem, 13.16% 0.19rem, 15.79% 0.19rem, 18.42% 1.55rem, 21.05% 0.58rem, 23.68% 0.43rem, 26.32% 0.16rem, 28.95% 0.18rem, 31.58% 1.04rem, 34.21% 0.35rem, 36.84% 0.38rem, 39.47% 0.37rem, 42.11% 0.36rem, 44.74% 0.60rem, 47.37% 0.53rem, 50.00% 0.29rem, 52.63% 0.28rem, 55.26% 0.49rem, 57.89% 0.53rem, 60.53% 0.58rem, 63.16% 0.15rem, 65.79% 0.56rem, 68.42% 0.59rem, 71.05% 0.18rem, 73.68% 0.50rem, 76.32% 0.19rem, 78.95% 0.58rem, 81.58% 0.20rem, 84.21% 0.20rem, 86.84% 0.51rem, 89.47% 0.40rem, 92.11% 0.24rem, 94.74% 0.21rem, 97.37% 0.20rem, 100.00% 0.25rem, calc(100% - 0.59rem) 2.63%, calc(100% - 0.29rem) 5.26%, calc(100% - 0.24rem) 7.89%, calc(100% - 0.53rem) 10.53%, calc(100% - 0.20rem) 13.16%, calc(100% - 0.25rem) 15.79%, calc(100% - 0.50rem) 18.42%, calc(100% - 0.28rem) 21.05%, calc(100% - 0.19rem) 23.68%, calc(100% - 0.26rem) 26.32%, calc(100% - 0.32rem) 28.95%, calc(100% - 0.58rem) 31.58%, calc(100% - 0.41rem) 34.21%, calc(100% - 0.23rem) 36.84%, calc(100% - 0.56rem) 39.47%, calc(100% - 0.26rem) 42.11%, calc(100% - 0.48rem) 44.74%, calc(100% - 0.24rem) 47.37%, calc(100% - 0.55rem) 50.00%, calc(100% - 0.34rem) 52.63%, calc(100% - 0.17rem) 55.26%, calc(100% - 0.26rem) 57.89%, calc(100% - 0.27rem) 60.53%, calc(100% - 0.42rem) 63.16%, calc(100% - 0.23rem) 65.79%, calc(100% - 0.18rem) 68.42%, calc(100% - 0.40rem) 71.05%, calc(100% - 0.43rem) 73.68%, calc(100% - 0.56rem) 76.32%, calc(100% - 0.16rem) 78.95%, calc(100% - 0.35rem) 81.58%, calc(100% - 0.23rem) 84.21%, calc(100% - 0.41rem) 86.84%, calc(100% - 0.31rem) 89.47%, calc(100% - 0.59rem) 92.11%, calc(100% - 0.46rem) 94.74%, calc(100% - 0.72rem) 97.37%, calc(100% - 0.56rem) 100.00%, 97.37% calc(100% - 1.46rem), 94.74% calc(100% - 0.37rem), 92.11% calc(100% - 0.29rem), 89.47% calc(100% - 0.18rem), 86.84% calc(100% - 0.48rem), 84.21% calc(100% - 0.48rem), 81.58% calc(100% - 0.51rem), 78.95% calc(100% - 0.31rem), 76.32% calc(100% - 0.56rem), 73.68% calc(100% - 0.34rem), 71.05% calc(100% - 0.54rem), 68.42% calc(100% - 0.43rem), 65.79% calc(100% - 0.41rem), 63.16% calc(100% - 0.19rem), 60.53% calc(100% - 0.60rem), 57.89% calc(100% - 0.48rem), 55.26% calc(100% - 0.48rem), 52.63% calc(100% - 0.35rem), 50.00% calc(100% - 0.19rem), 47.37% calc(100% - 0.16rem), 44.74% calc(100% - 0.37rem), 42.11% calc(100% - 0.46rem), 39.47% calc(100% - 0.43rem), 36.84% calc(100% - 0.95rem), 34.21% calc(100% - 0.46rem), 31.58% calc(100% - 0.23rem), 28.95% calc(100% - 0.45rem), 26.32% calc(100% - 0.55rem), 23.68% calc(100% - 0.45rem), 21.05% calc(100% - 0.34rem), 18.42% calc(100% - 0.56rem), 15.79% calc(100% - 0.32rem), 13.16% calc(100% - 0.29rem), 10.53% calc(100% - 0.37rem), 7.89% calc(100% - 0.53rem), 5.26% calc(100% - 0.58rem), 2.63% calc(100% - 0.23rem), 0.00% calc(100% - 0.27rem), 0.34rem 97.37%, 0.37rem 94.74%, 0.53rem 92.11%, 0.35rem 89.47%, 0.16rem 86.84%, 0.17rem 84.21%, 0.41rem 81.58%, 1.09rem 78.95%, 1.35rem 76.32%, 0.26rem 73.68%, 0.17rem 71.05%, 0.35rem 68.42%, 0.44rem 65.79%, 0.58rem 63.16%, 0.24rem 60.53%, 1.01rem 57.89%, 0.47rem 55.26%, 0.27rem 52.63%, 0.46rem 50.00%, 0.43rem 47.37%, 0.33rem 44.74%, 0.56rem 42.11%, 0.57rem 39.47%, 0.21rem 36.84%, 0.43rem 34.21%, 0.32rem 31.58%, 0.55rem 28.95%, 0.57rem 26.32%, 0.44rem 23.68%, 0.47rem 21.05%, 0.44rem 18.42%, 0.25rem 15.79%, 0.59rem 13.16%, 0.39rem 10.53%, 0.29rem 7.89%, 0.54rem 5.26%, 0.19rem 2.63%);
+  background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #eedfc2 100%);
+  box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5), 0 2px 6px rgba(8, 6, 16, 0.3);
+  transform: rotate(-0.6deg);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.75rem 2.25rem;
   align-items: start;
 }
+/* paper grain and a faint fold down the middle */
 .paper::before {
   content: "";
   position: absolute; inset: 0;
   background: var(--grain);
-  opacity: 0.3;
+  opacity: 0.38;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
-/* the torn edge shows a lighter, fibrous rim */
 .paper::after {
   content: "";
-  position: absolute; inset: 0;
-  box-shadow: inset 0 0 0 0.35rem rgba(255, 250, 240, 0.55), inset 0 0 1.2rem rgba(120, 100, 70, 0.12);
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(58, 48, 43, 0.12) 20%, rgba(58, 48, 43, 0.12) 80%, transparent);
   pointer-events: none;
 }
-
-/* ---- scraps behind the sheet: torn kraft, a strip of tape, a paperclip ---- */
-.scraps { position: absolute; inset: 0; pointer-events: none; }
-.scraps i { position: absolute; display: block; }
-.scraps .s1, .scraps .s2, .scraps .s3 {
-  background: var(--grain), var(--scrap, #c9a98a);
-  background-blend-mode: multiply, normal;
-}
-.scraps .s1 { --scrap: #c8a284; width: 11rem; height: 7rem; top: -1.6rem; right: 2.5rem; transform: rotate(4deg); clip-path: polygon(0.00% 0.29rem, 7.14% 1.26rem, 14.29% 0.12rem, 21.43% 0.16rem, 28.57% 0.38rem, 35.71% 0.15rem, 42.86% 0.35rem, 50.00% 0.34rem, 57.14% 0.27rem, 64.29% 0.13rem, 71.43% 0.28rem, 78.57% 0.36rem, 85.71% 0.28rem, 92.86% 0.30rem, 100.00% 0.23rem, calc(100% - 0.42rem) 7.14%, calc(100% - 0.40rem) 14.29%, calc(100% - 0.28rem) 21.43%, calc(100% - 0.17rem) 28.57%, calc(100% - 0.28rem) 35.71%, calc(100% - 0.11rem) 42.86%, calc(100% - 0.28rem) 50.00%, calc(100% - 0.38rem) 57.14%, calc(100% - 0.27rem) 64.29%, calc(100% - 0.12rem) 71.43%, calc(100% - 0.24rem) 78.57%, calc(100% - 0.42rem) 85.71%, calc(100% - 0.27rem) 92.86%, calc(100% - 0.25rem) 100.00%, 92.86% calc(100% - 0.42rem), 85.71% calc(100% - 0.21rem), 78.57% calc(100% - 0.32rem), 71.43% calc(100% - 0.15rem), 64.29% calc(100% - 0.11rem), 57.14% calc(100% - 0.18rem), 50.00% calc(100% - 0.21rem), 42.86% calc(100% - 1.26rem), 35.71% calc(100% - 0.14rem), 28.57% calc(100% - 0.19rem), 21.43% calc(100% - 0.29rem), 14.29% calc(100% - 0.23rem), 7.14% calc(100% - 0.29rem), 0.00% calc(100% - 0.17rem), 0.32rem 92.86%, 0.40rem 85.71%, 0.40rem 78.57%, 0.36rem 71.43%, 0.42rem 64.29%, 0.21rem 57.14%, 0.18rem 50.00%, 0.41rem 42.86%, 0.18rem 35.71%, 1.19rem 28.57%, 0.25rem 21.43%, 0.14rem 14.29%, 0.96rem 7.14%); }
-.scraps .s2 { --scrap: #a9b3a0; width: 8rem; height: 12rem; bottom: 3rem; left: -1.8rem; transform: rotate(-6deg); clip-path: polygon(0.00% 0.34rem, 7.14% 1.24rem, 14.29% 0.37rem, 21.43% 0.34rem, 28.57% 0.65rem, 35.71% 0.29rem, 42.86% 0.30rem, 50.00% 0.16rem, 57.14% 0.39rem, 64.29% 0.96rem, 71.43% 0.43rem, 78.57% 0.37rem, 85.71% 0.26rem, 92.86% 0.25rem, 100.00% 0.10rem, calc(100% - 0.40rem) 7.14%, calc(100% - 0.26rem) 14.29%, calc(100% - 0.24rem) 21.43%, calc(100% - 0.16rem) 28.57%, calc(100% - 0.11rem) 35.71%, calc(100% - 0.38rem) 42.86%, calc(100% - 0.40rem) 50.00%, calc(100% - 0.24rem) 57.14%, calc(100% - 0.28rem) 64.29%, calc(100% - 0.38rem) 71.43%, calc(100% - 0.42rem) 78.57%, calc(100% - 0.37rem) 85.71%, calc(100% - 0.24rem) 92.86%, calc(100% - 0.41rem) 100.00%, 92.86% calc(100% - 0.37rem), 85.71% calc(100% - 0.24rem), 78.57% calc(100% - 0.12rem), 71.43% calc(100% - 0.98rem), 64.29% calc(100% - 0.32rem), 57.14% calc(100% - 0.18rem), 50.00% calc(100% - 0.33rem), 42.86% calc(100% - 0.33rem), 35.71% calc(100% - 0.29rem), 28.57% calc(100% - 0.45rem), 21.43% calc(100% - 0.35rem), 14.29% calc(100% - 1.31rem), 7.14% calc(100% - 0.36rem), 0.00% calc(100% - 0.86rem), 0.88rem 92.86%, 0.42rem 85.71%, 0.28rem 78.57%, 0.30rem 71.43%, 0.32rem 64.29%, 0.13rem 57.14%, 1.42rem 50.00%, 0.16rem 42.86%, 0.16rem 35.71%, 1.38rem 28.57%, 0.25rem 21.43%, 0.31rem 14.29%, 0.20rem 7.14%); }
-.scraps .s3 { --scrap: #b7765a; width: 6rem; height: 5rem; bottom: -1.2rem; right: 5rem; transform: rotate(9deg); clip-path: polygon(0.00% 0.30rem, 7.14% 0.35rem, 14.29% 0.10rem, 21.43% 0.11rem, 28.57% 0.36rem, 35.71% 0.41rem, 42.86% 0.12rem, 50.00% 1.47rem, 57.14% 0.25rem, 64.29% 0.44rem, 71.43% 0.28rem, 78.57% 0.35rem, 85.71% 0.44rem, 92.86% 1.19rem, 100.00% 0.26rem, calc(100% - 0.12rem) 7.14%, calc(100% - 0.14rem) 14.29%, calc(100% - 0.33rem) 21.43%, calc(100% - 0.19rem) 28.57%, calc(100% - 0.25rem) 35.71%, calc(100% - 0.29rem) 42.86%, calc(100% - 0.43rem) 50.00%, calc(100% - 1.22rem) 57.14%, calc(100% - 0.37rem) 64.29%, calc(100% - 0.23rem) 71.43%, calc(100% - 0.34rem) 78.57%, calc(100% - 0.31rem) 85.71%, calc(100% - 0.36rem) 92.86%, calc(100% - 0.19rem) 100.00%, 92.86% calc(100% - 0.42rem), 85.71% calc(100% - 0.78rem), 78.57% calc(100% - 0.25rem), 71.43% calc(100% - 0.14rem), 64.29% calc(100% - 1.03rem), 57.14% calc(100% - 0.29rem), 50.00% calc(100% - 0.23rem), 42.86% calc(100% - 0.17rem), 35.71% calc(100% - 0.36rem), 28.57% calc(100% - 1.11rem), 21.43% calc(100% - 0.32rem), 14.29% calc(100% - 0.17rem), 7.14% calc(100% - 0.19rem), 0.00% calc(100% - 0.23rem), 0.45rem 92.86%, 0.29rem 85.71%, 0.42rem 78.57%, 1.25rem 71.43%, 0.97rem 64.29%, 0.27rem 57.14%, 0.20rem 50.00%, 0.13rem 42.86%, 1.01rem 35.71%, 0.35rem 28.57%, 0.20rem 21.43%, 0.23rem 14.29%, 1.15rem 7.14%); opacity: 0.9; }
-.scraps .tape {
-  z-index: 2;
-  width: 7rem; height: 1.6rem; top: -0.7rem; left: 38%;
-  transform: rotate(-3deg);
-  background: var(--grain), rgba(236, 226, 200, 0.78);
-  background-blend-mode: multiply, normal;
-  border-left: 1px dashed rgba(255, 255, 255, 0.6);
-  border-right: 1px dashed rgba(255, 255, 255, 0.6);
-  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.15);
-}
-.scraps .clip {
-  z-index: 2;
-  width: 1.1rem; height: 3.4rem; top: -0.9rem; left: 2.4rem;
-  transform: rotate(8deg);
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 68'%3E%3Cpath d='M6 20v36a5 5 0 0 0 10 0V12a4 4 0 0 0-8 0v40a2 2 0 0 0 4 0V18' fill='none' stroke='%23b89a5a' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  filter: drop-shadow(0 1px 1px rgba(8, 6, 16, 0.35));
-}
-/* each page gets its own arrangement of scraps */
-#projects .scraps .s1 { right: auto; left: 3rem; --scrap: #a9b3a0; }
-#projects .scraps .s2 { left: auto; right: -1.6rem; --scrap: #c8a284; transform: rotate(5deg); }
-#projects .scraps .tape { left: 60%; transform: rotate(2deg); }
-#projects .scraps .clip { left: auto; right: 3rem; transform: rotate(-6deg); }
-#dance .scraps .s1 { --scrap: #b7765a; width: 8rem; }
-#dance .scraps .s3 { right: auto; left: 6rem; --scrap: #a9b3a0; }
-#dance .scraps .clip { display: none; }
-#advice .scraps .s2 { --scrap: #c8a284; }
-#advice .scraps .s3 { --scrap: #a9b3a0; right: 40%; }
-#advice .scraps .tape { left: 22%; }
-#contact .scraps .s1 { --scrap: #a9b3a0; right: 8rem; }
-#contact .scraps .s2 { --scrap: #b7765a; height: 7rem; }
-#contact .scraps .tape { display: none; }
-
 .paper > * { position: relative; z-index: 1; }
 
 .paper-head {
@@ -257,17 +207,6 @@ h1 {
   align-items: baseline;
   gap: 0.3rem 1.2rem;
   margin-bottom: -0.25rem;
-}
-.paper-head .underline {
-  order: 10;
-  flex-basis: 100%;
-  width: 7.5rem; height: 0.5rem;
-  margin: -0.3rem 0 0 0.2rem;
-  fill: none;
-  stroke: var(--pencil-soft);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  opacity: 0.8;
 }
 .paper h2 {
   margin: 0;
@@ -342,32 +281,42 @@ h1 {
 .frame.video { aspect-ratio: 16 / 9; background: #000; border-radius: 2px; overflow: hidden; min-width: 0; }
 .frame.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* ---- notes ---- */
+/* ---- notes ----
+   The text sits on a separate paper layer (.note::before) so the torn
+   edge filter roughens the paper without warping the writing. */
 .note {
   position: relative;
-  padding: 1.25rem 1.35rem 1.1rem;
-  background:
-    repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em),
-    var(--card);
-  background-origin: content-box, border-box;
-  filter: drop-shadow(0 6px 10px rgba(8, 6, 16, 0.2)) drop-shadow(0 1px 1px rgba(8, 6, 16, 0.25));
+  padding: 1.3rem 1.4rem 1.2rem;
   font-size: 0.98em;
+  isolation: isolate;
 }
-/* a lightly torn top edge, behind the tape */
-.note { clip-path: polygon(0.00% 0.16rem, 10.00% 0.24rem, 20.00% 0.14rem, 30.00% 0.11rem, 40.00% 0.13rem, 50.00% 0.23rem, 60.00% 0.12rem, 70.00% 0.12rem, 80.00% 0.13rem, 90.00% 0.16rem, 100.00% 0.16rem, calc(100% - 0.16rem) 10.00%, calc(100% - 0.20rem) 20.00%, calc(100% - 0.11rem) 30.00%, calc(100% - 0.15rem) 40.00%, calc(100% - 0.16rem) 50.00%, calc(100% - 0.18rem) 60.00%, calc(100% - 0.06rem) 70.00%, calc(100% - 0.21rem) 80.00%, calc(100% - 0.07rem) 90.00%, calc(100% - 0.23rem) 100.00%, 90.00% calc(100% - 0.18rem), 80.00% calc(100% - 0.20rem), 70.00% calc(100% - 0.10rem), 60.00% calc(100% - 0.20rem), 50.00% calc(100% - 0.20rem), 40.00% calc(100% - 0.12rem), 30.00% calc(100% - 0.18rem), 20.00% calc(100% - 0.16rem), 10.00% calc(100% - 0.19rem), 0.00% calc(100% - 0.13rem), 0.18rem 90.00%, 0.21rem 80.00%, 0.23rem 70.00%, 0.18rem 60.00%, 0.19rem 50.00%, 0.13rem 40.00%, 0.08rem 30.00%, 0.25rem 20.00%, 0.08rem 10.00%); }
-/* a roughly torn bottom edge */
-.note::after {
+.note::before {
   content: "";
-  position: absolute; left: 0; right: 0; bottom: -0.62rem; height: 0.7rem;
-  background: var(--card);
-  clip-path: polygon(0% 0%, 100% 0%, 100.0% 0.41rem, 96.2% 0.38rem, 92.3% 0.56rem, 88.5% 0.48rem, 84.6% 0.26rem, 80.8% 0.61rem, 76.9% 0.18rem, 73.1% 0.33rem, 69.2% 0.50rem, 65.4% 0.20rem, 61.5% 0.36rem, 57.7% 0.14rem, 53.8% 0.45rem, 50.0% 0.50rem, 46.2% 0.41rem, 42.3% 0.56rem, 38.5% 0.28rem, 34.6% 0.47rem, 30.8% 0.42rem, 26.9% 0.41rem, 23.1% 0.35rem, 19.2% 0.54rem, 15.4% 0.59rem, 11.5% 0.36rem, 7.7% 0.45rem, 3.8% 0.15rem, 0.0% 0.47rem);
+  position: absolute;
+  inset: -0.35rem -0.3rem -0.5rem;
+  z-index: -1;
+  background:
+    var(--grain),
+    var(--mottle),
+    repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em),
+    linear-gradient(170deg, #f9f3e3 0%, #f4ecd8 60%, #ecE2cb 100%);
+  background-blend-mode: soft-light, soft-light, normal, normal;
+  background-origin: content-box, border-box, content-box, border-box;
+  padding: 1.65rem 0 0;              /* ruling starts below the first line */
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 252, 244, 0.7),   /* fibrous light rim along the tear */
+    inset 0 0 1.4rem rgba(120, 95, 60, 0.10),   /* a little age toward the edges */
+    0 7px 14px rgba(8, 6, 16, 0.22),
+    0 1px 2px rgba(8, 6, 16, 0.25);
+  filter: url(#torn);
 }
+.note.n2::before { filter: url(#torn2); }
 .note p { margin: 0; }
 .note p + p { margin-top: 1.6em; }
 /* a piece of tape at the top */
-.note::before {
+.note::after {
   content: "";
-  position: absolute; top: -0.6rem; left: 50%;
+  position: absolute; top: -0.75rem; left: 50%;
   width: 5.5rem; height: 1.25rem;
   transform: translateX(-50%) rotate(-2deg);
   background: linear-gradient(to right, rgba(236, 232, 224, 0.5), rgba(246, 244, 238, 0.62) 50%, rgba(236, 232, 224, 0.5));
@@ -416,9 +365,8 @@ h1 {
   header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7rem; padding-bottom: 10rem; align-items: flex-end; }
   .stamp { bottom: 10.5rem; font-size: 1.4rem; }
-  .sheet { transform: rotate(-0.3deg); }
-  .paper { grid-template-columns: 1fr; }
-  .scraps .s1, .scraps .s2, .scraps .s3 { transform: scale(0.7) rotate(4deg); }
+  .paper { grid-template-columns: 1fr; transform: rotate(-0.3deg); }
+  .paper::after { display: none; }
   .note.n1, .note.n2 { transform: rotate(-0.6deg); margin-top: 0.5rem; }
   .note.n2 { transform: rotate(0.6deg); }
   .strip { overflow-x: auto; scrollbar-width: none; width: calc(100% + 1.2rem); margin-left: -0.6rem; }
