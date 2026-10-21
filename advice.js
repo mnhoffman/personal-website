@@ -51,8 +51,8 @@
       a.href = 'advice/' + name;
       a.setAttribute('aria-label', 'Open this page');
       a.dataset.index = i;
-      a.style.setProperty('--tilt', ((rand() - 0.5) * 6).toFixed(1) + 'deg');
-      a.style.setProperty('--dx', ((rand() - 0.5) * 0.8).toFixed(2) + 'rem');
+      a.style.setProperty('--tilt', ((rand() - 0.5) * 12).toFixed(1) + 'deg');
+      a.style.setProperty('--dx', ((rand() - 0.5) * 1.6).toFixed(2) + 'rem');
       a.style.zIndex = 1 + Math.floor(rand() * 9);
       var im = document.createElement('img');
       im.src = 'advice/' + name;
