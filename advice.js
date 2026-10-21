@@ -33,7 +33,7 @@
     if (built || !entries.length) return;
     built = true;
     order = shuffle(entries.slice());
-    var cols = pile.clientWidth > 900 ? 4 : pile.clientWidth > 560 ? 3 : 2;
+    var cols = pile.clientWidth > 760 ? 6 : pile.clientWidth > 520 ? 4 : 3;
     var rows = Math.ceil(order.length / cols);
     var cellW = 100 / cols;
     var cellH = 100 / rows;
@@ -52,12 +52,12 @@
       a.style.left = left + '%';
       a.style.top = top + '%';
       a.style.setProperty('--tilt', ((Math.random() - 0.5) * 22).toFixed(1) + 'deg');
-      a.style.setProperty('--w', (0.82 + Math.random() * 0.36).toFixed(2));
+      a.style.setProperty('--w', (0.85 + Math.random() * 0.4).toFixed(2));
       a.style.zIndex = 1 + Math.floor(Math.random() * 9);
       var im = document.createElement('img');
       im.src = 'advice/' + name;
       im.alt = '';
-      im.loading = 'lazy';
+      im.loading = i < 18 ? 'eager' : 'lazy';
       a.appendChild(im);
       a.addEventListener('click', function (ev) { ev.preventDefault(); open(i); });
       frag.appendChild(a);

@@ -44,9 +44,13 @@ and opens one when clicked. To add entries:
 2. Add its filename to the list in `advice/entries.json`.
 
 The arrangement is random on every visit, and nothing is labelled. The
-`placeholder-*.jpg` files are stand-ins to delete once the real pages
-are in. The "upload your own" link currently opens an email; a static
-site can't accept uploads directly.
+"upload your own" link currently opens an email; a static site can't
+accept uploads directly.
+
+The pages were straightened and cropped from phone photos with a small
+script (it finds the angle at which the ruled lines run flat, rotates,
+crops to the paper and evens out the exposure). Ask and I'll run it on
+new ones.
 
 ## Previewing locally
 

@@ -374,16 +374,16 @@ h1 {
 .pile {
   grid-column: 1 / -1;
   position: relative;
-  height: calc(var(--rows, 3) * clamp(10rem, 17vw, 13rem));
-  margin: 1rem 0 5rem;
+  height: calc(var(--rows, 3) * clamp(7.5rem, 11vw, 9rem));
+  margin: 4rem -1.5rem 5rem;
 }
 .entry {
   position: absolute;
-  width: calc(var(--w, 1) * clamp(9rem, 100% / var(--cols, 4) * 1.3, 17rem));
+  width: calc(var(--w, 1) * clamp(8rem, 100% / var(--cols, 6) * 1.45, 13rem));
   transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
   transition: transform .25s ease, box-shadow .25s ease, z-index 0s;
   box-shadow: 0 8px 22px rgba(8, 6, 16, 0.3), 0 1px 2px rgba(8, 6, 16, 0.25);
-  background: var(--card);
+  background: #ede4d0;
   cursor: zoom-in;
 }
 .entry img { display: block; width: 100%; height: auto; }
@@ -424,8 +424,8 @@ h1 {
 body.lb-open { overflow: hidden; }
 
 @media (max-width: 680px) {
-  .pile { height: calc(var(--rows, 5) * 9.5rem); }
-  .entry { width: calc(var(--w, 1) * 9rem); }
+  .pile { height: calc(var(--rows, 5) * 7rem); margin-left: -0.5rem; margin-right: -0.5rem; }
+  .entry { width: calc(var(--w, 1) * 7.5rem); }
   .lightbox { padding: 0.5rem; }
   .lightbox button { font-size: 1.8rem; }
 }
