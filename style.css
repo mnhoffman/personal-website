@@ -178,7 +178,7 @@ h1 {
   box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5), 0 2px 6px rgba(8, 6, 16, 0.3);
   transform: rotate(-0.6deg);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.75rem 2.25rem;
   align-items: start;
 }
@@ -369,12 +369,14 @@ h1 {
 .back a:hover { color: var(--pencil); }
 
 /* ---------------- small screens ---------------- */
+@media (max-width: 1000px) { .pile { columns: 4; } }
+
 @media (max-width: 680px) {
   header.top { font-size: 0.85rem; flex-direction: column; align-items: center; gap: 0.2rem; padding-top: 0.8rem; }
   header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7rem; padding-bottom: 10rem; align-items: flex-end; }
   .stamp { bottom: 10.5rem; font-size: 1.4rem; }
-  .paper { grid-template-columns: 1fr; transform: rotate(-0.3deg); }
+  .paper { grid-template-columns: minmax(0, 1fr); transform: rotate(-0.3deg); }
   .paper::after { display: none; }
   .note.n1, .note.n2 { transform: rotate(-0.6deg); margin-top: 0.5rem; }
   .note.n2 { transform: rotate(0.6deg); }
@@ -393,20 +395,25 @@ h1 {
 .paper-advice .note.lead { max-width: 46rem; z-index: 30; }   /* always above the pile */
 .paper-advice .back { position: relative; z-index: 30; }
 
-/* The pile: a relative box whose height grows with the number of
-   rows; each page is placed by advice.js. */
+/* The pile: pages flow down columns, tilted a touch and tucked under
+   one another, so the sheet fills with no open patches. */
 .pile {
   grid-column: 1 / -1;
-  position: relative;
-  height: calc(var(--rows, 3) * clamp(10rem, 15vw, 12.5rem));
-  margin: 5rem -0.5rem 5rem;
+  min-width: 0;
+  columns: 5;
+  column-gap: 0.4rem;
+  margin: 2.5rem 0 3.5rem;
+  padding-top: 0.6rem;
 }
 .entry {
-  position: absolute;
-  width: calc(var(--w, 1) * clamp(8rem, 100% / var(--cols, 6) * 1.12, 12rem));
-  transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
+  display: block;
+  break-inside: avoid;
+  position: relative;
+  width: 100%;
+  margin: 0 0 -0.5rem;
+  transform: translateX(var(--dx, 0)) rotate(var(--tilt, 0deg));
   transition: box-shadow .5s ease, filter .5s ease, z-index 0s linear .3s;
-  box-shadow: 0 8px 22px rgba(8, 6, 16, 0.3), 0 1px 2px rgba(8, 6, 16, 0.25);
+  box-shadow: 0 6px 16px rgba(8, 6, 16, 0.28), 0 1px 2px rgba(8, 6, 16, 0.25);
   background: #ede4d0;
   cursor: zoom-in;
 }
@@ -448,8 +455,7 @@ h1 {
 body.lb-open { overflow: hidden; }
 
 @media (max-width: 680px) {
-  .pile { height: calc(var(--rows, 5) * 9.5rem); margin-left: -0.25rem; margin-right: -0.25rem; }
-  .entry { width: calc(var(--w, 1) * 7.5rem); }
+  .pile { columns: 2; column-gap: 0.3rem; }
   .lightbox { padding: 0.5rem; }
   .lightbox button { font-size: 1.8rem; }
 }

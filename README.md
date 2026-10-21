@@ -43,7 +43,7 @@ and opens one when clicked. To add entries:
    into the `advice/` folder.
 2. Add its filename to the list in `advice/entries.json`.
 
-The arrangement is random on every visit, and nothing is labelled. The
+The arrangement is fixed (a seeded shuffle, flowing down columns), and nothing is labelled. The
 "upload your own" link currently opens an email; a static site can't
 accept uploads directly.
 

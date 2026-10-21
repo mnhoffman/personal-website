@@ -18,50 +18,46 @@
   var current = -1;
   var built = false;
 
-  function shuffle(a) {
+  // A fixed arrangement: the same shuffle every visit, from a seeded
+  // generator, so the pile looks considered rather than re-rolled.
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function shuffle(a, rand) {
     for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
+      var j = Math.floor(rand() * (i + 1));
       var t = a[i]; a[i] = a[j]; a[j] = t;
     }
     return a;
   }
 
-  // Lay the pages out on a loose grid, then nudge and tilt each one so
-  // they overlap like a pile on a desk. Every page stays at least
-  // partly visible because each has its own cell.
+  // Pages flow down columns (CSS multi-column), each tilted a little and
+  // tucked slightly under the one above, so the sheet fills edge to edge
+  // with no open patches.
   function build() {
     if (built || !entries.length) return;
     built = true;
-    order = shuffle(entries.slice());
-    var cols = pile.clientWidth > 760 ? 6 : pile.clientWidth > 520 ? 4 : 3;
-    var rows = Math.ceil(order.length / cols);
-    var cellW = 100 / cols;
-    var cellH = 100 / rows;
-    pile.style.setProperty('--rows', rows);
-    pile.style.setProperty('--cols', cols);
+    var rand = rng(20231101);
+    order = shuffle(entries.slice(), rand);
     var frag = document.createDocumentFragment();
     order.forEach(function (name, i) {
-      var r = Math.floor(i / cols), c = i % cols;
       var a = document.createElement('a');
       a.className = 'entry';
       a.href = 'advice/' + name;
       a.setAttribute('aria-label', 'Open this page');
       a.dataset.index = i;
-      var left = (c + 0.5) * cellW + (Math.random() - 0.5) * cellW * 0.3;
-      var top = (r + 0.5) * cellH + (Math.random() - 0.5) * cellH * 0.35;
-      // the first and last rows only wander inward, so no page climbs
-      // over the note above the pile or the link below it
-      if (r === 0) top = Math.max(top, 0.55 * cellH);
-      if (r === rows - 1) top = Math.min(top, 100 - 0.55 * cellH);
-      a.style.left = left + '%';
-      a.style.top = top + '%';
-      a.style.setProperty('--tilt', ((Math.random() - 0.5) * 18).toFixed(1) + 'deg');
-      a.style.setProperty('--w', (0.94 + Math.random() * 0.14).toFixed(2));
-      a.style.zIndex = 1 + Math.floor(Math.random() * 9);
+      a.style.setProperty('--tilt', ((rand() - 0.5) * 6).toFixed(1) + 'deg');
+      a.style.setProperty('--dx', ((rand() - 0.5) * 0.8).toFixed(2) + 'rem');
+      a.style.zIndex = 1 + Math.floor(rand() * 9);
       var im = document.createElement('img');
       im.src = 'advice/' + name;
       im.alt = '';
-      im.loading = i < 18 ? 'eager' : 'lazy';
+      im.loading = i < 24 ? 'eager' : 'lazy';
       a.appendChild(im);
       a.addEventListener('click', function (ev) { ev.preventDefault(); open(i); });
       frag.appendChild(a);
