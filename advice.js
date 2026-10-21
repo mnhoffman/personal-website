@@ -54,7 +54,8 @@
     var colW = W / cols;
     var pageW = colW * 1.18;
     var tuck = 1.8 * rem;              // how far each page slides under the one above
-    var heights = []; for (var k = 0; k < cols; k++) heights.push(0);
+    // columns start at staggered heights so the top edge isn't a straight line
+    var heights = []; for (var k = 0; k < cols; k++) heights.push(rand() * pageW * 0.45);
     pile.innerHTML = '';
     var frag = document.createDocumentFragment();
     order.forEach(function (e, i) {
@@ -68,10 +69,11 @@
       a.dataset.index = i;
       a.style.width = pageW + 'px';
       a.style.left = (c * colW - colW * 0.09 + (rand() - 0.5) * 1.6 * rem) + 'px';
-      a.style.top = Math.max(0, heights[c] - (heights[c] ? tuck : 0)) + 'px';
+      var first = heights[c] < pageW * 0.5;      // nothing above this page yet
+      a.style.top = (heights[c] - (first ? 0 : tuck)) + 'px';
       a.style.setProperty('--tilt', ((rand() - 0.5) * 12).toFixed(1) + 'deg');
       a.style.zIndex = 1 + Math.floor(rand() * 9);
-      heights[c] += h - (heights[c] ? tuck : 0);
+      heights[c] += h - (first ? 0 : tuck);
       var im = document.createElement('img');
       im.src = 'advice/' + e.src;
       im.alt = '';
@@ -82,7 +84,7 @@
       frag.appendChild(a);
     });
     pile.appendChild(frag);
-    pile.style.height = (Math.max.apply(null, heights) + 0.5 * rem) + 'px';
+    pile.style.height = (Math.max.apply(null, heights) + 1.5 * rem) + 'px';
   }
   var resizeTimer = 0;
   window.addEventListener('resize', function () {
