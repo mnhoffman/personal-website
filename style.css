@@ -282,8 +282,9 @@ h1 {
 .frame.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---- notes ----
-   The text sits on a separate paper layer (.note::before) so the torn
-   edge filter roughens the paper without warping the writing. */
+   Three layers: the torn paper (.note::before), the ruled lines
+   (.note::after, continuous and only faintly wavy), and the text on
+   top. The tape hangs off the first paragraph's pseudo-element. */
 .note {
   position: relative;
   padding: 1.3rem 1.4rem 1.2rem;
@@ -294,15 +295,12 @@ h1 {
   content: "";
   position: absolute;
   inset: -0.35rem -0.3rem -0.5rem;
-  z-index: -1;
+  z-index: -2;
   background:
     var(--grain),
     var(--mottle),
-    repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em),
     linear-gradient(170deg, #f9f3e3 0%, #f4ecd8 60%, #ece2cb 100%);
-  background-blend-mode: soft-light, soft-light, normal, normal;
-  background-origin: border-box, border-box, content-box, border-box;
-  padding: 1.65rem 0 0;              /* ruling starts below the first line */
+  background-blend-mode: soft-light, soft-light, normal;
   box-shadow:
     inset 0 0 0 2px rgba(255, 252, 244, 0.7),   /* fibrous light rim along the tear */
     inset 0 0 1.4rem rgba(120, 95, 60, 0.10),   /* a little age toward the edges */
@@ -311,10 +309,21 @@ h1 {
   filter: url(#torn);
 }
 .note.n2::before { filter: url(#torn2); }
+.note::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(to bottom, transparent 0 calc(1.6em - 1px), var(--rule) calc(1.6em - 1px) 1.6em);
+  background-origin: content-box;
+  padding: 1.65rem 1rem 0;           /* ruling starts below the first line */
+  filter: url(#wobble);
+  pointer-events: none;
+}
 .note p { margin: 0; }
 .note p + p { margin-top: 1.6em; }
 /* a piece of tape at the top */
-.note::after {
+.note > :first-child::before {
   content: "";
   position: absolute; top: -0.75rem; left: 50%;
   width: 5.5rem; height: 1.25rem;
