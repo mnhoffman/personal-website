@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;500&family=VT323&display=swap" rel="stylesheet">
   <!-- The ?v= numbers bust browser and GitHub Pages caches: bump them whenever
        style.css, sky.js or pages.js change, or visitors may see a stale mix. -->
-  <link rel="stylesheet" href="style.css?v=35">
+  <link rel="stylesheet" href="style.css?v=36">
   <script>document.documentElement.className = "js";</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23e8894d'/%3E%3Cstop offset='.55' stop-color='%23a0506a'/%3E%3Cstop offset='1' stop-color='%23241f44'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Crect x='3' y='27' width='26' height='3' fill='%23120f1a'/%3E%3C/svg%3E">
 </head>
@@ -65,7 +65,7 @@
     <section id="home" class="page hero">
       <div class="hero-text">
         <h1>Hi, I'm Madeleine</h1>
-        <p class="tagline">
+        <p class="tagline" data-content="home.intro" data-inline>
           I'm passionate about learning, dancing, and making the world a better place.
           I'm currently an undergrad at The University of Chicago, President of
           <a href="https://uchicagoea.org" target="_blank" rel="noopener">UChicago Effective Altruism</a>,
@@ -93,7 +93,7 @@
       <div class="paper">
         <div class="paper-head">
           <h2>Currently</h2>
-          <span class="hand">last updated 10/21/26</span>
+          <span class="hand" data-content="currently.subtitle" data-text>last updated 10/21/26</span>
         </div>
 
         <!-- a strip of film: each <figure class="frame"> holds one photo; add class "portrait" for upright shots -->
@@ -104,7 +104,7 @@
           <figure class="frame"><img src="photos/the-el.jpg" alt="Looking up at an L train passing overhead" loading="lazy"></figure>
         </div>
 
-        <article class="note n1">
+        <article class="note n1" data-content="currently.note1">
           <p>
             Recently, I've been thinking about Laffer curve effects. What would give me higher
             returns when I decrease the quantity but increase the price? What should I do more of
@@ -114,7 +114,7 @@
           </p>
         </article>
 
-        <article class="note n2">
+        <article class="note n2" data-content="currently.note2">
           <p>
             In terms of what I'm actually spending time on, ask my calendar: sleep (although
             significantly less than ever), work (just ran a panel event that went pretty well, now
@@ -135,7 +135,7 @@
       <div class="paper">
         <div class="paper-head">
           <h2>Projects</h2>
-          <span class="hand">things I've made, so far</span>
+          <span class="hand" data-content="projects.subtitle" data-text>things I've made, so far</span>
         </div>
 
         <div class="strip tilt-b">
@@ -145,7 +145,7 @@
           <figure class="frame portrait"><img src="photos/lakefront-asters.jpg" alt="White asters along the lakefront path, the skyline behind" loading="lazy"></figure>
         </div>
 
-        <article class="note n1">
+        <article class="note n1" data-content="projects.note1">
           <p>
             In an attempt to think and write more, I've started
             <a href="https://substack.com/@madlenreads?r=5j2qmf&amp;utm_campaign=profile&amp;utm_medium=profile-page" target="_blank" rel="noopener">a substack</a>.
@@ -154,7 +154,7 @@
           </p>
         </article>
 
-        <article class="note n2">
+        <article class="note n2" data-content="projects.note2">
           <p>
             I conducted a
             <a href="https://docs.google.com/document/d/1mU0Cf0hOIiQYfXzRHgMYZWZ1Axlu6ik3GzpVMstTNCU/edit?usp=sharing" target="_blank" rel="noopener">sleep data analysis</a>
@@ -172,10 +172,10 @@
       <div class="paper">
         <div class="paper-head">
           <h2>Dance</h2>
-          <span class="hand">UChicago Maya</span>
+          <span class="hand" data-content="dance.subtitle" data-text>UChicago Maya</span>
         </div>
 
-        <article class="note n1 lead">
+        <article class="note n1 lead" data-content="dance.lead">
           <p>
             I'm a cast member of UChicago Maya, a contemporary-fusion dance group. Here are some
             of our recent performances, including sets from both this and last year's university
@@ -204,7 +204,7 @@
           </figure>
         </div>
 
-        <p class="hand aside">Our experimental choreography show Haiku is coming up in May!</p>
+        <p class="hand aside" data-content="dance.aside" data-text>Our experimental choreography show Haiku is coming up in May!</p>
 
         <p class="back hand"><a href="#home">&larr; back to the sky</a></p>
       </div>
@@ -215,10 +215,10 @@
       <div class="paper paper-advice">
         <div class="paper-head">
           <h2>Advice</h2>
-          <span class="hand">from the green notebook</span>
+          <span class="hand" data-content="advice.subtitle" data-text>from the green notebook</span>
         </div>
 
-        <article class="note n1 lead">
+        <article class="note n1 lead" data-content="advice.intro">
           <p>
             Since 2023, I've been collecting advice from friends and strangers in a green notebook
             I carried with me almost everywhere. I lost the notebook this summer
@@ -246,7 +246,7 @@
       <div class="paper">
         <div class="paper-head">
           <h2>Contact</h2>
-          <span class="hand">I would love to connect with you</span>
+          <span class="hand" data-content="contact.subtitle" data-text>I would love to connect with you</span>
         </div>
 
         <div class="strip tilt-d">
@@ -257,7 +257,7 @@
         </div>
 
         <article class="note n1 scribbles">
-          <ul class="contact-list">
+          <ul class="contact-list" data-content="contact.links">
             <li><a class="hand" href="https://vs.co/hun6bwtc" target="_blank" rel="noopener">photos</a></li>
             <li><a class="hand" href="https://open.spotify.com/user/h41lewn2pkntjvl3inlkogcae?si=LbrNOg6fT9Wjhgx6Q5q5ig" target="_blank" rel="noopener">what I'm listening to</a></li>
             <li><a class="hand" href="mailto:mnhoffman@uchicago.edu">write to me</a></li>
@@ -265,7 +265,7 @@
           </ul>
         </article>
 
-        <article class="note n2">
+        <article class="note n2" data-content="contact.note">
           <p>
             This website build is still in progress! Get excited for new edits coming soon,
             and feel free to give
@@ -294,8 +294,10 @@
       if (s) s.textContent = "'" + String(d.getFullYear()).slice(2) + ' ' + (d.getMonth() + 1) + ' ' + d.getDate();
     })();
   </script>
-  <script src="sky.js?v=35"></script>
-  <script src="pages.js?v=35"></script>
-  <script src="advice.js?v=35"></script>
+  <script src="vendor/marked.umd.js"></script>
+  <script src="content.js?v=36"></script>
+  <script src="sky.js?v=36"></script>
+  <script src="pages.js?v=36"></script>
+  <script src="advice.js?v=36"></script>
 </body>
 </html>

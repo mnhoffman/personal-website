@@ -15,7 +15,24 @@ No frameworks, no build step. Four files do all the work:
 | `sky.js` | The sky: the day-cycle palette, slow noise, stars, the horizon silhouette, grain. Also switches the text colour when the sky is bright. |
 | `pages.js` | Shows one page at a time by URL hash. |
 
-## Editing the content
+## Editing the words
+
+Open **`/edit/`** on the live site (`https://mnhoffman.github.io/personal-website/edit/`).
+It shows every piece of text on the site with a Markdown toolbar and a
+live preview, and **Publish** commits the change straight to `main`;
+GitHub Pages picks it up within a minute or two.
+
+One-time setup: it needs a GitHub fine-grained personal access token
+limited to this repository with **Contents: Read and write**. The page
+walks through creating one. The token is kept in that browser's local
+storage and only ever sent to `api.github.com`.
+
+Under the hood the words live in `content.json`; `content.js` fills the
+marked elements of `index.html` from it at load, rendering Markdown with
+`vendor/marked.umd.js`. The text baked into `index.html` is only a
+fallback. You can also edit `content.json` by hand.
+
+## Editing the layout
 
 After changing `style.css`, `sky.js` or `pages.js`, bump the `?v=`
 number on their links in `index.html`. Browsers and GitHub Pages cache
