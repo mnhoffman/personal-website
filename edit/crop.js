@@ -12,7 +12,8 @@
 window.cropTool = (function () {
   'use strict';
 
-  var overlay, canvas, ctx, img, quad, handles, drag = null, resolveFn, rejectFn, scale = 1, ox = 0, oy = 0;
+  var overlay, canvas, ctx, img, quad, handles, drag = null, resolveFn, rejectFn, scale = 1;
+  var whiteout = false, marq = null, history = [];
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
@@ -25,10 +26,13 @@ window.cropTool = (function () {
       '  <div class="crop-stage"><div class="crop-box"><canvas></canvas>' +
       '    <div class="crop-handle" data-i="0"></div><div class="crop-handle" data-i="1"></div><div class="crop-handle" data-i="2"></div><div class="crop-handle" data-i="3"></div>' +
       '    <svg class="crop-quad"><polygon points="0,0 0,0 0,0 0,0"></polygon></svg>' +
+      '    <div class="crop-marquee"></div>' +
       '  </div></div>' +
       '  <div class="crop-actions">' +
       '    <button type="button" class="small" data-act="reset">Reset corners</button>' +
       '    <button type="button" class="small" data-act="rotate">Rotate 90°</button>' +
+      '    <button type="button" class="small" data-act="whiteout" title="Drag a box over anything to cover; it is filled with the paper colour around it">White-out</button>' +
+      '    <button type="button" class="small" data-act="undo" disabled>Undo white-out</button>' +
       '    <label class="crop-check"><input type="checkbox" data-act="even" checked> even out lighting</label>' +
       '    <span class="crop-spacer"></span>' +
       '    <button type="button" class="small" data-act="cancel">Cancel</button>' +
@@ -54,14 +58,37 @@ window.cropTool = (function () {
       else if (act === 'reset') { resetQuad(); draw(); }
       else if (act === 'rotate') { rotate(); }
       else if (act === 'apply') apply();
+      else if (act === 'whiteout') setWhiteout(!whiteout);
+      else if (act === 'undo') undo();
+    });
+    // white-out: drag a rectangle on the canvas
+    canvas.addEventListener('pointerdown', function (ev) {
+      if (!whiteout) return;
+      var r = canvas.getBoundingClientRect();
+      marq = { x0: (ev.clientX - r.left) / scale, y0: (ev.clientY - r.top) / scale, x1: 0, y1: 0 };
+      marq.x1 = marq.x0; marq.y1 = marq.y0;
+      canvas.setPointerCapture(ev.pointerId); ev.preventDefault(); drawMarquee();
+    });
+    canvas.addEventListener('pointermove', function (ev) {
+      if (!whiteout || !marq) return;
+      var r = canvas.getBoundingClientRect();
+      marq.x1 = clamp((ev.clientX - r.left) / scale, 0, img.width); marq.y1 = clamp((ev.clientY - r.top) / scale, 0, img.height);
+      drawMarquee();
+    });
+    canvas.addEventListener('pointerup', function () {
+      if (!whiteout || !marq) return;
+      var x = Math.round(Math.min(marq.x0, marq.x1)), y = Math.round(Math.min(marq.y0, marq.y1));
+      var w = Math.round(Math.abs(marq.x1 - marq.x0)), h = Math.round(Math.abs(marq.y1 - marq.y0));
+      marq = null; drawMarquee();
+      if (w > 2 && h > 2) paintOut(x, y, w, h);
     });
     document.addEventListener('keydown', function (ev) { if (overlay.classList.contains('on') && ev.key === 'Escape') finish(null); });
   }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
   function resetQuad() {
-    var w = img.width, h = img.height, m = 0.04;
-    quad = [[w * m, h * m], [w * (1 - m), h * m], [w * (1 - m), h * (1 - m)], [w * m, h * (1 - m)]];
+    var w = img.width, h = img.height;
+    quad = [[0, 0], [w, 0], [w, h], [0, h]];
   }
   function fit() {
     var stage = overlay.querySelector('.crop-stage');
@@ -115,6 +142,15 @@ window.cropTool = (function () {
 
   function apply() {
     var q = quad;
+    var untouched = q[0][0] === 0 && q[0][1] === 0 && q[1][0] === img.width && q[1][1] === 0 && q[2][0] === img.width && q[2][1] === img.height && q[3][0] === 0 && q[3][1] === img.height;
+    if (untouched) {
+      // no crop: just export the (possibly whited-out, rotated) image as is
+      var oc0 = document.createElement('canvas'); var W0 = img.width, H0 = img.height, cap0 = 1400 / Math.max(W0, H0);
+      if (cap0 < 1) { W0 = Math.round(W0 * cap0); H0 = Math.round(H0 * cap0); }
+      oc0.width = W0; oc0.height = H0; oc0.getContext('2d').drawImage(img, 0, 0, W0, H0);
+      oc0.toBlob(function (blob) { finish({ blob: blob, w: W0, h: H0 }); }, 'image/jpeg', 0.85);
+      return;
+    }
     var dist = function (a, b) { return Math.hypot(a[0] - b[0], a[1] - b[1]); };
     var W = Math.round((dist(q[0], q[1]) + dist(q[3], q[2])) / 2);
     var H = Math.round((dist(q[0], q[3]) + dist(q[1], q[2])) / 2);
@@ -168,6 +204,71 @@ window.cropTool = (function () {
     }
   }
 
+  // ---------- white-out ----------
+  function setWhiteout(on) {
+    whiteout = on;
+    overlay.querySelector('.crop-box').classList.toggle('whiteout', on);
+    overlay.querySelector('[data-act="whiteout"]').classList.toggle('on', on);
+    overlay.querySelector('.crop-hint').textContent = on
+      ? 'Drag a box over anything to cover. It is filled with the paper colour around it. Press White-out again to go back to the corners.'
+      : 'Drag the four corners to the corners of the page. The crop is straightened from there.';
+  }
+  function updateUndo() { overlay.querySelector('[data-act="undo"]').disabled = !history.length; }
+  function drawMarquee() {
+    var m = overlay.querySelector('.crop-marquee');
+    if (!marq) { m.style.display = 'none'; return; }
+    m.style.display = 'block';
+    m.style.left = (Math.min(marq.x0, marq.x1) * scale) + 'px'; m.style.top = (Math.min(marq.y0, marq.y1) * scale) + 'px';
+    m.style.width = (Math.abs(marq.x1 - marq.x0) * scale) + 'px'; m.style.height = (Math.abs(marq.y1 - marq.y0) * scale) + 'px';
+  }
+  function toCanvas() {
+    if (img instanceof HTMLCanvasElement) return img;
+    var c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    c.getContext('2d').drawImage(img, 0, 0); img = c; return c;
+  }
+  // Fill the box with the paper colour sampled from a ring just outside it,
+  // with a little grain and a soft edge so it disappears into the page.
+  function paintOut(x, y, w, h) {
+    var c = toCanvas(), x2 = c.getContext('2d');
+    history.push(x2.getImageData(x, y, w, h)); history.length > 20 && history.shift(); updateUndo();
+    history[history.length - 1].at = [x, y];
+    var ring = 6, rx = Math.max(0, x - ring), ry = Math.max(0, y - ring);
+    var rw = Math.min(c.width, x + w + ring) - rx, rh = Math.min(c.height, y + h + ring) - ry;
+    var d = x2.getImageData(rx, ry, rw, rh).data, R = [], G = [], B = [];
+    for (var yy = 0; yy < rh; yy++) for (var xx = 0; xx < rw; xx++) {
+      var inside = xx + rx >= x && xx + rx < x + w && yy + ry >= y && yy + ry < y + h;
+      if (inside) continue;
+      var i = (yy * rw + xx) * 4; R.push(d[i]); G.push(d[i + 1]); B.push(d[i + 2]);
+    }
+    var med = function (a) { a.sort(function (p, q) { return p - q; }); return a[a.length >> 1] || 240; };
+    // use the brighter half of the ring so stray ink around the box doesn't darken the fill
+    var lum = R.map(function (r, i) { return 0.299 * r + 0.587 * G[i] + 0.114 * B[i]; });
+    var cut = lum.slice().sort(function (p, q) { return p - q; })[lum.length >> 1];
+    var keep = lum.map(function (l) { return l >= cut; });
+    var col = [med(R.filter(function (_, i) { return keep[i]; })), med(G.filter(function (_, i) { return keep[i]; })), med(B.filter(function (_, i) { return keep[i]; }))];
+    var patch = x2.createImageData(w, h), p = patch.data;
+    for (var k = 0; k < w * h; k++) {
+      var n = (Math.random() - 0.5) * 6;
+      p[k * 4] = col[0] + n; p[k * 4 + 1] = col[1] + n; p[k * 4 + 2] = col[2] + n; p[k * 4 + 3] = 255;
+    }
+    x2.putImageData(patch, x, y);
+    // soft edge: blend a 2px border back toward the original
+    var edge = x2.getImageData(x, y, w, h), e = edge.data, o = history[history.length - 1].data;
+    for (var yy2 = 0; yy2 < h; yy2++) for (var xx2 = 0; xx2 < w; xx2++) {
+      var dist = Math.min(xx2, yy2, w - 1 - xx2, h - 1 - yy2);
+      if (dist >= 2) continue;
+      var t = (dist + 1) / 3, j = (yy2 * w + xx2) * 4;
+      for (var ch = 0; ch < 3; ch++) e[j + ch] = o[j + ch] * (1 - t) + e[j + ch] * t;
+    }
+    x2.putImageData(edge, x, y);
+    draw();
+  }
+  function undo() {
+    var last = history.pop(); if (!last) return;
+    toCanvas().getContext('2d').putImageData(last, last.at[0], last.at[1]);
+    updateUndo(); draw();
+  }
+
   function finish(result) {
     overlay.classList.remove('on');
     if (result) resolveFn(result); else rejectFn(new Error('cancelled'));
@@ -179,7 +280,7 @@ window.cropTool = (function () {
       resolveFn = resolve; rejectFn = reject;
       var p = source instanceof Blob ? createImageBitmap(source, { imageOrientation: 'from-image' }) : new Promise(function (res, rej) { var i = new Image(); i.crossOrigin = 'anonymous'; i.onload = function () { res(i); }; i.onerror = rej; i.src = source; });
       p.then(function (bitmap) {
-        img = bitmap;
+        img = bitmap; history = []; setWhiteout(false); updateUndo();
         overlay.classList.add('on');
         resetQuad(); fit(); draw();
       }).catch(function () { reject(new Error('Could not load that image.')); });
