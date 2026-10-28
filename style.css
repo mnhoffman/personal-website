@@ -406,6 +406,7 @@ h1 {
 .pile {
   grid-column: 1 / -1;
   position: relative;
+  isolation: isolate;
   min-width: 0;
   margin: 0.5rem 0 3rem;
   padding-top: 0.8rem;
