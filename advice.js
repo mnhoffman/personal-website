@@ -3,8 +3,8 @@
 
    advice/entries.json lists the pages in pile order. The pile is a
    masonry of N columns: each page goes to the shortest column, a bit
-   wider than the column and tucked up under the page above, tilted a
-   touch (each page's tilt is fixed, derived from its filename, so
+   wider than the column and tucked up under the page above (lower
+   pages lie on top of higher ones, like shingles), tilted a touch (each page's tilt is fixed, derived from its filename, so
    adding or removing pages doesn't disturb its neighbours). Positions
    are absolute, laid out here from the sizes in entries.json, so the
    layout is settled before any image loads. Clicking a page opens it
@@ -44,7 +44,9 @@
         top: heights[c] - (first ? 0 : tuck),
         width: pageW, height: h,
         tilt: (unit(e.src, 2) - 0.5) * 12,
-        z: 1 + Math.floor(unit(e.src, 3) * 9)
+        // lower pages sit on top of higher ones, like shingles: every
+        // page keeps its top showing and the last row lies fully on top
+        z: 1 + Math.round(Math.max(0, heights[c] - (first ? 0 : tuck)))
       };
       heights[c] += h - (first ? 0 : tuck);
       return item;
