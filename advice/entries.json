@@ -2,19 +2,14 @@
  "_note": "Pages from the green notebook, in the order they appear in the pile (top to bottom, filling the shortest column each time). src is the file in this folder; w and h are its pixel size. Edit at /edit/advice.html, or by hand.",
  "entries": [
   {
-   "src": "entry-079.jpg",
-   "w": 703,
-   "h": 854
+   "src": "entry-110.jpg",
+   "w": 991,
+   "h": 1400
   },
   {
    "src": "entry-077.jpg",
    "w": 690,
    "h": 978
-  },
-  {
-   "src": "entry-060.jpg",
-   "w": 670,
-   "h": 1038
   },
   {
    "src": "entry-001.jpg",
@@ -55,6 +50,16 @@
    "src": "entry-058.jpg",
    "w": 678,
    "h": 1094
+  },
+  {
+   "src": "entry-060.jpg",
+   "w": 670,
+   "h": 1038
+  },
+  {
+   "src": "entry-079.jpg",
+   "w": 703,
+   "h": 854
   },
   {
    "src": "entry-006.jpg",
