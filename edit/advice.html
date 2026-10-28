@@ -94,7 +94,7 @@
     .savebar {
       position: sticky; bottom: 0; margin: 2rem -1rem -2.5rem; padding: 0.9rem 1rem;
       background: rgba(246, 233, 207, 0.96); border-top: 1px solid var(--ink-faint);
-      display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; backdrop-filter: blur(4px);
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; backdrop-filter: blur(4px); z-index: 5;
     }
     .savebar .msg { flex: 1 1 14rem; font-family: var(--mono); font-size: 0.9rem; color: var(--ink-soft); }
     .savebar .msg.ok { color: var(--ok); } .savebar .msg.bad { color: var(--bad); }
@@ -102,7 +102,8 @@
     /* ---- the pile editor ---- */
     .pilebar { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin: 1.4rem 0 0.6rem; font-family: var(--mono); font-size: 0.95rem; color: var(--ink-soft); }
     .pilebar .grow { flex: 1; }
-    #pile { position: relative; margin: 0; padding: 0.8rem 0 0; user-select: none; touch-action: none; }
+    /* the pile is its own stacking layer, so the pages' shingle order never rises above the toolbar or the crop window */
+    #pile { position: relative; z-index: 0; isolation: isolate; margin: 0; padding: 0.8rem 0 0; user-select: none; touch-action: none; }
     .card { position: absolute; transform: rotate(var(--tilt, 0deg)); box-shadow: 0 6px 16px rgba(8, 6, 16, 0.28), 0 1px 2px rgba(8, 6, 16, 0.25); background: #ede4d0; cursor: grab; transition: left .25s ease, top .25s ease, width .25s ease; }
     .card img { display: block; width: 100%; height: auto; pointer-events: none; }
     .card .tools { position: absolute; top: 0.3rem; right: 0.3rem; display: none; gap: 0.25rem; }
