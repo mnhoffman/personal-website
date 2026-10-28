@@ -1,79 +1,85 @@
 /* ------------------------------------------------------------------
    advice.js — the green notebook.
 
-   Reads advice/entries.json, scatters each page across the pile at a
-   random spot and angle (a fresh arrangement every visit), and opens a
-   page large when it is clicked. Arrow keys move between pages, Escape
-   or a click on the backdrop closes.
+   advice/entries.json lists the pages in pile order. The pile is a
+   masonry of N columns: each page goes to the shortest column, a bit
+   wider than the column and tucked up under the page above, tilted a
+   touch (each page's tilt is fixed, derived from its filename, so
+   adding or removing pages doesn't disturb its neighbours). Positions
+   are absolute, laid out here from the sizes in entries.json, so the
+   layout is settled before any image loads. Clicking a page opens it
+   large; arrow keys move between pages, Escape closes.
+
+   window.advicePile.layout() is shared with the editor at
+   /edit/advice.html so its preview matches the site exactly.
    ------------------------------------------------------------------ */
 (function () {
   'use strict';
+
+  // A small stable hash → [0, 1), so a page keeps its tilt for good.
+  function unit(str, salt) {
+    var h = 2166136261 ^ (salt || 0);
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 10007) / 10007;
+  }
+
+  // entries: [{src, w, h}], W: pile width in px, rem: px per rem.
+  // Returns {items: [{left, top, width, height, tilt, z}], height}.
+  function layout(entries, W, rem) {
+    var cols = W > 760 ? 5 : W > 520 ? 4 : 2;
+    var colW = W / cols;
+    var pageW = colW * 1.18;
+    var tuck = 1.8 * rem;
+    var heights = [];
+    for (var k = 0; k < cols; k++) heights.push(unit('col' + k, 7) * pageW * 0.45);
+    var items = entries.map(function (e) {
+      var c = 0;
+      for (var k = 1; k < cols; k++) if (heights[k] < heights[c]) c = k;
+      var first = heights[c] < pageW * 0.5;
+      var h = pageW * e.h / e.w;
+      var item = {
+        left: c * colW - colW * 0.09 + (unit(e.src, 1) - 0.5) * 1.6 * rem,
+        top: heights[c] - (first ? 0 : tuck),
+        width: pageW, height: h,
+        tilt: (unit(e.src, 2) - 0.5) * 12,
+        z: 1 + Math.floor(unit(e.src, 3) * 9)
+      };
+      heights[c] += h - (first ? 0 : tuck);
+      return item;
+    });
+    return { items: items, height: Math.max.apply(null, heights) + 1.5 * rem };
+  }
+  window.advicePile = { layout: layout };
 
   var pile = document.getElementById('pile');
   var box = document.getElementById('lightbox');
   if (!pile || !box) return;
   var img = document.getElementById('lb-img');
   var entries = [];
-  var order = [];
   var current = -1;
-
-  // A fixed arrangement: the same shuffle every visit, from a seeded
-  // generator, so the pile looks considered rather than re-rolled.
-  function rng(seed) {
-    return function () {
-      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    };
-  }
-  function shuffle(a, rand) {
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(rand() * (i + 1));
-      var t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    return a;
-  }
-
-  // Lay the pile out ourselves: a masonry of N columns, each page a bit
-  // wider than its column and tucked up under the page above, tilted a
-  // touch. Positions are absolute, so nothing depends on the browser's
-  // multi-column fragmentation (which drops rotated pages at column
-  // tops in some browsers). Sizes come from entries.json so the layout
-  // is settled before a single image has loaded.
   var laidOutWidth = 0;
+
   function build() {
     if (!entries.length) return;
     var W = pile.clientWidth;
     if (!W || W === laidOutWidth) return;
     laidOutWidth = W;
-    var rand = rng(20231101);
-    if (!order.length) order = shuffle(entries.slice(), rand); else rand = rng(20231102);
     var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-    var cols = W > 760 ? 5 : W > 520 ? 4 : 2;
-    var colW = W / cols;
-    var pageW = colW * 1.18;
-    var tuck = 1.8 * rem;              // how far each page slides under the one above
-    // columns start at staggered heights so the top edge isn't a straight line
-    var heights = []; for (var k = 0; k < cols; k++) heights.push(rand() * pageW * 0.45);
+    var L = layout(entries, W, rem);
     pile.innerHTML = '';
     var frag = document.createDocumentFragment();
-    order.forEach(function (e, i) {
-      // the shortest column, so the bottom edge stays even
-      var c = 0; for (var k = 1; k < cols; k++) if (heights[k] < heights[c]) c = k;
-      var h = pageW * e.h / e.w;
+    entries.forEach(function (e, i) {
+      var it = L.items[i];
       var a = document.createElement('a');
       a.className = 'entry';
       a.href = 'advice/' + e.src;
       a.setAttribute('aria-label', 'Open this page');
       a.dataset.index = i;
-      a.style.width = pageW + 'px';
-      a.style.left = (c * colW - colW * 0.09 + (rand() - 0.5) * 1.6 * rem) + 'px';
-      var first = heights[c] < pageW * 0.5;      // nothing above this page yet
-      a.style.top = (heights[c] - (first ? 0 : tuck)) + 'px';
-      a.style.setProperty('--tilt', ((rand() - 0.5) * 12).toFixed(1) + 'deg');
-      a.style.zIndex = 1 + Math.floor(rand() * 9);
-      heights[c] += h - (first ? 0 : tuck);
+      a.style.width = it.width + 'px';
+      a.style.left = it.left + 'px';
+      a.style.top = it.top + 'px';
+      a.style.setProperty('--tilt', it.tilt.toFixed(1) + 'deg');
+      a.style.zIndex = it.z;
       var im = document.createElement('img');
       im.src = 'advice/' + e.src;
       im.alt = '';
@@ -84,7 +90,7 @@
       frag.appendChild(a);
     });
     pile.appendChild(frag);
-    pile.style.height = (Math.max.apply(null, heights) + 1.5 * rem) + 'px';
+    pile.style.height = L.height + 'px';
   }
   var resizeTimer = 0;
   window.addEventListener('resize', function () {
@@ -93,8 +99,8 @@
   });
 
   function open(i) {
-    current = (i + order.length) % order.length;
-    img.src = 'advice/' + order[current].src;
+    current = (i + entries.length) % entries.length;
+    img.src = 'advice/' + entries[current].src;
     box.hidden = false;
     document.body.classList.add('lb-open');
   }
@@ -114,14 +120,12 @@
     else if (ev.key === 'ArrowRight') open(current + 1);
   });
 
-  // Build the pile the first time the page is shown (its width isn't
-  // known while hidden), and whenever the hash lands on it.
   function maybeBuild() {
     if (window.location.hash === '#advice') requestAnimationFrame(build);
   }
   window.addEventListener('hashchange', maybeBuild);
 
-  fetch('advice/entries.json')
+  fetch('advice/entries.json', { cache: 'no-cache' })
     .then(function (r) { return r.json(); })
     .then(function (data) { entries = data.entries || []; maybeBuild(); })
     .catch(function (e) { console.error('advice.js: could not read entries.json', e); });

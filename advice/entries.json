@@ -1,285 +1,15 @@
 {
- "_note": "Each entry is one page from the green notebook. src is the file in this folder; w and h are its pixel size (used to lay the pile out before the images load). To add one: drop the JPG here and add a line.",
+ "_note": "Pages from the green notebook, in the order they appear in the pile (top to bottom, filling the shortest column each time). src is the file in this folder; w and h are its pixel size. Edit at /edit/advice.html, or by hand.",
  "entries": [
   {
-   "src": "entry-001.jpg",
-   "w": 584,
-   "h": 1006
+   "src": "entry-079.jpg",
+   "w": 762,
+   "h": 936
   },
   {
-   "src": "entry-002.jpg",
-   "w": 618,
-   "h": 318
-  },
-  {
-   "src": "entry-003.jpg",
-   "w": 669,
-   "h": 152
-  },
-  {
-   "src": "entry-004.jpg",
-   "w": 688,
-   "h": 373
-  },
-  {
-   "src": "entry-005.jpg",
-   "w": 706,
-   "h": 1083
-  },
-  {
-   "src": "entry-006.jpg",
-   "w": 616,
-   "h": 914
-  },
-  {
-   "src": "entry-007.jpg",
-   "w": 686,
-   "h": 536
-  },
-  {
-   "src": "entry-008.jpg",
-   "w": 588,
-   "h": 438
-  },
-  {
-   "src": "entry-009.jpg",
-   "w": 645,
-   "h": 707
-  },
-  {
-   "src": "entry-011.jpg",
-   "w": 620,
-   "h": 583
-  },
-  {
-   "src": "entry-012.jpg",
-   "w": 732,
-   "h": 601
-  },
-  {
-   "src": "entry-013.jpg",
-   "w": 675,
-   "h": 523
-  },
-  {
-   "src": "entry-014.jpg",
-   "w": 662,
-   "h": 831
-  },
-  {
-   "src": "entry-015.jpg",
-   "w": 586,
-   "h": 494
-  },
-  {
-   "src": "entry-016.jpg",
-   "w": 617,
-   "h": 625
-  },
-  {
-   "src": "entry-017.jpg",
-   "w": 654,
-   "h": 1012
-  },
-  {
-   "src": "entry-018.jpg",
-   "w": 528,
-   "h": 483
-  },
-  {
-   "src": "entry-019.jpg",
-   "w": 608,
-   "h": 685
-  },
-  {
-   "src": "entry-020.jpg",
-   "w": 766,
-   "h": 1068
-  },
-  {
-   "src": "entry-021.jpg",
-   "w": 622,
-   "h": 836
-  },
-  {
-   "src": "entry-022.jpg",
-   "w": 542,
-   "h": 656
-  },
-  {
-   "src": "entry-023.jpg",
-   "w": 592,
-   "h": 375
-  },
-  {
-   "src": "entry-024.jpg",
-   "w": 637,
-   "h": 346
-  },
-  {
-   "src": "entry-025.jpg",
-   "w": 658,
-   "h": 320
-  },
-  {
-   "src": "entry-026.jpg",
-   "w": 573,
-   "h": 471
-  },
-  {
-   "src": "entry-027.jpg",
-   "w": 547,
-   "h": 495
-  },
-  {
-   "src": "entry-028.jpg",
-   "w": 700,
-   "h": 1039
-  },
-  {
-   "src": "entry-029.jpg",
-   "w": 675,
-   "h": 521
-  },
-  {
-   "src": "entry-030.jpg",
-   "w": 600,
-   "h": 445
-  },
-  {
-   "src": "entry-031.jpg",
-   "w": 659,
-   "h": 954
-  },
-  {
-   "src": "entry-032.jpg",
-   "w": 648,
-   "h": 822
-  },
-  {
-   "src": "entry-033.jpg",
-   "w": 584,
-   "h": 440
-  },
-  {
-   "src": "entry-034.jpg",
-   "w": 714,
-   "h": 419
-  },
-  {
-   "src": "entry-035.jpg",
-   "w": 677,
-   "h": 872
-  },
-  {
-   "src": "entry-036.jpg",
-   "w": 862,
-   "h": 1026
-  },
-  {
-   "src": "entry-037.jpg",
-   "w": 678,
-   "h": 918
-  },
-  {
-   "src": "entry-038.jpg",
-   "w": 634,
-   "h": 1060
-  },
-  {
-   "src": "entry-039.jpg",
-   "w": 602,
-   "h": 581
-  },
-  {
-   "src": "entry-040.jpg",
-   "w": 750,
-   "h": 1152
-  },
-  {
-   "src": "entry-041.jpg",
-   "w": 666,
-   "h": 1062
-  },
-  {
-   "src": "entry-042.jpg",
-   "w": 709,
-   "h": 1064
-  },
-  {
-   "src": "entry-043.jpg",
-   "w": 728,
-   "h": 1064
-  },
-  {
-   "src": "entry-044.jpg",
-   "w": 646,
-   "h": 342
-  },
-  {
-   "src": "entry-045.jpg",
-   "w": 670,
-   "h": 695
-  },
-  {
-   "src": "entry-046.jpg",
-   "w": 668,
-   "h": 840
-  },
-  {
-   "src": "entry-047.jpg",
-   "w": 690,
-   "h": 566
-  },
-  {
-   "src": "entry-048.jpg",
-   "w": 811,
-   "h": 1225
-  },
-  {
-   "src": "entry-049.jpg",
-   "w": 499,
-   "h": 181
-  },
-  {
-   "src": "entry-050.jpg",
-   "w": 734,
-   "h": 1140
-  },
-  {
-   "src": "entry-051.jpg",
-   "w": 756,
-   "h": 884
-  },
-  {
-   "src": "entry-052.jpg",
-   "w": 680,
-   "h": 676
-  },
-  {
-   "src": "entry-053.jpg",
-   "w": 751,
-   "h": 1175
-  },
-  {
-   "src": "entry-054.jpg",
-   "w": 679,
-   "h": 845
-  },
-  {
-   "src": "entry-055.jpg",
-   "w": 642,
-   "h": 712
-  },
-  {
-   "src": "entry-056.jpg",
-   "w": 733,
-   "h": 621
-  },
-  {
-   "src": "entry-057.jpg",
-   "w": 642,
-   "h": 1072
+   "src": "entry-077.jpg",
+   "w": 748,
+   "h": 977
   },
   {
    "src": "entry-058.jpg",
@@ -287,54 +17,44 @@
    "h": 1135
   },
   {
-   "src": "entry-059.jpg",
-   "w": 749,
-   "h": 856
-  },
-  {
    "src": "entry-060.jpg",
    "w": 728,
    "h": 1092
   },
   {
-   "src": "entry-061.jpg",
-   "w": 632,
-   "h": 1032
+   "src": "entry-032.jpg",
+   "w": 648,
+   "h": 822
   },
   {
-   "src": "entry-062.jpg",
-   "w": 732,
-   "h": 1084
+   "src": "entry-006.jpg",
+   "w": 616,
+   "h": 914
   },
   {
-   "src": "entry-063.jpg",
-   "w": 690,
-   "h": 1134
+   "src": "entry-025.jpg",
+   "w": 658,
+   "h": 320
   },
   {
-   "src": "entry-064.jpg",
-   "w": 680,
-   "h": 702
+   "src": "entry-103.jpg",
+   "w": 871,
+   "h": 690
   },
   {
-   "src": "entry-065.jpg",
-   "w": 684,
-   "h": 1090
+   "src": "entry-005.jpg",
+   "w": 706,
+   "h": 1083
   },
   {
-   "src": "entry-066.jpg",
-   "w": 630,
-   "h": 562
+   "src": "entry-085.jpg",
+   "w": 808,
+   "h": 1064
   },
   {
-   "src": "entry-067.jpg",
-   "w": 698,
-   "h": 756
-  },
-  {
-   "src": "entry-068.jpg",
-   "w": 611,
-   "h": 772
+   "src": "entry-013.jpg",
+   "w": 675,
+   "h": 523
   },
   {
    "src": "entry-069.jpg",
@@ -347,84 +67,14 @@
    "h": 1106
   },
   {
-   "src": "entry-071.jpg",
-   "w": 699,
-   "h": 672
+   "src": "entry-021.jpg",
+   "w": 622,
+   "h": 836
   },
   {
-   "src": "entry-072.jpg",
-   "w": 686,
-   "h": 534
-  },
-  {
-   "src": "entry-073.jpg",
-   "w": 674,
-   "h": 825
-  },
-  {
-   "src": "entry-074.jpg",
-   "w": 684,
-   "h": 738
-  },
-  {
-   "src": "entry-075.jpg",
-   "w": 643,
-   "h": 536
-  },
-  {
-   "src": "entry-076.jpg",
-   "w": 714,
-   "h": 787
-  },
-  {
-   "src": "entry-077.jpg",
-   "w": 748,
-   "h": 977
-  },
-  {
-   "src": "entry-078.jpg",
-   "w": 717,
-   "h": 803
-  },
-  {
-   "src": "entry-079.jpg",
-   "w": 762,
-   "h": 936
-  },
-  {
-   "src": "entry-080.jpg",
-   "w": 590,
-   "h": 290
-  },
-  {
-   "src": "entry-081.jpg",
-   "w": 700,
-   "h": 479
-  },
-  {
-   "src": "entry-082.jpg",
-   "w": 637,
-   "h": 749
-  },
-  {
-   "src": "entry-083.jpg",
-   "w": 678,
-   "h": 1102
-  },
-  {
-   "src": "entry-084.jpg",
-   "w": 498,
-   "h": 258
-  },
-  {
-   "src": "entry-085.jpg",
-   "w": 808,
-   "h": 1064
-  },
-  {
-   "src": "entry-086.jpg",
-   "w": 778,
-   "h": 1147
+   "src": "entry-035.jpg",
+   "w": 677,
+   "h": 872
   },
   {
    "src": "entry-087.jpg",
@@ -432,89 +82,74 @@
    "h": 569
   },
   {
+   "src": "entry-054.jpg",
+   "w": 679,
+   "h": 845
+  },
+  {
+   "src": "entry-033.jpg",
+   "w": 584,
+   "h": 440
+  },
+  {
+   "src": "entry-046.jpg",
+   "w": 668,
+   "h": 840
+  },
+  {
+   "src": "entry-017.jpg",
+   "w": 654,
+   "h": 1012
+  },
+  {
+   "src": "entry-050.jpg",
+   "w": 734,
+   "h": 1140
+  },
+  {
+   "src": "entry-011.jpg",
+   "w": 620,
+   "h": 583
+  },
+  {
+   "src": "entry-066.jpg",
+   "w": 630,
+   "h": 562
+  },
+  {
+   "src": "entry-045.jpg",
+   "w": 670,
+   "h": 695
+  },
+  {
+   "src": "entry-004.jpg",
+   "w": 688,
+   "h": 373
+  },
+  {
+   "src": "entry-081.jpg",
+   "w": 700,
+   "h": 479
+  },
+  {
+   "src": "entry-109.jpg",
+   "w": 1400,
+   "h": 783
+  },
+  {
+   "src": "entry-051.jpg",
+   "w": 756,
+   "h": 884
+  },
+  {
    "src": "entry-088.jpg",
    "w": 728,
    "h": 932
   },
   {
-   "src": "entry-089.jpg",
-   "w": 719,
-   "h": 317
-  },
-  {
-   "src": "entry-090.jpg",
-   "w": 666,
-   "h": 540
-  },
-  {
-   "src": "entry-091.jpg",
-   "w": 646,
-   "h": 372
-  },
-  {
-   "src": "entry-092.jpg",
-   "w": 752,
-   "h": 595
-  },
-  {
-   "src": "entry-093.jpg",
-   "w": 690,
-   "h": 366
-  },
-  {
-   "src": "entry-094.jpg",
-   "w": 646,
-   "h": 918
-  },
-  {
-   "src": "entry-095.jpg",
-   "w": 610,
-   "h": 1037
-  },
-  {
-   "src": "entry-096.jpg",
-   "w": 864,
-   "h": 1101
-  },
-  {
-   "src": "entry-097.jpg",
-   "w": 832,
-   "h": 879
-  },
-  {
-   "src": "entry-098.jpg",
-   "w": 862,
-   "h": 1400
-  },
-  {
-   "src": "entry-099.jpg",
-   "w": 875,
-   "h": 602
-  },
-  {
-   "src": "entry-100.jpg",
-   "w": 890,
-   "h": 1400
-  },
-  {
-   "src": "entry-101.jpg",
-   "w": 854,
-   "h": 1400
-  },
-  {
-   "src": "entry-102.jpg",
-   "w": 875,
-   "h": 796
-  },
-  {
-   "src": "entry-103.jpg",
-   "w": 871,
-   "h": 690
-  },
-  {
-   "src": "entry-104.jpg",
-   "w": 860,
-   "h": 1400
+   "src": "entry-012.jpg",
+   "w": 732,
+   "h": 601
   },
   {
    "src": "entry-105.jpg",
@@ -522,8 +157,78 @@
    "h": 1400
   },
   {
-   "src": "entry-107.jpg",
-   "w": 885,
+   "src": "entry-095.jpg",
+   "w": 610,
+   "h": 1037
+  },
+  {
+   "src": "entry-083.jpg",
+   "w": 678,
+   "h": 1102
+  },
+  {
+   "src": "entry-039.jpg",
+   "w": 602,
+   "h": 581
+  },
+  {
+   "src": "entry-040.jpg",
+   "w": 750,
+   "h": 1152
+  },
+  {
+   "src": "entry-026.jpg",
+   "w": 573,
+   "h": 471
+  },
+  {
+   "src": "entry-016.jpg",
+   "w": 617,
+   "h": 625
+  },
+  {
+   "src": "entry-038.jpg",
+   "w": 634,
+   "h": 1060
+  },
+  {
+   "src": "entry-036.jpg",
+   "w": 862,
+   "h": 1026
+  },
+  {
+   "src": "entry-078.jpg",
+   "w": 717,
+   "h": 803
+  },
+  {
+   "src": "entry-020.jpg",
+   "w": 766,
+   "h": 1068
+  },
+  {
+   "src": "entry-014.jpg",
+   "w": 662,
+   "h": 831
+  },
+  {
+   "src": "entry-084.jpg",
+   "w": 498,
+   "h": 258
+  },
+  {
+   "src": "entry-053.jpg",
+   "w": 751,
+   "h": 1175
+  },
+  {
+   "src": "entry-075.jpg",
+   "w": 643,
+   "h": 536
+  },
+  {
+   "src": "entry-104.jpg",
+   "w": 860,
    "h": 1400
   },
   {
@@ -532,9 +237,304 @@
    "h": 1400
   },
   {
-   "src": "entry-109.jpg",
-   "w": 1400,
-   "h": 783
+   "src": "entry-041.jpg",
+   "w": 666,
+   "h": 1062
+  },
+  {
+   "src": "entry-093.jpg",
+   "w": 690,
+   "h": 366
+  },
+  {
+   "src": "entry-034.jpg",
+   "w": 714,
+   "h": 419
+  },
+  {
+   "src": "entry-028.jpg",
+   "w": 700,
+   "h": 1039
+  },
+  {
+   "src": "entry-055.jpg",
+   "w": 642,
+   "h": 712
+  },
+  {
+   "src": "entry-043.jpg",
+   "w": 728,
+   "h": 1064
+  },
+  {
+   "src": "entry-102.jpg",
+   "w": 875,
+   "h": 796
+  },
+  {
+   "src": "entry-096.jpg",
+   "w": 864,
+   "h": 1101
+  },
+  {
+   "src": "entry-030.jpg",
+   "w": 600,
+   "h": 445
+  },
+  {
+   "src": "entry-001.jpg",
+   "w": 584,
+   "h": 1006
+  },
+  {
+   "src": "entry-059.jpg",
+   "w": 749,
+   "h": 856
+  },
+  {
+   "src": "entry-068.jpg",
+   "w": 611,
+   "h": 772
+  },
+  {
+   "src": "entry-072.jpg",
+   "w": 686,
+   "h": 534
+  },
+  {
+   "src": "entry-065.jpg",
+   "w": 684,
+   "h": 1090
+  },
+  {
+   "src": "entry-064.jpg",
+   "w": 680,
+   "h": 702
+  },
+  {
+   "src": "entry-056.jpg",
+   "w": 733,
+   "h": 621
+  },
+  {
+   "src": "entry-023.jpg",
+   "w": 592,
+   "h": 375
+  },
+  {
+   "src": "entry-042.jpg",
+   "w": 709,
+   "h": 1064
+  },
+  {
+   "src": "entry-080.jpg",
+   "w": 590,
+   "h": 290
+  },
+  {
+   "src": "entry-071.jpg",
+   "w": 699,
+   "h": 672
+  },
+  {
+   "src": "entry-047.jpg",
+   "w": 690,
+   "h": 566
+  },
+  {
+   "src": "entry-019.jpg",
+   "w": 608,
+   "h": 685
+  },
+  {
+   "src": "entry-002.jpg",
+   "w": 618,
+   "h": 318
+  },
+  {
+   "src": "entry-027.jpg",
+   "w": 547,
+   "h": 495
+  },
+  {
+   "src": "entry-063.jpg",
+   "w": 690,
+   "h": 1134
+  },
+  {
+   "src": "entry-031.jpg",
+   "w": 659,
+   "h": 954
+  },
+  {
+   "src": "entry-048.jpg",
+   "w": 811,
+   "h": 1225
+  },
+  {
+   "src": "entry-091.jpg",
+   "w": 646,
+   "h": 372
+  },
+  {
+   "src": "entry-061.jpg",
+   "w": 632,
+   "h": 1032
+  },
+  {
+   "src": "entry-099.jpg",
+   "w": 875,
+   "h": 602
+  },
+  {
+   "src": "entry-029.jpg",
+   "w": 675,
+   "h": 521
+  },
+  {
+   "src": "entry-024.jpg",
+   "w": 637,
+   "h": 346
+  },
+  {
+   "src": "entry-022.jpg",
+   "w": 542,
+   "h": 656
+  },
+  {
+   "src": "entry-097.jpg",
+   "w": 832,
+   "h": 879
+  },
+  {
+   "src": "entry-015.jpg",
+   "w": 586,
+   "h": 494
+  },
+  {
+   "src": "entry-100.jpg",
+   "w": 890,
+   "h": 1400
+  },
+  {
+   "src": "entry-090.jpg",
+   "w": 666,
+   "h": 540
+  },
+  {
+   "src": "entry-101.jpg",
+   "w": 854,
+   "h": 1400
+  },
+  {
+   "src": "entry-037.jpg",
+   "w": 678,
+   "h": 918
+  },
+  {
+   "src": "entry-052.jpg",
+   "w": 680,
+   "h": 676
+  },
+  {
+   "src": "entry-086.jpg",
+   "w": 778,
+   "h": 1147
+  },
+  {
+   "src": "entry-074.jpg",
+   "w": 684,
+   "h": 738
+  },
+  {
+   "src": "entry-009.jpg",
+   "w": 645,
+   "h": 707
+  },
+  {
+   "src": "entry-107.jpg",
+   "w": 885,
+   "h": 1400
+  },
+  {
+   "src": "entry-089.jpg",
+   "w": 719,
+   "h": 317
+  },
+  {
+   "src": "entry-062.jpg",
+   "w": 732,
+   "h": 1084
+  },
+  {
+   "src": "entry-049.jpg",
+   "w": 499,
+   "h": 181
+  },
+  {
+   "src": "entry-098.jpg",
+   "w": 862,
+   "h": 1400
+  },
+  {
+   "src": "entry-057.jpg",
+   "w": 642,
+   "h": 1072
+  },
+  {
+   "src": "entry-092.jpg",
+   "w": 752,
+   "h": 595
+  },
+  {
+   "src": "entry-003.jpg",
+   "w": 669,
+   "h": 152
+  },
+  {
+   "src": "entry-073.jpg",
+   "w": 674,
+   "h": 825
+  },
+  {
+   "src": "entry-044.jpg",
+   "w": 646,
+   "h": 342
+  },
+  {
+   "src": "entry-007.jpg",
+   "w": 686,
+   "h": 536
+  },
+  {
+   "src": "entry-008.jpg",
+   "w": 588,
+   "h": 438
+  },
+  {
+   "src": "entry-094.jpg",
+   "w": 646,
+   "h": 918
+  },
+  {
+   "src": "entry-076.jpg",
+   "w": 714,
+   "h": 787
+  },
+  {
+   "src": "entry-018.jpg",
+   "w": 528,
+   "h": 483
+  },
+  {
+   "src": "entry-082.jpg",
+   "w": 637,
+   "h": 749
+  },
+  {
+   "src": "entry-067.jpg",
+   "w": 698,
+   "h": 756
   }
  ]
 }

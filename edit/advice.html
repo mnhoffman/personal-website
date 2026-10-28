@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit the advice pile — Madeleine Hoffman</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6e9cf; --paper-2: #fbf2dc; --card: #fcf6e8;
+      --ink: #3a302b; --ink-soft: #6b5d55; --ink-faint: rgba(58, 48, 43, 0.35);
+      --rule: rgba(90, 110, 150, 0.3); --accent: #a85a3c; --ok: #4f7a4a; --bad: #a33;
+      --mono: "Courier Prime", "Courier New", monospace;
+      --body: "EB Garamond", Georgia, serif;
+      --hand: "Caveat", cursive;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh;
+      background: #1b1540 linear-gradient(to top, #c8744a 0%, #6a3a58 40%, #1a1430 100%) fixed;
+      color: var(--ink); font-family: var(--body); font-size: 1.1rem; line-height: 1.5;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 64rem; margin: 2.5rem auto 4rem; padding: 0 1rem; }
+    .sheet {
+      background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #eedfc2 100%);
+      box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5); padding: 2rem clamp(1.2rem, 4vw, 3rem) 2.5rem;
+    }
+    h1 { font-family: var(--mono); font-weight: 700; font-size: 1.9rem; margin: 0 0 0.2rem; }
+    h1 small { font-family: var(--hand); font-weight: 400; font-size: 1.3rem; color: var(--ink-soft); margin-left: 0.8rem; }
+    h2 { font-family: var(--mono); font-weight: 700; font-size: 1.25rem; margin: 2.2rem 0 0.6rem; padding-top: 1.2rem; border-top: 1px dashed var(--ink-faint); }
+    .lede { color: var(--ink-soft); margin: 0 0 1rem; }
+    .lede a { color: var(--accent); }
+    code { font-family: var(--mono); font-size: 0.92em; background: rgba(0,0,0,0.06); padding: 0 0.3em; border-radius: 3px; }
+
+    /* ---- token / status bar ---- */
+    .bar { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin: 1rem 0 0.5rem; font-family: var(--mono); font-size: 0.95rem; }
+    .bar .status { flex: 1 1 14rem; color: var(--ink-soft); }
+    .bar .status.ok { color: var(--ok); } .bar .status.bad { color: var(--bad); }
+    button, .btn {
+      font-family: var(--mono); font-size: 0.95rem; color: var(--ink); background: var(--card);
+      border: 1px solid var(--ink-faint); border-radius: 4px; padding: 0.45em 0.9em; cursor: pointer;
+    }
+    button:hover { border-color: var(--ink-soft); }
+    button.primary { background: var(--accent); color: #fff6ea; border-color: var(--accent); }
+    button.primary[disabled] { opacity: 0.5; cursor: default; }
+    button.small { padding: 0.25em 0.6em; font-size: 0.85rem; }
+    input[type=text], input[type=password], input[type=url] {
+      font-family: var(--body); font-size: 1.05rem; color: var(--ink); background: var(--card);
+      border: 1px solid var(--ink-faint); border-radius: 4px; padding: 0.4em 0.6em; width: 100%;
+    }
+    details.setup { margin: 0.8rem 0 0; font-size: 1rem; }
+    details.setup summary { cursor: pointer; font-family: var(--mono); font-size: 0.95rem; color: var(--ink-soft); }
+    details.setup ol { margin: 0.6rem 0 0; padding-left: 1.3rem; }
+    details.setup li { margin: 0.25rem 0; }
+    .tokenrow { display: flex; gap: 0.6rem; margin-top: 0.6rem; }
+
+    /* ---- fields ---- */
+    .field { margin: 1.1rem 0 1.6rem; }
+    .field > label { display: block; font-family: var(--mono); font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.35rem; }
+    .field > label .kind { opacity: 0.7; }
+    .md { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    @media (max-width: 760px) { .md { grid-template-columns: 1fr; } }
+    .toolbar { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    textarea {
+      width: 100%; min-height: 9rem; resize: vertical;
+      font-family: var(--mono); font-size: 0.95rem; line-height: 1.5; color: var(--ink);
+      background: var(--card); border: 1px solid var(--ink-faint); border-radius: 4px; padding: 0.7rem 0.8rem;
+    }
+    textarea:focus, input:focus { outline: 2px solid rgba(168, 90, 60, 0.4); outline-offset: 1px; }
+    /* the preview looks like a note on the site */
+    .preview {
+      position: relative; padding: 1.3rem 1.4rem 1.2rem; min-height: 9rem;
+      background:
+        repeating-linear-gradient(to bottom, transparent 0 calc(1.55em - 1px), var(--rule) calc(1.55em - 1px) 1.55em) content-box,
+        linear-gradient(170deg, #fffbf1 0%, #fcf6e8 60%, #f6eedd 100%);
+      box-shadow: 0 7px 14px rgba(8, 6, 16, 0.18), 0 1px 2px rgba(8, 6, 16, 0.2);
+      font-size: 1.08rem; line-height: 1.55;
+    }
+    .preview p { margin: 0; } .preview p + p { margin-top: 1.55em; }
+    .preview ul, .preview ol { margin: 0; padding-left: 1.3em; }
+    .preview a { color: var(--ink); text-decoration: underline wavy var(--ink-faint) 1px; text-underline-offset: 0.2em; }
+    .preview.hand { font-family: var(--hand); font-size: 1.5rem; line-height: 1.2; min-height: 0; background: none; box-shadow: none; padding: 0.3rem 0; color: var(--ink-soft); }
+    .preview.inline { font-size: 1.08rem; }
+    .links-list { display: grid; gap: 0.5rem; }
+    .links-list .row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 0.5rem; align-items: center; }
+    @media (max-width: 600px) { .links-list .row { grid-template-columns: 1fr; } }
+    .hint { font-size: 0.95rem; color: var(--ink-soft); margin: 0.4rem 0 0; }
+    .dirty h2::after { content: " ·"; color: var(--accent); }
+
+    .savebar {
+      position: sticky; bottom: 0; margin: 2rem -1rem -2.5rem; padding: 0.9rem 1rem;
+      background: rgba(246, 233, 207, 0.96); border-top: 1px solid var(--ink-faint);
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; backdrop-filter: blur(4px);
+    }
+    .savebar .msg { flex: 1 1 14rem; font-family: var(--mono); font-size: 0.9rem; color: var(--ink-soft); }
+    .savebar .msg.ok { color: var(--ok); } .savebar .msg.bad { color: var(--bad); }
+  
+    /* ---- the pile editor ---- */
+    .pilebar { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin: 1.4rem 0 0.6rem; font-family: var(--mono); font-size: 0.95rem; color: var(--ink-soft); }
+    .pilebar .grow { flex: 1; }
+    #pile { position: relative; overflow: hidden; margin: 0 -0.5rem; padding: 0.8rem 1.2rem 0; user-select: none; touch-action: none; }
+    .card { position: absolute; transform: rotate(var(--tilt, 0deg)); box-shadow: 0 6px 16px rgba(8, 6, 16, 0.28), 0 1px 2px rgba(8, 6, 16, 0.25); background: #ede4d0; cursor: grab; transition: left .25s ease, top .25s ease, width .25s ease; }
+    .card img { display: block; width: 100%; height: auto; pointer-events: none; }
+    .card .tools { position: absolute; top: 0.3rem; right: 0.3rem; display: none; gap: 0.25rem; }
+    .card:hover { z-index: 60 !important; }
+    .card:hover .tools { display: flex; }
+    .card .tools button { padding: 0.15em 0.5em; font-size: 0.8rem; background: rgba(252, 246, 232, 0.95); }
+    .card.dragging { transition: none; z-index: 99 !important; cursor: grabbing; box-shadow: 0 18px 40px rgba(8, 6, 16, 0.45); transform: rotate(0deg) scale(1.03); }
+    .card.dragging .tools { display: none; }
+    /* ---- crop tool ---- */
+    .crop-overlay { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; background: rgba(14, 10, 24, 0.85); padding: 1rem; }
+    .crop-overlay.on { display: flex; }
+    .crop-panel { background: var(--paper); padding: 1rem 1.2rem 1.2rem; max-width: min(96vw, 1100px); width: 100%; box-shadow: 0 30px 70px rgba(0,0,0,0.6); }
+    .crop-head { font-family: var(--mono); font-size: 0.95rem; margin-bottom: 0.6rem; }
+    .crop-hint { color: var(--ink-soft); }
+    .crop-stage { position: relative; width: 100%; display: flex; justify-content: center; }
+    .crop-stage canvas { display: block; max-width: 100%; }
+    .crop-box { position: relative; display: inline-block; line-height: 0; }
+    .crop-quad { position: absolute; left: 0; top: 0; pointer-events: none; }
+    .crop-quad polygon { fill: none; stroke: #ffd27a; stroke-width: 2; }
+    .crop-handle { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #ffd27a; border: 3px solid #3a302b; cursor: move; touch-action: none; box-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+    .crop-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.8rem; }
+    .crop-spacer { flex: 1; }
+    .crop-check { font-family: var(--mono); font-size: 0.9rem; color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="sheet">
+      <h1>Edit the advice pile <small>madeleinehoffman</small></h1>
+      <p class="lede" style="margin-top:0">Looking for the text? <a href="./">Edit the words</a> instead.</p>
+      <p class="lede">
+        This is the pile exactly as the site lays it out. <strong>Drag</strong> a page to move it and the others flow around it.
+        Hover a page for <strong>crop</strong> (drag four corners to the page's corners; it is straightened from there) and <strong>remove</strong>.
+        <strong>Add pages</strong> takes photos straight from your phone or computer and opens the crop for each.
+        Nothing changes on the site until you <strong>Publish</strong>.
+      </p>
+
+      <div class="bar">
+        <span class="status" id="status">Checking…</span>
+        <button id="reload" class="small" type="button">Reload from GitHub</button>
+        <button id="forget" class="small" type="button" hidden>Forget token</button>
+      </div>
+
+      <details class="setup" id="setup">
+        <summary>Connect to GitHub (one-time)</summary>
+        <ol>
+          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
+          <li>Name it anything. Under <strong>Repository access</strong> choose <em>Only select repositories</em> and pick <code>personal-website</code>.</li>
+          <li>Under <strong>Permissions → Repository permissions</strong>, set <strong>Contents</strong> to <em>Read and write</em>.</li>
+          <li>Generate it, copy it, paste it here. It is kept only in this browser and only sent to GitHub. (The same token works for both editors.)</li>
+        </ol>
+        <div class="tokenrow">
+          <input type="password" id="token" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+          <button id="savetoken" type="button" class="primary">Connect</button>
+        </div>
+      </details>
+
+      <div class="pilebar">
+        <span id="count">…</span>
+        <span class="grow"></span>
+        <button id="add" type="button">+ Add pages</button>
+        <input type="file" id="files" accept="image/*" multiple hidden>
+      </div>
+      <div id="pile"></div>
+
+      <div class="savebar">
+        <span class="msg" id="msg">Nothing changed yet.</span>
+        <button id="publish" class="primary" type="button" disabled>Publish</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../advice.js"></script>
+  <script src="common.js"></script>
+  <script src="crop.js"></script>
+  <script src="advice-edit.js"></script>
+</body>
+</html>
