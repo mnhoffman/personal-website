@@ -39,7 +39,10 @@
         } else if (el.hasAttribute('data-inline')) {
           el.innerHTML = marked.parseInline(value);
         } else {
+          // keep anything after the text (e.g. pinned charts) when re-rendering a note
+          var keep = Array.prototype.slice.call(el.querySelectorAll(':scope > figure'));
           el.innerHTML = marked.parse(value);
+          keep.forEach(function (k) { el.appendChild(k); });
         }
         externalise(el);
       });

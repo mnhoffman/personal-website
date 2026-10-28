@@ -342,6 +342,13 @@ h1 {
 .note.n1 { transform: rotate(-1.1deg); }
 .note.n2 { transform: rotate(1.3deg); margin-top: 1.5rem; }
 .note.lead { grid-column: 1 / -1; max-width: 42rem; }
+.note.n3 { grid-column: 1; transform: rotate(0.6deg); margin-top: 0.6rem; }
+.note.n4 { grid-column: 1; transform: rotate(-0.7deg); margin-top: 0.8rem; }
+.note.n5 { grid-column: 2; transform: rotate(1deg); margin-top: 1.6rem; }
+/* lists inside notes sit on the ruling like the paragraphs */
+.note ul, .note ol { margin: 0; padding-left: 1.2em; }
+.note p + ul, .note p + ol { margin-top: 0; }
+.note li { line-height: 1.55; }
 .note a {
   color: var(--pencil);
   text-decoration: underline wavy var(--pencil-faint) 1px;
@@ -459,3 +466,44 @@ body.lb-open { overflow: hidden; }
   .lightbox { padding: 0.5rem; }
   .lightbox button { font-size: 1.8rem; }
 }
+
+/* ---------------- small charts taped to the page, above the sleep note ---------------- */
+.charts {
+  display: flex; gap: 0.9rem; align-items: flex-start;
+  margin: 0.6rem 0 0; padding: 0;
+  position: relative; z-index: 2;        /* the clippings lie over the top edge of the note below */
+}
+.charts a { position: relative; flex: 0 0 calc(50% - 0.45rem); min-width: 0; display: block; cursor: zoom-in; }
+.charts img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid rgba(58, 48, 43, 0.15);
+  box-shadow: 0 3px 8px rgba(8, 6, 16, 0.22);
+  background: #fff;
+}
+.charts a:first-child { transform: rotate(-1.6deg); }
+.charts a:last-child { transform: rotate(1.3deg); margin-top: 0.5rem; }
+/* a little piece of tape on each */
+.charts a::before {
+  content: "";
+  position: absolute; top: -0.5rem; left: 50%; z-index: 1;
+  width: 3.2rem; height: 0.9rem;
+  transform: translateX(-50%) rotate(-3deg);
+  background: linear-gradient(to right, rgba(236, 232, 224, 0.55), rgba(246, 244, 238, 0.68) 50%, rgba(236, 232, 224, 0.55));
+  border-left: 1px dashed rgba(255, 255, 255, 0.55);
+  border-right: 1px dashed rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.12);
+}
+.charts a:last-child::before { transform: translateX(-50%) rotate(4deg); }
+/* the sleep note sits under its charts, in the right column */
+
+
+/* ---------------- independent columns of notes (Projects) ---------------- */
+.col { display: flex; flex-direction: column; gap: 1.9rem; min-width: 0; }
+.col .note { margin-top: 0; }
+.col .note.n1 { transform: rotate(-1.1deg); }
+.col .note.n2 { transform: rotate(1.3deg); margin-top: -2.2rem; }   /* tucked up under the charts */
+.col .note.n3 { transform: rotate(0.6deg); }
+.col .note.n4 { transform: rotate(-0.7deg); }
+.col .note.n5 { transform: rotate(1deg); }
+.col .charts { margin: 0.6rem 0 0; }
+@media (max-width: 640px) { .col { gap: 1.4rem; } }

@@ -1,7 +1,7 @@
 {
   "_note": "All the site's words live here. Edit them at /edit/ (or by hand): fields marked md take Markdown, the rest are plain text.",
   "home": {
-    "intro": "I'm passionate about learning, dancing, and making the world a better place. I'm currently an undergrad at The University of Chicago, President of [UChicago Effective Altruism](https://uchicagoea.org), and Chief of Staff at the Existential Risk Laboratory."
+    "intro": "I'm passionate about learning, dancing, and making the world a better place. I'm currently an undergrad at The University of Chicago, President of [UChicago Effective Altruism](https://uchicagoea.org), and Chief of Staff at the [Existential Risk Laboratory](https://xrisk.uchicago.edu)."
   },
   "currently": {
     "subtitle": "last updated 10/21/26",
@@ -11,7 +11,10 @@
   "projects": {
     "subtitle": "things I've made, so far",
     "note1": "In an attempt to think and write more, I've started [a substack](https://substack.com/@madlenreads?r=5j2qmf&utm_campaign=profile&utm_medium=profile-page). I mostly read and develop thoughts independently, but I'll be experimenting with publishing more content in the near future.",
-    "note2": "I conducted a [sleep data analysis](https://docs.google.com/document/d/1mU0Cf0hOIiQYfXzRHgMYZWZ1Axlu6ik3GzpVMstTNCU/edit?usp=sharing) on myself. Feel free to read the entire analysis, but long story short, I sleep a lot, and less when I wake up to an alarm. I also expect to become an early riser as I get older."
+    "note2": "I conducted a [sleep data analysis](https://docs.google.com/document/d/1mU0Cf0hOIiQYfXzRHgMYZWZ1Axlu6ik3GzpVMstTNCU/edit?usp=sharing) on myself. Feel free to read the entire analysis, but long story short, I sleep a lot, and less when I wake up to an alarm. I also expect to become an early riser as I get older.",
+    "note3": "I spent a summer at [Project Donor](https://forum.effectivealtruism.org/posts/sDLvkLMhmmatiqaR7/introducing-project-donor-a-cost-effective-approach-to) helping write a cost-effectiveness analysis on interventions supporting kidney donation. I left considering kidney donation myself, and supporting the [End Kidney Deaths Act](https://www.endkidneydeathsact.org) as the most obviously good policy I'm aware of.",
+    "note4": "**Things I've vibecoded** *(many thanks to Claude)*\n\n- [Mindatlas task management system](https://mindatlas-dusky.vercel.app)\n- [Marriage market simulator](https://claude.ai/public/artifacts/7b6f4d99-292c-4e7b-af44-f7ae1cf19e15)\n- [Nutrition calibration](https://claude.ai/public/artifacts/346e64ef-d753-4775-b420-2178bdda4086)\n- [The UChicago EA website](https://uchicagoea.org)\n- This website :)",
+    "note5": "I love [asking random questions](https://docs.google.com/forms/d/e/1FAIpQLSeDyDDsnZq6mn9LF28FaSvzVBGC0axyaflXK7RPDkoeWgi3KA/viewform). I also love [making lists](https://theoccasionalist.substack.com). I am still building the most legendary list of random questions, which you/we may be lucky to see one day."
   },
   "dance": {
     "subtitle": "UChicago Maya",
