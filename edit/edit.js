@@ -9,11 +9,7 @@
 (function () {
   'use strict';
 
-  var OWNER = 'mnhoffman', REPO = 'personal-website', BRANCH = 'main', PATH = 'content.json';
-  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + PATH;
-  var TOKEN_KEY = 'mh-site-editor-token';
-
-  // What the fields are, in page order. kind: md (Markdown), text, links.
+  var PATH = 'content.json';
   var SCHEMA = [
     { section: 'home', title: 'Home', fields: [
       { key: 'intro', label: 'Intro paragraph', kind: 'md', inline: true } ] },
@@ -41,34 +37,18 @@
   var $ = function (id) { return document.getElementById(id); };
   var status = $('status'), msg = $('msg'), fieldsEl = $('fields'), publishBtn = $('publish');
   var content = null, sha = null, original = '';
-
-  function token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
+  var token = gh.token;
   function setStatus(text, cls) { status.textContent = text; status.className = 'status ' + (cls || ''); }
   function setMsg(text, cls) { msg.textContent = text; msg.className = 'msg ' + (cls || ''); }
-
-  // UTF-8 safe base64, both ways
-  function b64decode(s) { return new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, '')), function (c) { return c.charCodeAt(0); })); }
-  function b64encode(s) { var bytes = new TextEncoder().encode(s), bin = ''; bytes.forEach(function (b) { bin += String.fromCharCode(b); }); return btoa(bin); }
-
-  function headers() {
-    var h = { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
-    if (token()) h['Authorization'] = 'Bearer ' + token();
-    return h;
-  }
 
   // ---------- load ----------
   function load() {
     setStatus('Loading content.json from GitHub…');
     fieldsEl.innerHTML = '';
-    fetch(API + '?ref=' + BRANCH + '&t=' + Date.now(), { headers: headers() })
-      .then(function (r) {
-        if (r.status === 401) throw new Error('GitHub rejected the token. Open "Connect to GitHub" and paste a fresh one.');
-        if (!r.ok) throw new Error('GitHub answered ' + r.status + '. ' + (r.status === 403 ? 'Rate-limited or no access: connect a token.' : ''));
-        return r.json();
-      })
-      .then(function (data) {
-        sha = data.sha;
-        original = b64decode(data.content);
+    gh.read(PATH)
+      .then(function (f) {
+        sha = f.sha;
+        original = f.text;
         content = JSON.parse(original);
         render();
         setStatus(token() ? 'Connected to GitHub. Ready to publish.' : 'Loaded (read-only until you connect a token).', token() ? 'ok' : '');
@@ -76,10 +56,7 @@
         $('forget').hidden = !token();
         markDirty();
       })
-      .catch(function (e) {
-        setStatus(e.message, 'bad');
-        $('setup').open = true;
-      });
+      .catch(function (e) { setStatus(e.message, 'bad'); $('setup').open = true; });
   }
 
   // ---------- render fields ----------
@@ -210,14 +187,9 @@
     publishBtn.disabled = true;
     setMsg('Publishing…');
     var changed = SCHEMA.filter(function (s) { return JSON.stringify(JSON.parse(original)[s.section]) !== JSON.stringify(content[s.section]); }).map(function (s) { return s.title; });
-    fetch(API, {
-      method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, headers()),
-      body: JSON.stringify({ message: 'Update ' + (changed.join(', ') || 'content') + ' (via /edit/)', content: b64encode(serialise()), sha: sha, branch: BRANCH })
-    })
-      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, json: j }; }); })
-      .then(function (res) {
-        if (!res.ok) throw new Error(res.status === 409 ? 'Someone (maybe you, in another tab) changed the file first. Reload from GitHub and try again.' : (res.json && res.json.message) || ('GitHub answered ' + res.status));
-        sha = res.json.content.sha;
+    gh.write(PATH, serialise(), 'Update ' + (changed.join(', ') || 'content') + ' (via /edit/)', sha)
+      .then(function (newSha) {
+        sha = newSha;
         original = serialise();
         markDirty();
         setMsg('Published. It will be live in a minute or two.', 'ok');
@@ -226,17 +198,7 @@
   });
 
   // ---------- token ----------
-  $('savetoken').addEventListener('click', function () {
-    var t = $('token').value.trim();
-    if (!t) return;
-    try { localStorage.setItem(TOKEN_KEY, t); } catch (e) { setStatus('This browser will not keep the token (private mode?).', 'bad'); return; }
-    $('token').value = '';
-    load();
-  });
-  $('forget').addEventListener('click', function () {
-    try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
-    load();
-  });
+  gh.tokenUI(load);
   $('reload').addEventListener('click', function () {
     if (content && serialise() !== original && !window.confirm('You have unpublished changes. Reload and lose them?')) return;
     load();

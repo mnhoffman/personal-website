@@ -51,7 +51,17 @@ Everything you'd normally edit is plain HTML in `index.html`. Each
 
 The Dance strip holds the three performance videos as frames.
 
-### The advice page
+### The advice pile editor
+
+Open **`/edit/advice.html`** on the live site. It shows the pile exactly
+as the site lays it out. Drag a page to move it (the others flow around
+it), hover a page for **crop** and **remove**, and **Add pages** to
+upload photos. The crop is four draggable corners: put them on the
+corners of the page and the result is straightened (a perspective warp)
+and evened out. Publish commits the changed images and
+`advice/entries.json`, using the same token as the text editor.
+
+### The advice page (by hand)
 
 The Advice page scatters pages from the green notebook across the paper
 and opens one when clicked. To add entries:
@@ -60,7 +70,7 @@ and opens one when clicked. To add entries:
    into the `advice/` folder.
 2. Add its filename to the list in `advice/entries.json`.
 
-The arrangement is fixed (a seeded shuffle, flowing down columns), and nothing is labelled. The
+The order in `entries.json` is the pile order (top to bottom, filling the shortest column each time), and nothing is labelled. The
 "upload your own" link currently opens an email; a static site can't
 accept uploads directly.
 
