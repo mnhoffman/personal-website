@@ -342,8 +342,9 @@ h1 {
 .note.n1 { transform: rotate(-1.1deg); }
 .note.n2 { transform: rotate(1.3deg); margin-top: 1.5rem; }
 .note.lead { grid-column: 1 / -1; max-width: 42rem; }
-.note.n3 { grid-column: 1; transform: rotate(-0.7deg); margin-top: 0.8rem; }
-.note.n4 { grid-column: 2; transform: rotate(1deg); margin-top: 1.6rem; }
+.note.n3 { transform: rotate(0.6deg); margin-top: 1rem; justify-self: start; }
+.note.n4 { grid-column: 1; transform: rotate(-0.7deg); margin-top: 0.8rem; }
+.note.n5 { grid-column: 2; transform: rotate(1deg); margin-top: 1.6rem; }
 /* lists inside notes sit on the ruling like the paragraphs */
 .note ul, .note ol { margin: 0; padding-left: 1.2em; }
 .note p + ul, .note p + ol { margin-top: 0; }
