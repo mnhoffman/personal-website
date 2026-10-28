@@ -21,7 +21,8 @@
       { key: 'subtitle', label: 'Handwritten subtitle', kind: 'text' },
       { key: 'note1', label: 'First note', kind: 'md' },
       { key: 'note2', label: 'Second note', kind: 'md' },
-      { key: 'note3', label: 'Third note (full width)', kind: 'md' } ] },
+      { key: 'note3', label: 'Third note (left)', kind: 'md' },
+      { key: 'note4', label: 'Fourth note (right)', kind: 'md' } ] },
     { section: 'dance', title: 'Dance', fields: [
       { key: 'subtitle', label: 'Handwritten subtitle', kind: 'text' },
       { key: 'lead', label: 'Intro note', kind: 'md' },
