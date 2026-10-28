@@ -102,7 +102,7 @@
     /* ---- the pile editor ---- */
     .pilebar { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin: 1.4rem 0 0.6rem; font-family: var(--mono); font-size: 0.95rem; color: var(--ink-soft); }
     .pilebar .grow { flex: 1; }
-    #pile { position: relative; overflow: hidden; margin: 0 -0.5rem; padding: 0.8rem 1.2rem 0; user-select: none; touch-action: none; }
+    #pile { position: relative; margin: 0; padding: 0.8rem 0 0; user-select: none; touch-action: none; }
     .card { position: absolute; transform: rotate(var(--tilt, 0deg)); box-shadow: 0 6px 16px rgba(8, 6, 16, 0.28), 0 1px 2px rgba(8, 6, 16, 0.25); background: #ede4d0; cursor: grab; transition: left .25s ease, top .25s ease, width .25s ease; }
     .card img { display: block; width: 100%; height: auto; pointer-events: none; }
     .card .tools { position: absolute; top: 0.3rem; right: 0.3rem; display: none; gap: 0.25rem; }
@@ -126,6 +126,10 @@
     .crop-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.8rem; }
     .crop-spacer { flex: 1; }
     .crop-check { font-family: var(--mono); font-size: 0.9rem; color: var(--ink-soft); }
+    .crop-actions button.on { background: #ffd27a; border-color: #b8923a; }
+    .crop-box.whiteout canvas { cursor: crosshair; }
+    .crop-box.whiteout .crop-handle, .crop-box.whiteout .crop-quad { opacity: 0.25; pointer-events: none; }
+    .crop-marquee { position: absolute; border: 1.5px dashed #3a302b; background: rgba(255,255,255,0.35); pointer-events: none; display: none; }
   </style>
 </head>
 <body>
@@ -135,7 +139,7 @@
       <p class="lede" style="margin-top:0">Looking for the text? <a href="./">Edit the words</a> instead.</p>
       <p class="lede">
         This is the pile exactly as the site lays it out. <strong>Drag</strong> a page to move it and the others flow around it.
-        Hover a page for <strong>crop</strong> (drag four corners to the page's corners; it is straightened from there) and <strong>remove</strong>.
+        Hover a page for <strong>crop / white-out</strong> (drag four corners to the page's corners and it is straightened from there; or switch to White-out and drag boxes over anything to cover) and <strong>remove</strong>.
         <strong>Add pages</strong> takes photos straight from your phone or computer and opens the crop for each.
         Nothing changes on the site until you <strong>Publish</strong>.
       </p>

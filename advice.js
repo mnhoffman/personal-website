@@ -37,8 +37,10 @@
       for (var k = 1; k < cols; k++) if (heights[k] < heights[c]) c = k;
       var first = heights[c] < pageW * 0.5;
       var h = pageW * e.h / e.w;
+      var left = c * colW - colW * 0.09 + (unit(e.src, 1) - 0.5) * 1.6 * rem;
+      left = Math.max(0, Math.min(W - pageW, left));       // never past the sheet's edge
       var item = {
-        left: c * colW - colW * 0.09 + (unit(e.src, 1) - 0.5) * 1.6 * rem,
+        left: left,
         top: heights[c] - (first ? 0 : tuck),
         width: pageW, height: h,
         tilt: (unit(e.src, 2) - 0.5) * 12,

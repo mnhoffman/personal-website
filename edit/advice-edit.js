@@ -49,7 +49,7 @@
       var card = existing[e.src];
       if (!card) {
         card = document.createElement('div'); card.className = 'card'; card.dataset.src = e.src;
-        card.innerHTML = '<img alt="" draggable="false"><div class="tools"><button type="button" class="small" data-act="crop">crop</button><button type="button" class="small" data-act="remove">remove</button></div>';
+        card.innerHTML = '<img alt="" draggable="false"><div class="tools"><button type="button" class="small" data-act="crop">crop / white-out</button><button type="button" class="small" data-act="remove">remove</button></div>';
         card.querySelector('img').src = srcFor(e);
         pileEl.appendChild(card);
       } else delete existing[e.src];
