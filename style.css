@@ -465,3 +465,17 @@ body.lb-open { overflow: hidden; }
   .lightbox { padding: 0.5rem; }
   .lightbox button { font-size: 1.8rem; }
 }
+
+/* ---------------- small charts pinned inside a note, like clippings ---------------- */
+.charts {
+  display: flex; gap: 0.6rem; margin: 0.9em 0 0.2em; padding: 0;
+}
+.charts a { flex: 0 0 calc(50% - 0.3rem); min-width: 0; display: block; cursor: zoom-in; }
+.charts img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid rgba(58, 48, 43, 0.15);
+  box-shadow: 0 2px 6px rgba(8, 6, 16, 0.18);
+  background: #fff;
+}
+.charts a:first-child img { transform: rotate(-1.2deg); }
+.charts a:last-child img { transform: rotate(1deg); }
