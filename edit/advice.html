@@ -179,9 +179,13 @@
     </div>
   </div>
 
-  <script src="../advice.js"></script>
-  <script src="common.js"></script>
-  <script src="crop.js"></script>
-  <script src="advice-edit.js"></script>
+  <!-- The editors are used rarely and must never run stale code, so their
+       scripts are fetched fresh every time (a timestamp defeats the cache). -->
+  <script>
+    (function () {
+      var t = Date.now(), srcs = ['../advice.js', 'common.js', 'crop.js', 'advice-edit.js'];
+      (function next() { var s = srcs.shift(); if (!s) return; var el = document.createElement('script'); el.src = s + '?t=' + t; el.onload = next; document.body.appendChild(el); })();
+    })();
+  </script>
 </body>
 </html>

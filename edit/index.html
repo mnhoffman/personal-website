@@ -144,8 +144,13 @@
     </div>
   </div>
 
-  <script src="../vendor/marked.umd.js"></script>
-  <script src="common.js"></script>
-  <script src="edit.js"></script>
+  <!-- The editors are used rarely and must never run stale code, so their
+       scripts are fetched fresh every time (a timestamp defeats the cache). -->
+  <script>
+    (function () {
+      var t = Date.now(), srcs = ['../vendor/marked.umd.js', 'common.js', 'edit.js'];
+      (function next() { var s = srcs.shift(); if (!s) return; var el = document.createElement('script'); el.src = s + '?t=' + t; el.onload = next; document.body.appendChild(el); })();
+    })();
+  </script>
 </body>
 </html>
