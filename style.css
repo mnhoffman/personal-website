@@ -285,9 +285,8 @@ h1 {
 .frame.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---- notes ----
-   Three layers: the torn paper (.note::before), the ruled lines
-   (.note::after, continuous and only faintly wavy), and the text on
-   top. The tape hangs off the first paragraph's pseudo-element. */
+   Plain sheets torn from a white notebook: the torn paper is
+   .note::before, the text sits on top. No tape, no ruling. */
 .note {
   position: relative;
   padding: 1.3rem 1.4rem 1.2rem;
@@ -303,42 +302,18 @@ h1 {
     var(--tooth),
     var(--grain),
     var(--mottle),
-    linear-gradient(170deg, #fffbf1 0%, #fcf6e8 60%, #f6eedd 100%);
+    linear-gradient(170deg, #fdfcf8 0%, #faf8f2 60%, #f4f1e9 100%);
   background-blend-mode: multiply, soft-light, soft-light, normal;
   box-shadow:
     inset 0 0 0 2px rgba(255, 252, 244, 0.7),   /* fibrous light rim along the tear */
-    inset 0 0 1.4rem rgba(120, 95, 60, 0.10),   /* a little age toward the edges */
+    inset 0 0 1.4rem rgba(120, 105, 80, 0.05),  /* the faintest shade toward the edges */
     0 7px 14px rgba(8, 6, 16, 0.22),
     0 1px 2px rgba(8, 6, 16, 0.25);
   filter: url(#torn);
 }
 .note.n2::before { filter: url(#torn2); }
-.note::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: repeating-linear-gradient(to bottom, transparent 0 calc(1.55em - 1px), var(--rule) calc(1.55em - 1px) 1.55em);
-  background-origin: content-box;
-  /* the note's top padding, plus where the first baseline falls in its
-     line box, minus one period: so every rule sits just under a baseline */
-  padding: calc(1.3rem - 0.15em + 1px) 1rem 0;
-  filter: url(#wobble);
-  pointer-events: none;
-}
 .note p { margin: 0; line-height: 1.55; }
 .note p + p { margin-top: 1.55em; }
-/* a piece of tape at the top */
-.note > :first-child::before {
-  content: "";
-  position: absolute; top: -0.75rem; left: 50%;
-  width: 5.5rem; height: 1.25rem;
-  transform: translateX(-50%) rotate(-2deg);
-  background: linear-gradient(to right, rgba(236, 232, 224, 0.5), rgba(246, 244, 238, 0.62) 50%, rgba(236, 232, 224, 0.5));
-  border-left: 1px dashed rgba(255, 255, 255, 0.55);
-  border-right: 1px dashed rgba(255, 255, 255, 0.55);
-  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.12);
-}
 .note.n1 { transform: rotate(-1.1deg); }
 .note.n2 { transform: rotate(1.3deg); margin-top: 1.5rem; }
 .note.lead { grid-column: 1 / -1; max-width: 42rem; }
@@ -467,7 +442,7 @@ body.lb-open { overflow: hidden; }
   .lightbox button { font-size: 1.8rem; }
 }
 
-/* ---------------- small charts taped to the page, above the sleep note ---------------- */
+/* ---------------- small charts lying on the page, above the sleep note ---------------- */
 .charts {
   display: flex; gap: 0.9rem; align-items: flex-start;
   margin: 0.6rem 0 0; padding: 0;
@@ -482,18 +457,6 @@ body.lb-open { overflow: hidden; }
 }
 .charts a:first-child { transform: rotate(-1.6deg); }
 .charts a:last-child { transform: rotate(1.3deg); margin-top: 0.5rem; }
-/* a little piece of tape on each */
-.charts a::before {
-  content: "";
-  position: absolute; top: -0.5rem; left: 50%; z-index: 1;
-  width: 3.2rem; height: 0.9rem;
-  transform: translateX(-50%) rotate(-3deg);
-  background: linear-gradient(to right, rgba(236, 232, 224, 0.55), rgba(246, 244, 238, 0.68) 50%, rgba(236, 232, 224, 0.55));
-  border-left: 1px dashed rgba(255, 255, 255, 0.55);
-  border-right: 1px dashed rgba(255, 255, 255, 0.55);
-  box-shadow: 0 1px 2px rgba(8, 6, 16, 0.12);
-}
-.charts a:last-child::before { transform: translateX(-50%) rotate(4deg); }
 /* the sleep note sits under its charts, in the right column */
 
 
@@ -506,4 +469,6 @@ body.lb-open { overflow: hidden; }
 .col .note.n4 { transform: rotate(-0.7deg); }
 .col .note.n5 { transform: rotate(1deg); }
 .col .charts { margin: 0.6rem 0 0; }
+.col > .note:first-child { margin-top: 0; }   /* nothing above it to tuck under */
+
 @media (max-width: 640px) { .col { gap: 1.4rem; } }
