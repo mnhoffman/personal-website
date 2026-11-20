@@ -471,19 +471,4 @@ body.lb-open { overflow: hidden; }
 .col .charts { margin: 0.6rem 0 0; }
 .col > .note:first-child { margin-top: 0; }   /* nothing above it to tuck under */
 
-/* a loose photo print lying on the page (Currently: the headstand) */
-.print { margin: 0; align-self: center; width: 88%; transform: rotate(-2deg); }
-.print a { display: block; cursor: zoom-in; }
-.print img {
-  display: block; width: 100%; height: auto;
-  border: 0.55rem solid #f7f5ef; border-bottom-width: 1.6rem;   /* a little more margin at the bottom, like a print */
-  box-shadow: 0 6px 14px rgba(8, 6, 16, 0.26), 0 1px 2px rgba(8, 6, 16, 0.25);
-  background: #f7f5ef;
-}
-/* on one column the cols melt away, so the photo can follow the note that mentions headstands */
-@media (max-width: 680px) {
-  .paper-currently .col { display: contents; }
-  .paper-currently .print { order: 1; width: 92%; }
-  .paper-currently .back { order: 2; }
-}
 @media (max-width: 640px) { .col { gap: 1.4rem; } }
