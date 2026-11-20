@@ -381,7 +381,9 @@ h1 {
 
 /* ---------------- advice: the green notebook ---------------- */
 .paper-advice .note.lead { max-width: 46rem; z-index: 30; }   /* always above the pile */
+.paper-advice .note.lead { transform: none; margin-inline: auto; justify-self: center; width: 100%; }   /* straight, centred on the sheet */
 .paper-advice .back { position: relative; z-index: 30; }
+#dance .note.lead { margin-bottom: 1.4rem; }   /* breathing room above the video strip */
 
 /* The pile: advice.js positions every page absolutely (a masonry with
    overlap); the box is clipped so nothing pokes past the sheet. */
