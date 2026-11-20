@@ -179,7 +179,6 @@ h1 {
   color: var(--pencil);
   background: var(--paper) linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 55%, #eedfc2 100%);
   box-shadow: 0 30px 70px rgba(8, 6, 16, 0.5), 0 2px 6px rgba(8, 6, 16, 0.3);
-  transform: rotate(-0.6deg);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.75rem 2.25rem;
@@ -362,9 +361,7 @@ h1 {
   header.top nav { justify-content: center; gap: 0.2rem 1rem; }
   .hero { padding-top: 7rem; padding-bottom: 10rem; align-items: flex-end; }
   .stamp { bottom: 10.5rem; font-size: 1.4rem; }
-  .paper { grid-template-columns: minmax(0, 1fr); transform: rotate(-0.3deg); }
-  /* the advice sheet is very tall; even a slight tilt pushes its corners off a phone screen */
-  .paper-advice { transform: none; }
+  .paper { grid-template-columns: minmax(0, 1fr); }
   .paper::after { display: none; }
   .note.n1, .note.n2 { transform: rotate(-0.6deg); margin-top: 0.5rem; }
   .note.n2 { transform: rotate(0.6deg); }
